@@ -21,6 +21,9 @@
                     done()
             )
 
+        it "should be usable with `.then(done, done)`", (done) ->
+            fulfilled.should.be.fulfilled.then(done, done)
+
     describe "rejected", ->
         it "should return a fulfilled promise when the target promise is rejected", (done) ->
             rejected.should.be.rejected.then(
