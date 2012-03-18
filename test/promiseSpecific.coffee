@@ -24,17 +24,20 @@
         it "should be usable with `.then(done, done)`", (done) ->
             fulfilled.should.be.fulfilled.then(done, done)
 
-    describe "rejected", ->
+    testRejected = (name) ->
         it "should return a fulfilled promise when the target promise is rejected", (done) ->
-            rejected.should.be.rejected.then(
+            rejected.should.be[name].then(
                 -> done(),
                 -> done(new Error("Should not have been rejected"))
             )
 
         it "should return a promise rejected with an assertion error when the target promise is fulfilled", (done) ->
-            fulfilled.should.be.rejected.then(
+            fulfilled.should.be[name].then(
                 -> done(new Error("Should not have been fulfilled")),
                 (error) ->
                     error.should.be.an.instanceOf(AssertionError)
                     done()
             )
+
+    describe "rejected", -> testRejected("rejected")
+    describe "broken", -> testRejected("broken")
