@@ -63,5 +63,24 @@
                     expect(rejected.should.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
                         .then(done, done)
 
+        describe "not #{ name }.with(Constructor)", ->
+            rejectedTypeError = null
+
+            beforeEach ->
+                rejectedTypeError = Q.reject(new TypeError())
+
+            describe "when the target promise is fulfilled", ->
+                it "should return a fulfilled promise", (done) ->
+                    expect(fulfilled.should.not.be[name].with(TypeError)).to.be.fulfilled.then(done, done)
+
+            describe "when the target promise is rejected with a reason having the specified constructor", ->
+                it "should return a promise rejected with an assertion error", (done) ->
+                    expect(rejectedTypeError.should.not.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
+                        .then(done, done)
+
+            describe "when the target promise is rejected with a reason having a different constructor", ->
+                it "should return a fulfilled promise", (done) ->
+                    expect(rejected.should.not.be[name].with(TypeError)).to.be.fulfilled.then(done, done)
+
     testRejected("rejected")
     testRejected("broken")
