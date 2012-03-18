@@ -31,7 +31,7 @@
                 -> done(new Error("Should not have been rejected"))
             )
 
-        it "should return a broken promise when the target promise is fulfilled", (done) ->
+        it "should return a promise rejected with an assertion error when the target promise is fulfilled", (done) ->
             fulfilled.should.not.be.fulfilled.then(
                 -> done(new Error("Should not have been fulfilled")),
                 (error) ->
@@ -49,6 +49,21 @@
 
             it "should return a promise rejected with an assertion error when the target promise is fulfilled", (done) ->
                 fulfilled.should.be[name].then(
+                    -> done(new Error("Should not have been fulfilled")),
+                    (error) ->
+                        error.should.be.an.instanceOf(AssertionError)
+                        done()
+                )
+
+        describe "not #{ name }", ->
+            it "should return a fulfilled promise when the target promise is fulfilled", (done) ->
+                fulfilled.should.not.be[name].then(
+                    -> done(),
+                    -> done(new Error("Should not have been rejected"))
+                )
+
+            it "should return a promise rejected with an assertion error when the target promise is rejected", (done) ->
+                rejected.should.not.be[name].then(
                     -> done(new Error("Should not have been fulfilled")),
                     (error) ->
                         error.should.be.an.instanceOf(AssertionError)
