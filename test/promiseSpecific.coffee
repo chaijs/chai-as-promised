@@ -20,3 +20,18 @@
                     error.should.be.an.instanceOf(AssertionError)
                     done()
             )
+
+    describe "rejected", ->
+        it "should return a fulfilled promise when the target promise is rejected", (done) ->
+            rejected.should.be.rejected.then(
+                -> done(),
+                -> done(new Error("Should not have been rejected"))
+            )
+
+        it "should return a promise rejected with an assertion error when the target promise is fulfilled", (done) ->
+            fulfilled.should.be.rejected.then(
+                -> done(new Error("Should not have been fulfilled")),
+                (error) ->
+                    error.should.be.an.instanceOf(AssertionError)
+                    done()
+            )
