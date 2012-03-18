@@ -31,6 +31,7 @@
         "coffee-script": "1",
         "mocha": "*",
         "chai": "*",
-        "jshint": "*"
+        "jshint": "*",
+        "q": "*"
     }
 }
