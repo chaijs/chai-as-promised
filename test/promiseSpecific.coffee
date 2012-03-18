@@ -1,4 +1,4 @@
-﻿describe "Promise-specific extensions", ->
+﻿describe "Promise-specific extensions:", ->
     fulfilled = null
     rejected = null
 
@@ -6,7 +6,7 @@
         fulfilled = Q.resolve("foo")
         rejected = Q.reject(new Error())
 
-    describe "fulfilled", ->
+    describe "fulfilled:", ->
         describe "when the target promise is fulfilled", ->
             it "should return a fulfilled promise", (done) ->
                 expect(fulfilled.should.be.fulfilled).to.be.fulfilled.then(done, done)
@@ -15,7 +15,7 @@
             it "should return a promise rejected with an assertion error", (done) ->
                 expect(rejected.should.be.fulfilled).to.be.rejected.with(AssertionError).then(done, done)
 
-    describe "not fulfilled", ->
+    describe "not fulfilled:", ->
         describe "when the target promise is fulfilled", ->
             it "should return a promise rejected with an assertion error", (done) ->
                 expect(fulfilled.should.not.be.fulfilled).to.be.rejected.with(AssertionError).then(done, done)
@@ -25,7 +25,7 @@
                 expect(rejected.should.not.be.fulfilled).to.be.fulfilled.then(done, done)
 
     testRejected = (name) ->
-        describe name, ->
+        describe "#{ name }:", ->
             describe "when the target promise is fulfilled", ->
                 it "should return a promise rejected with an assertion error", (done) ->
                     expect(fulfilled.should.be[name]).to.be.rejected.with(AssertionError).then(done, done)
@@ -34,7 +34,7 @@
                 it "should return a fulfilled promise", (done) ->
                     expect(rejected.should.be[name]).to.be.fulfilled.then(done, done)
 
-        describe "not #{ name }", ->
+        describe "not #{ name }:", ->
             describe "when the target promise is fulfilled", ->
                 it "should return a fulfilled promise", (done) ->
                     expect(fulfilled.should.not.be[name]).to.be.fulfilled.then(done, done)
@@ -43,7 +43,7 @@
                 it "should return a promise rejected with an assertion error", (done) ->
                     expect(rejected.should.not.be[name]).to.be.rejected.with(AssertionError).then(done, done)
 
-        describe "#{ name }.with(Constructor)", ->
+        describe "#{ name } with Constructor:", ->
             rejectedTypeError = null
 
             beforeEach ->
@@ -63,7 +63,7 @@
                     expect(rejected.should.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
                         .then(done, done)
 
-        describe "not #{ name }.with(Constructor)", ->
+        describe "not #{ name } with Constructor:", ->
             rejectedTypeError = null
 
             beforeEach ->
