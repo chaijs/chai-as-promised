@@ -24,63 +24,66 @@
             it "should return a fulfilled promise", (done) ->
                 expect(rejected.should.not.be.fulfilled).to.be.fulfilled.then(done, done)
 
-    testRejected = (name) ->
-        describe "#{ name }:", ->
-            describe "when the target promise is fulfilled", ->
-                it "should return a promise rejected with an assertion error", (done) ->
-                    expect(fulfilled.should.be[name]).to.be.rejected.with(AssertionError).then(done, done)
+    describe "rejected:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected).to.be.rejected.with(AssertionError).then(done, done)
 
-            describe "when the target promise is rejected", ->
-                it "should return a fulfilled promise", (done) ->
-                    expect(rejected.should.be[name]).to.be.fulfilled.then(done, done)
+        describe "when the target promise is rejected", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(rejected.should.be.rejected).to.be.fulfilled.then(done, done)
 
-        describe "not #{ name }:", ->
-            describe "when the target promise is fulfilled", ->
-                it "should return a fulfilled promise", (done) ->
-                    expect(fulfilled.should.not.be[name]).to.be.fulfilled.then(done, done)
+    describe "not rejected:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(fulfilled.should.not.be.rejected).to.be.fulfilled.then(done, done)
 
-            describe "when the target promise is rejected", ->
-                it "should return a promise rejected with an assertion error", (done) ->
-                    expect(rejected.should.not.be[name]).to.be.rejected.with(AssertionError).then(done, done)
+        describe "when the target promise is rejected", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejected.should.not.be.rejected).to.be.rejected.with(AssertionError).then(done, done)
 
-        describe "#{ name } with Constructor:", ->
-            rejectedTypeError = null
+    describe "rejected with Constructor:", ->
+        rejectedTypeError = null
 
-            beforeEach ->
-                rejectedTypeError = Q.reject(new TypeError())
+        beforeEach ->
+            rejectedTypeError = Q.reject(new TypeError())
 
-            describe "when the target promise is fulfilled", ->
-                it "should return a promise rejected with an assertion error", (done) ->
-                    expect(fulfilled.should.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
-                        .then(done, done)
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected.with(TypeError)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
 
-            describe "when the target promise is rejected with a reason having the correct constructor", ->
-                it "should return a fulfilled promise", (done) ->
-                    expect(rejectedTypeError.should.be[name].with(TypeError)).to.be.fulfilled.then(done, done)
+        describe "when the target promise is rejected with a reason having the correct constructor", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(rejectedTypeError.should.be.rejected.with(TypeError)).to.be.fulfilled.then(done, done)
 
-            describe "when the target promise is rejected with a reason having the wrong constructor", ->
-                it "should return a promise rejected with an assertion error", (done) ->
-                    expect(rejected.should.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
-                        .then(done, done)
+        describe "when the target promise is rejected with a reason having the wrong constructor", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejected.should.be.rejected.with(TypeError)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
 
-        describe "not #{ name } with Constructor:", ->
-            rejectedTypeError = null
+    describe "not rejected with Constructor:", ->
+        rejectedTypeError = null
 
-            beforeEach ->
-                rejectedTypeError = Q.reject(new TypeError())
+        beforeEach ->
+            rejectedTypeError = Q.reject(new TypeError())
 
-            describe "when the target promise is fulfilled", ->
-                it "should return a fulfilled promise", (done) ->
-                    expect(fulfilled.should.not.be[name].with(TypeError)).to.be.fulfilled.then(done, done)
+        describe "when the target promise is fulfilled", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(fulfilled.should.not.be.rejected.with(TypeError)).to.be.fulfilled.then(done, done)
 
-            describe "when the target promise is rejected with a reason having the specified constructor", ->
-                it "should return a promise rejected with an assertion error", (done) ->
-                    expect(rejectedTypeError.should.not.be[name].with(TypeError)).to.be.rejected.with(AssertionError)
-                        .then(done, done)
+        describe "when the target promise is rejected with a reason having the specified constructor", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejectedTypeError.should.not.be.rejected.with(TypeError)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
 
-            describe "when the target promise is rejected with a reason having a different constructor", ->
-                it "should return a fulfilled promise", (done) ->
-                    expect(rejected.should.not.be[name].with(TypeError)).to.be.fulfilled.then(done, done)
+        describe "when the target promise is rejected with a reason having a different constructor", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(rejected.should.not.be.rejected.with(TypeError)).to.be.fulfilled.then(done, done)
 
-    testRejected("rejected")
-    testRejected("broken")
+    describe "broken:", ->
+        it "should be a synonym for rejected", ->
+            rejectedGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "rejected").get
+            brokenGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "broken").get
+
+            expect(brokenGetter).to.equal(rejectedGetter)
