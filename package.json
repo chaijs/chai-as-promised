@@ -1,0 +1,36 @@
+{
+    "name": "promised-chai",
+    "description": "Extends Chai with assertions about promises.",
+    "keywords": [
+        "chai",
+        "testing",
+        "promises"
+    ],
+    "version": "1.0.0",
+    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/domenic/promised-chai"
+    },
+    "bugs": {
+        "url": "http://github.com/domenic/promised-chai/issues"
+    },
+    "directories": {
+        "lib": "./lib"
+    },
+    "main": "./lib/promised-chai.js",
+    "scripts": {
+        "test": "mocha",
+        "lint": "jshint ./lib --show-non-errors"
+    },
+    "engines": {
+        "node": "*"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "coffee-script": "1",
+        "mocha": "*",
+        "chai": "*",
+        "jshint": "*"
+    }
+}
