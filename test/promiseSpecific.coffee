@@ -81,6 +81,45 @@
             it "should return a fulfilled promise", (done) ->
                 expect(rejected.should.not.be.rejected.with(TypeError)).to.be.fulfilled.then(done, done)
 
+    describe "rejected with Constructor and regular expression matcher:", ->
+        rejectedTypeError = null
+        rejectedMatchingTypeError = null
+        rejectedMatchingError = null
+
+        beforeEach ->
+            rejectedTypeError = Q.reject(new TypeError("no good"))
+            rejectedMatchingTypeError = Q.reject(new TypeError("great"))
+            rejectedMatchingError = Q.reject(new Error("great"))
+
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected.with(TypeError, /great/)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
+
+        describe "when the target promise is rejected with a reason having the specified constructor and a matching " +
+                 "message", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(rejectedMatchingTypeError.should.be.rejected.with(TypeError, /great/)).to.be.fulfilled
+                    .then(done, done)
+
+        describe "when the target promise is rejected with a reason having the specified constructor but a " +
+                 "non-matching message", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejectedTypeError.should.be.rejected.with(TypeError, /great/)).to.be.rejected
+                    .with(AssertionError).then(done, done)
+
+        describe "when the target promise is rejected with a reason having a different constructor but a matching " +
+                 "message", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejectedMatchingError.should.be.rejected.with(TypeError, /great/)).to.be.rejected
+                    .with(AssertionError).then(done, done)
+
+        describe "when the target promise is rejected with a reason having a different constructor and a " + 
+                 "non-matching message", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(rejected.should.be.rejected.with(TypeError, /great/)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
+
     describe "broken:", ->
         it "should be a synonym for rejected", ->
             rejectedGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "rejected").get
