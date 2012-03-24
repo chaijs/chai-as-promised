@@ -81,6 +81,106 @@
             it "should return a fulfilled promise", (done) ->
                 expect(rejected.should.not.be.rejected.with(TypeError)).to.be.fulfilled.then(done, done)
 
+    describe "rejected with a message substring:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected.with("great")).to.be.rejected.with(AssertionError).then(done, done)
+
+        describe "when the target promise is rejected", ->
+            describe "with a reason having that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("super great"))
+
+                it "should return a fulfilled promise", (done) ->
+                    expect(rejected.should.be.rejected.with("great")).to.be.fulfilled.then(done, done)
+
+            describe "with a reason not containing that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("no good"))
+
+                it "should return a promise rejected with an assertion error", (done) ->
+                    expect(rejected.should.be.rejected.with("great")).to.be.rejected.with(AssertionError)
+                        .then(done, done)
+
+    describe "not rejected with a message substring:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a fulflled promise", (done) ->
+                expect(fulfilled.should.not.be.rejected.with("great")).to.be.fulfilled.then(done, done)
+
+        describe "when the target promise is rejected", ->
+            describe "with a reason having that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("super great"))
+
+                it "should return a promise rejected with an assertion error", (done) ->
+                    expect(rejected.should.not.be.rejected.with("great")).to.be.rejected.with(AssertionError)
+                        .then(done, done)
+
+            describe "with a reason not containing that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("no good"))
+
+                it "should return a fulfilled promise", (done) ->
+                    expect(rejected.should.not.be.rejected.with("great")).to.be.fulfilled.then(done, done)
+
+    describe "rejected with a regular expression matcher:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected.with(/great/)).to.be.rejected.with(AssertionError).then(done, done)
+
+        describe "when the target promise is rejected", ->
+            describe "with a reason having that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("super great"))
+
+                it "should return a fulfilled promise", (done) ->
+                    expect(rejected.should.be.rejected.with(/great/)).to.be.fulfilled.then(done, done)
+
+            describe "with a reason not containing that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("no good"))
+
+                it "should return a promise rejected with an assertion error", (done) ->
+                    expect(rejected.should.be.rejected.with(/great/)).to.be.rejected.with(AssertionError)
+                        .then(done, done)
+
+    describe "not rejected with a regular expression matcher:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a fulflled promise", (done) ->
+                expect(fulfilled.should.not.be.rejected.with(/great/)).to.be.fulfilled.then(done, done)
+
+        describe "when the target promise is rejected", ->
+            describe "with a reason having that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("super great"))
+
+                it "should return a promise rejected with an assertion error", (done) ->
+                    expect(rejected.should.not.be.rejected.with(/great/)).to.be.rejected.with(AssertionError)
+                        .then(done, done)
+
+            describe "with a reason not containing that substring in its message property", (done) ->
+                rejected = null
+
+                beforeEach ->
+                    rejected = Q.reject(new Error("no good"))
+
+                it "should return a fulfilled promise", (done) ->
+                    expect(rejected.should.not.be.rejected.with(/great/)).to.be.fulfilled.then(done, done)
+
     describe "rejected with Constructor and regular expression matcher:", ->
         describe "when the target promise is fulfilled", ->
             it "should return a promise rejected with an assertion error", (done) ->
