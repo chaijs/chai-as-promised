@@ -183,6 +183,108 @@
                         expect(rejected.should.not.be.rejected.with(TypeError, /great/)).to.be.fulfilled
                             .then(done, done)
 
+    describe "rejected with Constructor and message substring:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a promise rejected with an assertion error", (done) ->
+                expect(fulfilled.should.be.rejected.with(TypeError, /great/)).to.be.rejected.with(AssertionError)
+                    .then(done, done)
+
+        describe "when the target promise is rejected", ->
+            error = null
+            rejected = null
+
+            describe "with a reason having the specified constructor", ->
+                beforeEach ->
+                    error = new TypeError
+                    rejected = Q.reject(error)
+
+                describe "and a message containing that substring", ->
+                    beforeEach ->
+                        error.message = "super great"
+
+                    it "should return a fulfilled promise", (done) ->
+                        expect(rejected.should.be.rejected.with(TypeError, "great")).to.be.fulfilled.then(done, done)
+
+                describe "and a message not containing that substring", ->
+                    beforeEach ->
+                        error.message = "no good"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+            describe "with a reason having a different constructor", ->
+                beforeEach ->
+                    error = new Error
+                    rejected = Q.reject(error)
+
+                describe "but a message containing that substring", ->
+                    beforeEach ->
+                        error.message = "super great"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+                describe "and a message not containing that substring", ->
+                    beforeEach ->
+                        error.message = "no good"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+    describe "not rejected with Constructor and message substring:", ->
+        describe "when the target promise is fulfilled", ->
+            it "should return a fulfilled promise", (done) ->
+                expect(fulfilled.should.not.be.rejected.with(TypeError, "great")).to.be.fulfilled.then(done, done)
+
+        describe "when the target promise is rejected", ->
+            error = null
+            rejected = null
+
+            describe "with a reason having the specified constructor", ->
+                beforeEach ->
+                    error = new TypeError
+                    rejected = Q.reject(error)
+
+                describe "and a message containing that substring", ->
+                    beforeEach ->
+                        error.message = "super great"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.not.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+                describe "and a message not containing that substring", ->
+                    beforeEach ->
+                        error.message = "no good"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.not.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+            describe "with a reason having a different constructor", ->
+                beforeEach ->
+                    error = new Error
+                    rejected = Q.reject(error)
+
+                describe "but a message containing that substring", ->
+                    beforeEach ->
+                        error.message = "super great"
+
+                    it "should return a promise rejected with an assertion error", (done) ->
+                        expect(rejected.should.not.be.rejected.with(TypeError, "great")).to.be.rejected
+                            .with(AssertionError).then(done, done)
+
+                describe "and a message not containing that substring", ->
+                    beforeEach ->
+                        error.message = "no good"
+
+                    it "should return a fulfilled promise", (done) ->
+                        expect(rejected.should.not.be.rejected.with(TypeError, "great")).to.be.fulfilled
+                            .then(done, done)
+
     describe "broken:", ->
         it "should be a synonym for rejected", ->
             rejectedGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "rejected").get
