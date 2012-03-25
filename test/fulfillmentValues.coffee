@@ -24,3 +24,14 @@ describe "Fulfillment value assertions:", ->
             shouldFail -> promise.should.eventually.be.an.instanceOf(String)
         describe ".eventually.be.false", ->
             shouldFail -> promise.should.eventually.be.false
+
+
+        describe ".eventually.not.equal(52)", ->
+            shouldPass -> promise.should.eventually.not.equal(52)
+        describe ".not.eventually.equal(52)", ->
+            shouldPass -> promise.should.not.eventually.equal(52)
+
+        describe ".eventually.not.equal(42)", ->
+            shouldFail -> promise.should.eventually.not.equal(42)
+        describe ".not.eventually.equal(42)", ->
+            shouldFail -> promise.should.not.eventually.equal(42)
