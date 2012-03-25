@@ -35,3 +35,26 @@ describe "Fulfillment value assertions:", ->
             shouldFail -> promise.should.eventually.not.equal(42)
         describe ".not.eventually.equal(42)", ->
             shouldFail -> promise.should.not.eventually.equal(42)
+
+        describe ".become(42)", ->
+            shouldPass -> promise.should.become(42)
+        describe ".become(52)", ->
+            shouldFail -> promise.should.become(52)
+
+        describe ".not.become(42)", ->
+            shouldFail -> promise.should.not.become(42)
+        describe ".not.become(52)", ->
+            shouldPass -> promise.should.not.become(52)
+
+    describe "On a promise fulfilled with { foo: 'bar' }", ->
+        beforeEach ->
+            promise = Q.resolve(foo: "bar")
+
+        describe ".eventually.equal({ foo: 'bar' })", ->
+            shouldFail -> promise.should.eventually.equal(foo: "bar")
+        describe ".eventually.eql({ foo: 'bar' })", ->
+            shouldPass -> promise.should.eventually.eql(foo: "bar")
+        describe ".become({ foo: 'bar' })", ->
+            shouldPass -> promise.should.become(foo: "bar")
+        describe ".not.become({ foo: 'bar' })", ->
+            shouldFail -> promise.should.not.become(foo: "bar")
