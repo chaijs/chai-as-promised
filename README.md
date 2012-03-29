@@ -1,7 +1,7 @@
 Chai Assertions for Working with Promises
 =========================================
 
-**Promised Chai** extends [Chai][chai] with a fluent language for asserting facts about [promises][presentation].
+**Chai as Promised** extends [Chai][chai] with a fluent language for asserting facts about [promises][presentation].
 
 Instead of manually wiring up your expectations to a promise's fulfilled and rejected handlers:
 
@@ -32,27 +32,22 @@ return doSomethingAsync().should.eventually.equal("foo");
 
 ## How to Use
 
-The most powerful extension provided by Promised Chai is the `eventually` property. With it, you can transform any
+The most powerful extension provided by Chai as Promised is the `eventually` property. With it, you can transform any
 existing Chai assertion into one that acts on a promise:
 
 ```javascript
 (2 + 2).should.equal(4);
 
+// becomes
 return promiseFor(2 + 2).should.eventually.equal(4);
 
 ({ foo: "bar" }).should.have.property("foo");
 
 // becomes
 return promiseFor({ foo: "bar" }).should.eventually.have.property("foo");
-
-
-(function () { throw new Error(); }).should.throw(Error);
-
-// becomes
-return rejectedPromise(new Error()).should.eventually.throw(Error);
 ```
 
-There are also a number of promise-specific extensions, grouped here as synonymic blocks:
+There are also a few promise-specific extensions, grouped here as synonymic blocks:
 
 ```javascript
 return promise.should.be.fulfilled;
@@ -62,56 +57,51 @@ return promise.should.be.broken;
 
 return promise.should.eventually.eql("foo");
 return promise.should.become("foo");
-return promise.should.be.fulfilled.with("foo");
 
-// Other variants of Chai's existing `throw` assertion work too:
-return promise.should.eventually.throw(Error);
 return promise.should.be.rejected.with(Error);
 return promise.should.be.broken.with(Error);
 
-// `be.fulfilled.to` is a synonym for `eventually`:
-return promise.should.eventually.be.within(5, 10);
-return promise.should.be.fulfilled.to.be.within(5, 10);
+// Note: other variants of Chai's existing `throw` assertion work too.
 ```
 
 ## Installation and Usage
 
 ### Node
 
-Do an `npm install promised-chai` to get up and running. Then:
+Do an `npm install chai-as-promised` to get up and running. Then:
 
 ```javascript
 var chai = require("chai");
-var promisedChai = require("promised-chai");
+var chaiAsPromised = require("chai-as-promised");
 
-chai.use(promisedChai);
+chai.use(chaiAsPromised);
 ```
 
 You can of course put this code in a common test fixture file; for an example using [Mocha][mocha], see
-[the Promised Chai tests themselves][fixturedemo].
+[the Chai as Promised tests themselves][fixturedemo].
 
 ### AMD
 
-Promised Chai supports being used as an [AMD][amd] module, registering itself anonymously (just like Chai). So,
-assuming you have configured your loader to map the Chai and Promised Chai files to the respective module IDs `"chai"`
-and `"promised-chai"`, you can use them as follows:
+Chai as Promised supports being used as an [AMD][amd] module, registering itself anonymously (just like Chai). So,
+assuming you have configured your loader to map the Chai and Chai as Promised files to the respective module IDs
+`"chai"` and `"chai-as-promised"`, you can use them as follows:
 
 ```javascript
 define(function (require, exports, module) {
     var chai = require("chai");
-    var promisedChai = require("promised-chai");
+    var chaiAsPromised = require("chai-as-promised");
 
-    chai.use(promisedChai);
+    chai.use(chaiAsPromised);
 });
 ```
 
 ### `<script>` tag
 
-If you include Promised Chai directly with a `<script>` tag, it creates a `window.promisedChai` global (again, just
-like Chai). Then your setup code becomes:
+If you include Chai as Promised directly with a `<script>` tag, it creates a `window.chaiAsPromised` global (again,
+just like Chai). Then your setup code becomes:
 
 ```javascript
-window.chai.use(window.promisedChai);
+window.chai.use(window.chaiAsPromised);
 ```
 
 

@@ -1,5 +1,5 @@
 {
-    "name": "promised-chai",
+    "name": "chai-as-promised",
     "description": "Extends Chai with assertions about promises.",
     "keywords": [
         "chai",
@@ -10,15 +10,15 @@
     "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
     "repository": {
         "type": "git",
-        "url": "https://github.com/domenic/promised-chai"
+        "url": "https://github.com/domenic/chai-as-promised"
     },
     "bugs": {
-        "url": "http://github.com/domenic/promised-chai/issues"
+        "url": "http://github.com/domenic/chai-as-promised/issues"
     },
     "directories": {
         "lib": "./lib"
     },
-    "main": "./lib/promised-chai.js",
+    "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
         "lint": "jshint ./lib --show-non-errors"
