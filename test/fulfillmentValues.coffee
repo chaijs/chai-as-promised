@@ -9,6 +9,24 @@ shouldFail = (promiseProducer) ->
 describe "Fulfillment value assertions:", ->
     promise = null
 
+    describe "Direct tests of fulfilled promises", ->
+        it ".eventually.equal(42)", (done) ->
+            Q.resolve(42).should.eventually.equal(42).then(done, done)
+        it ".eventually.be.arguments", (done) ->
+            Q.resolve(arguments).should.eventually.be.arguments.then(done, done)
+        it ".eventually.be.empty", (done) ->
+            Q.resolve([]).should.eventually.be.empty.then(done, done)
+        it ".eventually.exist", (done) ->
+            Q.resolve(true).should.eventually.exist.then(done, done)
+        it ".eventually.be.false", (done) ->
+            Q.resolve(false).should.eventually.be.false.then(done, done)
+        it ".eventually.be.ok", (done) ->
+            Q.resolve({}).should.eventually.be.ok.then(done, done)
+        it ".eventually.be.true", (done) ->
+            Q.resolve(true).should.eventually.be.true.then(done, done)
+        it ".become(true)", (done) ->
+            Q.resolve(true).should.become(true).then(done, done)
+
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->
             promise = Q.resolve(42)
