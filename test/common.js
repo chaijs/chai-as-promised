@@ -8,6 +8,7 @@ chai.use(promisedChai);
 global.expect = chai.expect;
 global.AssertionError = chai.AssertionError;
 global.Assertion = chai.Assertion;
+global.assert = chai.assert;
 global.Q = Q;
 
 global.shouldPass = function (promiseProducer) {
