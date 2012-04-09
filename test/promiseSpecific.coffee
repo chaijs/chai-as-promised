@@ -1,5 +1,6 @@
 describe "Promise-specific extensions:", ->
     promise = null
+    error = new Error("boo")
 
     describe "when the promise is fulfilled", ->
         beforeEach ->
@@ -22,6 +23,8 @@ describe "Promise-specific extensions:", ->
             shouldFail -> promise.should.be.rejected.with(TypeError, "message substring")
         describe ".rejected.with(TypeError, /regexp/)", ->
             shouldFail -> promise.should.be.rejected.with(TypeError, /regexp/)
+        describe ".rejected.with(errorInstance)", ->
+            shouldFail -> promise.should.be.rejected.with(error)
 
         describe ".not.rejected", ->
             shouldPass -> promise.should.not.be.rejected
@@ -35,17 +38,29 @@ describe "Promise-specific extensions:", ->
             shouldPass -> promise.should.not.be.rejected.with(TypeError, "message substring")
         describe ".not.rejected.with(TypeError, /regexp/)", ->
             shouldPass -> promise.should.not.be.rejected.with(TypeError, /regexp/)
+        describe ".not.rejected.with(errorInstance)", ->
+            shouldPass -> promise.should.not.be.rejected.with(error)
 
     describe "when the promise is rejected", ->
         beforeEach ->
-            promise = Q.reject(new Error)
+            promise = Q.reject(error)
 
         describe ".fulfilled", ->
             shouldFail -> promise.should.be.fulfilled
         describe ".not.fulfilled", ->
             shouldPass -> promise.should.not.be.fulfilled
 
-        describe "with an error having message 'foo bar'", ->
+        describe ".rejected.with(theError)", ->
+            shouldPass -> promise.should.be.rejected.with(error)
+        describe ".not.rejected.with(theError)", ->
+            shouldFail -> promise.should.not.be.rejected.with(error)
+
+        describe ".rejected.with(differentError)", ->
+            shouldFail -> promise.should.be.rejected.with(new Error)
+        describe ".not.rejected.with(differentError)", ->
+            shouldPass -> promise.should.not.be.rejected.with(new Error)
+
+        describe "with an Error having message 'foo bar'", ->
             beforeEach ->
                 promise = Q.reject(new Error("foo bar"))
 
