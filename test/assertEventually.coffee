@@ -13,6 +13,11 @@ describe "Assert interface with eventually extender:", ->
         it ".eventually.include(promiseForArray, arrayMember)", (done) ->
             assert.eventually.include(Q.resolve([1, 2, 3]), 1).notify(done)
 
+        it ".becomes(true)", (done) ->
+            assert.becomes(Q.resolve(true), true).notify(done)
+        it ".doesNotBecome(false)", (done) ->
+            assert.doesNotBecome(Q.resolve(true), false).notify(done)
+
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->
             promise = Q.resolve(42)
@@ -32,15 +37,28 @@ describe "Assert interface with eventually extender:", ->
         describe ".eventually.notEqual(promise, 52)", ->
             shouldPass -> assert.eventually.notEqual(promise, 52)
 
+        describe ".becomes(promise, 42)", ->
+            shouldPass -> assert.becomes(promise, 42)
+        describe ".becomes(promise, 52)", ->
+            shouldFail -> assert.becomes(promise, 52)
+        describe ".doesNotBecome(promise, 42)", ->
+            shouldFail -> assert.doesNotBecome(promise, 42)
+        describe ".doesNotBecome(promise, 52)", ->
+            shouldPass -> assert.doesNotBecome(promise, 52)
 
     describe "On a promise fulfilled with { foo: 'bar' }", ->
         beforeEach ->
             promise = Q.resolve(foo: "bar")
 
-        describe ".eventually.equal({ foo: 'bar' })", ->
+        describe ".eventually.equal(promise, { foo: 'bar' })", ->
             shouldFail -> assert.eventually.equal(promise, foo: "bar")
-        describe ".eventually.deepEqual({ foo: 'bar' })", ->
+        describe ".eventually.deepEqual(promise, { foo: 'bar' })", ->
             shouldPass -> assert.eventually.deepEqual(promise, foo: "bar")
+
+        describe ".becomes(promise, { foo: 'bar' })", ->
+            shouldPass -> assert.becomes(promise, foo: "bar")
+        describe ".doesNotBecome(promise, { foo: 'bar' })", ->
+            shouldFail -> assert.doesNotBecome(promise, foo: "bar")
 
     describe "Assertion messages", ->
         message = "He told me enough! He told me you killed him!"
