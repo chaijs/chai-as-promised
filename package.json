@@ -21,7 +21,8 @@
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
-        "lint": "jshint ./lib --show-non-errors"
+        "lint": "jshint ./lib --show-non-errors",
+        "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && start ./cover_html/index.html"
     },
     "engines": {
         "node": "*"
@@ -29,8 +30,9 @@
     "dependencies": {},
     "devDependencies": {
         "coffee-script": "1",
-        "mocha": "*",
+        "mocha": "1",
         "chai": "*",
+        "cover": "*",
         "jshint": "*",
         "q": "*"
     }
