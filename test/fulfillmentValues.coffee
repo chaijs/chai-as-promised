@@ -1,31 +1,27 @@
-﻿shouldPass = (promiseProducer) ->
-    it "should return a fulfilled promise", (done) ->
-        expect(promiseProducer()).to.be.fulfilled.then(done, done)
-
-shouldFail = (promiseProducer) ->
-    it "should return a promise rejected with an assertion error", (done) ->
-        expect(promiseProducer()).to.be.rejected.with(AssertionError).then(done, done)
-
-describe "Fulfillment value assertions:", ->
+﻿describe "Fulfillment value assertions:", ->
     promise = null
 
     describe "Direct tests of fulfilled promises", ->
         it ".eventually.equal(42)", (done) ->
-            Q.resolve(42).should.eventually.equal(42).then(done, done)
+            Q.resolve(42).should.eventually.equal(42).notify(done)
         it ".eventually.be.arguments", (done) ->
-            Q.resolve(arguments).should.eventually.be.arguments.then(done, done)
+            Q.resolve(arguments).should.eventually.be.arguments.notify(done)
         it ".eventually.be.empty", (done) ->
-            Q.resolve([]).should.eventually.be.empty.then(done, done)
+            Q.resolve([]).should.eventually.be.empty.notify(done)
         it ".eventually.exist", (done) ->
-            Q.resolve(true).should.eventually.exist.then(done, done)
+            Q.resolve(true).should.eventually.exist.notify(done)
         it ".eventually.be.false", (done) ->
-            Q.resolve(false).should.eventually.be.false.then(done, done)
+            Q.resolve(false).should.eventually.be.false.notify(done)
         it ".eventually.be.ok", (done) ->
-            Q.resolve({}).should.eventually.be.ok.then(done, done)
+            Q.resolve({}).should.eventually.be.ok.notify(done)
         it ".eventually.be.true", (done) ->
-            Q.resolve(true).should.eventually.be.true.then(done, done)
+            Q.resolve(true).should.eventually.be.true.notify(done)
         it ".become(true)", (done) ->
-            Q.resolve(true).should.become(true).then(done, done)
+            Q.resolve(true).should.become(true).notify(done)
+
+    describe "Chaining", ->
+        it ".eventually.be.ok.and.equal(42)", (done) ->
+            Q.resolve(42).should.eventually.be.ok.and.equal(42).notify(done)
 
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->

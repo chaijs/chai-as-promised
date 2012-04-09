@@ -1,11 +1,3 @@
-shouldPass = (promiseProducer) ->
-    it "should return a fulfilled promise", (done) ->
-        expect(promiseProducer()).to.be.fulfilled.then(done, done)
-
-shouldFail = (promiseProducer) ->
-    it "should return a promise rejected with an assertion error", (done) ->
-        expect(promiseProducer()).to.be.rejected.with(AssertionError).then(done, done)
-
 describe "Promise-specific extensions:", ->
     promise = null
 
