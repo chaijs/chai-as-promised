@@ -48,8 +48,8 @@ expect({ foo: "bar" }).to.have.property("foo");
 return expect(promiseFor({ foo: "bar" })).to.eventually.have.property("foo");
 ```
 
-There are also a few promise-specific extensions, grouped here as synonymic blocks (with the usual `expect` equivalents
-also available):
+There are also a few promise-specific extensions, grouped here as synonymic blocks (with the usual `expect`
+equivalents):
 
 ```javascript
 return promise.should.be.fulfilled;
@@ -83,11 +83,11 @@ And there are, of course, promise-specific extensions:
 ```javascript
 return assert.isFulfilled(promise, "optional message");
 
-return assert.eventually.deepEqual(promise, "foo");
-return assert.becomes(promise, "foo");
+return assert.eventually.deepEqual(promise, "foo", "optional message");
+return assert.becomes(promise, "foo", "optional message");
 
-return assert.eventually.notDeepEqual(promise, "foo");
-return assert.doesNotBecome(promise, "foo");
+return assert.eventually.notDeepEqual(promise, "foo", "optional message");
+return assert.doesNotBecome(promise, "foo", "optional message");
 
 return assert.isRejected(promise, "optional message");
 return assert.isBroken(promise, "optional message");
@@ -142,6 +142,7 @@ window.chai.use(window.chaiAsPromised);
 
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
+[mocha]: http://visionmedia.github.com/mocha/
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
-[fixturedemo]: https://github.com/domenic/promised-chai/tree/master/test/
+[fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
