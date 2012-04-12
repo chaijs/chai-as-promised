@@ -121,8 +121,8 @@ In these examples, if the conditions are not met, the test runner will receive a
 to be fulfilled but it was rejected with [Error: error message]"`, or `"expected promise to be rejected but it was
 fulfilled."`
 
-There's another form of notify which is useful in certain situations, like doing assertions after a promise is complete.
-For example:
+There's another form of `notify` which is useful in certain situations, like doing assertions after a promise is
+complete. For example:
 
 ```javascript
 it("should change the state", function (done) {
@@ -137,6 +137,22 @@ Notice how `.notify(done)` is hanging directly off of `.should`, instead of appe
 indicates to Chai as Promised that it should pass fulfillment or rejection directly through to the testing framework.
 Thus, the above code will fail with a Chai as Promised error (`"expected promise to be fulfilled…"`) if `promise` is
 rejected, but will fail with a simple Chai error (`expected "before" to equal "after"`) if `otherState` does not change.
+
+Another example of where this can be useful is when performing assertions on multiple promises:
+
+```javascript
+it("should all be well", function (done) {
+    Q.all([
+        promiseA.should.become("happy"),
+        promiseB.should.eventually.have.property("fun times"),
+        promiseC.should.be.rejected.with(TypeError, "only joyful types are allowed")
+    ]).should.notify(done);
+});
+```
+
+This will pass any failures of the individual promise assertions up to the test framework, instead of wrapping them in
+an `"expected promise to be fulfilled…"` message as would happen if you did
+`Q.all([…]).should.be.fulfilled.and.notify(done)`.
 
 ## Installation and Usage
 
