@@ -2,6 +2,15 @@ describe "Promise-specific extensions:", ->
     promise = null
     error = new Error("boo")
 
+    assertingDoneFactory = (done) ->
+        (result) ->
+            try
+                expect(result).to.equal(error)
+            catch assertionError
+                return done(assertionError)
+
+            done()
+
     describe "when the promise is fulfilled", ->
         beforeEach ->
             promise = Q.resolve()
@@ -40,6 +49,10 @@ describe "Promise-specific extensions:", ->
             shouldPass -> promise.should.not.be.rejected.with(TypeError, /regexp/)
         describe ".not.rejected.with(errorInstance)", ->
             shouldPass -> promise.should.not.be.rejected.with(error)
+
+        describe ".should.notify(done)", ->
+            it "should pass the test", (done) ->
+                promise.should.notify(done)
 
     describe "when the promise is rejected", ->
         beforeEach ->
@@ -144,9 +157,44 @@ describe "Promise-specific extensions:", ->
             describe ".not.rejected.with(TypeError, /quux/)", ->
                 shouldPass -> promise.should.not.be.rejected.with(TypeError, /quux/)
 
+        describe ".should.notify(done)", ->
+            it "should fail the test with the original error", (done) ->
+                promise.should.notify(assertingDoneFactory(done))
+
     describe ".broken", ->
         it "should be a synonym for rejected", ->
             rejectedGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "rejected").get
             brokenGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "broken").get
 
             expect(brokenGetter).to.equal(rejectedGetter)
+
+    describe ".should.notify with chaining (GH-3)", ->
+        describe "the original promise is fulfilled", ->
+            beforeEach -> promise = Q.resolve()
+
+            describe "and the follow-up promise is fulfilled", ->
+                beforeEach -> promise = promise.then(->)
+
+                it "should pass the test", (done) ->
+                    promise.should.notify(done)
+
+            describe "but the follow-up promise is rejected", ->
+                beforeEach -> promise = promise.then(-> throw error)
+
+                it "should fail the test with the error from the follow-up promise", (done) ->
+                    promise.should.notify(assertingDoneFactory(done))
+
+        describe "the original promise is rejected", ->
+            beforeEach -> promise = Q.reject(error)
+
+            describe "but the follow-up promise is fulfilled", ->
+                beforeEach -> promise = promise.then(->)
+
+                it "should fail the test with the error from the original promise", (done) ->
+                    promise.should.notify(assertingDoneFactory(done))
+
+            describe "and the follow-up promise is rejected", ->
+                beforeEach -> promise = promise.then(-> throw new Error("follow up"))
+
+                it "should fail the test with the error from the original promise", (done) ->
+                    promise.should.notify(assertingDoneFactory(done))
