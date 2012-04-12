@@ -30,7 +30,9 @@ simply
 return doSomethingAsync().should.eventually.equal("foo");
 ```
 
-## How to Use: `should`/`expect` Interface
+## How to Use
+
+### `should`/`expect` Interface
 
 The most powerful extension provided by Chai as Promised is the `eventually` property. With it, you can transform any
 existing Chai assertion into one that acts on a promise:
@@ -66,7 +68,7 @@ return promise.should.be.broken.with(Error);
 // Note: other variants of Chai's existing `throw` assertion work too.
 ```
 
-## How to Use: `assert` Interface
+### `assert` Interface
 
 As with the `should`/`expect` interface, Chai as Promised provides an `eventually` extender to `chai.assert`, allowing
 any existing Chai assertion to be used on a promise:
@@ -98,6 +100,43 @@ return assert.isBroken(promise, Error, "optional message");
 return assert.isRejected(promise, /error message matcher/, "optional message");
 return assert.isBroken(promise, /error message matcher/, "optional message");
 ```
+
+### Working with Non-Promise–Friendly Test Runners
+
+As mentioned, many test runners (\*cough\* [mocha][mocha-makes-me-sad] \*cough\*) don't support the nice `return` style
+shown above. Instead, they take a callback indicating when the asynchronous test run is over. Chai as Promised adapts to
+this situation with the `notify` method, like so:
+
+```javascript
+it("should be fulfilled", function (done) {
+    promise.should.be.fulfilled.and.notify(done);
+});
+
+it("should be rejected", function (done) {
+    otherPromise.should.be.rejected.and.notify(done);
+});
+```
+
+In these examples, if the conditions are not met, the test runner will receive an error of the form `"expected promise
+to be fulfilled but it was rejected with [Error: error message]"`, or `"expected promise to be rejected but it was
+fulfilled."`
+
+There's another form of notify which is useful in certain situations, like doing assertions after a promise is complete.
+For example:
+
+```javascript
+it("should change the state", function (done) {
+    otherState.should.equal("before");
+    promise.should.be.fulfilled.then(function () {
+        otherState.should.equal("after");
+    }).should.notify(done);
+});
+```
+
+Notice how `.notify(done)` is hanging directly off of `.should`, instead of appearing after a promise assertion. This
+indicates to Chai as Promised that it should pass fulfillment or rejection directly through to the testing framework.
+Thus, the above code will fail with a Chai as Promised error (`"expected promise to be fulfilled…"`) if `promise` is
+rejected, but will fail with a simple Chai error (`expected "before" to equal "after"`) if `otherState` does not change.
 
 ## Installation and Usage
 
@@ -143,6 +182,7 @@ window.chai.use(window.chaiAsPromised);
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
 [mocha]: http://visionmedia.github.com/mocha/
+[mocha-makes-me-sad]: https://github.com/visionmedia/mocha/pull/329
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
