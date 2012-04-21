@@ -4,7 +4,7 @@ describe "Assert interface:", ->
 
     describe "when the promise is fulfilled", ->
         beforeEach ->
-            promise = Q.resolve()
+            promise = fulfilledPromise()
 
         describe ".isFulfilled(promise)", ->
             shouldPass -> assert.isFulfilled(promise)
@@ -22,7 +22,7 @@ describe "Assert interface:", ->
 
     describe "when the promise is rejected", ->
         beforeEach ->
-            promise = Q.reject(error)
+            promise = rejectedPromise(error)
 
         describe ".isFulfilled", ->
             shouldFail -> assert.isFulfilled(promise)
@@ -35,7 +35,7 @@ describe "Assert interface:", ->
 
         describe "with an Error having message 'foo bar'", ->
             beforeEach ->
-                promise = Q.reject(new Error("foo bar"))
+                promise = rejectedPromise(new Error("foo bar"))
 
             describe ".isRejected(promise, /bar/)", ->
                 shouldPass -> assert.isRejected(promise, /bar/)
@@ -45,7 +45,7 @@ describe "Assert interface:", ->
 
         describe "with a RangeError", ->
             beforeEach ->
-                promise = Q.reject(new RangeError)
+                promise = rejectedPromise(new RangeError)
 
             describe ".isRejected(promise, RangeError)", ->
                 shouldPass -> assert.isRejected(promise, RangeError)
@@ -60,13 +60,13 @@ describe "Assert interface:", ->
         message = "No. I am your father."
 
         it "should be passed through for .isFulfilled(promise, message)", (done) ->
-            expect(assert.isFulfilled(Q.reject(), message)).to.be.rejected.with(message).notify(done)
+            expect(assert.isFulfilled(rejectedPromise(), message)).to.be.rejected.with(message).notify(done)
 
         it "should be passed through for .isRejected(promise, message)", (done) ->
-            expect(assert.isRejected(Q.resolve(), message)).to.be.rejected.with(message).notify(done)
+            expect(assert.isRejected(fulfilledPromise(), message)).to.be.rejected.with(message).notify(done)
 
         it "should be passed through for .isRejected(promise, TypeError, message)", (done) ->
-            expect(assert.isRejected(Q.resolve(), TypeError, message)).to.be.rejected.with(message).notify(done)
+            expect(assert.isRejected(fulfilledPromise(), TypeError, message)).to.be.rejected.with(message).notify(done)
 
         it "should be passed through for .isRejected(promise, /regexp/, message)", (done) ->
-            expect(assert.isRejected(Q.resolve(), /regexp/, message)).to.be.rejected.with(message).notify(done)
+            expect(assert.isRejected(fulfilledPromise(), /regexp/, message)).to.be.rejected.with(message).notify(done)

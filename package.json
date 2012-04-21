@@ -20,6 +20,9 @@
     },
     "main": "./lib/chai-as-promised.js",
     "scripts": {
+        "test-browser-q": "coffee ./test/browser/runner q",
+        "test-browser-jquery": "coffee ./test/browser/runner jquery",
+        "test-browser-when": "coffee ./test/browser/runner when",
         "test": "mocha",
         "lint": "jshint ./lib --show-non-errors",
         "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && start ./cover_html/index.html"
@@ -34,6 +37,9 @@
         "chai": "*",
         "cover": "*",
         "jshint": "*",
-        "q": "*"
+        "q": "*",
+        "glob": "*",
+        "ecstatic": "*",
+        "underscore": "*"
     }
 }

@@ -3,33 +3,33 @@
 
     describe "Direct tests of fulfilled promises", ->
         it ".eventually.equal(42)", (done) ->
-            Q.resolve(42).should.eventually.equal(42).notify(done)
+            fulfilledPromise(42).should.eventually.equal(42).notify(done)
         it ".eventually.be.arguments", (done) ->
-            Q.resolve(arguments).should.eventually.be.arguments.notify(done)
+            fulfilledPromise(arguments).should.eventually.be.arguments.notify(done)
         it ".eventually.be.empty", (done) ->
-            Q.resolve([]).should.eventually.be.empty.notify(done)
+            fulfilledPromise([]).should.eventually.be.empty.notify(done)
         it ".eventually.exist", (done) ->
-            Q.resolve(true).should.eventually.exist.notify(done)
+            fulfilledPromise(true).should.eventually.exist.notify(done)
         it ".eventually.be.false", (done) ->
-            Q.resolve(false).should.eventually.be.false.notify(done)
+            fulfilledPromise(false).should.eventually.be.false.notify(done)
         it ".eventually.be.ok", (done) ->
-            Q.resolve({}).should.eventually.be.ok.notify(done)
+            fulfilledPromise({}).should.eventually.be.ok.notify(done)
         it ".eventually.be.true", (done) ->
-            Q.resolve(true).should.eventually.be.true.notify(done)
+            fulfilledPromise(true).should.eventually.be.true.notify(done)
         it ".become(true)", (done) ->
-            Q.resolve(true).should.become(true).notify(done)
+            fulfilledPromise(true).should.become(true).notify(done)
 
     describe "Chaining", ->
         it ".eventually.be.ok.and.equal(42)", (done) ->
-            Q.resolve(42).should.eventually.be.ok.and.equal(42).notify(done)
+            fulfilledPromise(42).should.eventually.be.ok.and.equal(42).notify(done)
         it ".rejected.and.notify(done)", (done) ->
-            Q.reject().should.be.rejected.and.notify(done)
+            rejectedPromise().should.be.rejected.and.notify(done)
         it ".fulfilled.and.notify(done)", (done) ->
-            Q.resolve().should.be.fulfilled.and.notify(done)
+            fulfilledPromise().should.be.fulfilled.and.notify(done)
 
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->
-            promise = Q.resolve(42)
+            promise = fulfilledPromise(42)
 
         describe ".eventually.equal(42)", ->
             shouldPass -> promise.should.eventually.equal(42)
@@ -66,7 +66,7 @@
 
     describe "On a promise fulfilled with { foo: 'bar' }", ->
         beforeEach ->
-            promise = Q.resolve(foo: "bar")
+            promise = fulfilledPromise(foo: "bar")
 
         describe ".eventually.equal({ foo: 'bar' })", ->
             shouldFail -> promise.should.eventually.equal(foo: "bar")

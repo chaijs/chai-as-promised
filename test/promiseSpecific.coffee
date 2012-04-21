@@ -13,7 +13,7 @@ describe "Promise-specific extensions:", ->
 
     describe "when the promise is fulfilled", ->
         beforeEach ->
-            promise = Q.resolve()
+            promise = fulfilledPromise()
 
         describe ".fulfilled", ->
             shouldPass -> promise.should.be.fulfilled
@@ -56,7 +56,7 @@ describe "Promise-specific extensions:", ->
 
     describe "when the promise is rejected", ->
         beforeEach ->
-            promise = Q.reject(error)
+            promise = rejectedPromise(error)
 
         describe ".fulfilled", ->
             shouldFail -> promise.should.be.fulfilled
@@ -78,7 +78,7 @@ describe "Promise-specific extensions:", ->
 
         describe "with an Error having message 'foo bar'", ->
             beforeEach ->
-                promise = Q.reject(new Error("foo bar"))
+                promise = rejectedPromise(new Error("foo bar"))
 
             describe ".rejected.with('foo')", ->
                 shouldPass -> promise.should.be.rejected.with("foo")
@@ -103,7 +103,7 @@ describe "Promise-specific extensions:", ->
 
         describe "with a RangeError", ->
             beforeEach ->
-                promise = Q.reject(new RangeError)
+                promise = rejectedPromise(new RangeError)
 
             describe ".rejected.with(RangeError)", ->
                 shouldPass -> promise.should.be.rejected.with(RangeError)
@@ -117,7 +117,7 @@ describe "Promise-specific extensions:", ->
 
         describe "with a RangeError having a message 'foo bar'", ->
             beforeEach ->
-                promise = Q.reject(new RangeError("foo bar"))
+                promise = rejectedPromise(new RangeError("foo bar"))
 
             describe ".rejected.with(RangeError, 'foo')", ->
                 shouldPass -> promise.should.be.rejected.with(RangeError, "foo")
@@ -173,7 +173,7 @@ describe "Promise-specific extensions:", ->
 
     describe ".should.notify with chaining (GH-3)", ->
         describe "the original promise is fulfilled", ->
-            beforeEach -> promise = Q.resolve()
+            beforeEach -> promise = fulfilledPromise()
 
             describe "and the follow-up promise is fulfilled", ->
                 beforeEach -> promise = promise.then(->)
@@ -188,7 +188,7 @@ describe "Promise-specific extensions:", ->
                     promise.should.notify(assertingDoneFactory(done))
 
         describe "the original promise is rejected", ->
-            beforeEach -> promise = Q.reject(error)
+            beforeEach -> promise = rejectedPromise(error)
 
             describe "but the follow-up promise is fulfilled", ->
                 beforeEach -> promise = promise.then(->)
@@ -208,15 +208,15 @@ describe "Promise-specific extensions:", ->
                 expect(func).to.throw(Error, /Chai as Promised/)
 
         describe ".fulfilled.and.eventually.equal(42)", ->
-            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.eventually.equal(42)
+            shouldTellUsNo -> fulfilledPromise(42).should.be.fulfilled.and.eventually.equal(42)
         describe ".fulfilled.and.become(42)", ->
-            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.become(42)
+            shouldTellUsNo -> fulfilledPromise(42).should.be.fulfilled.and.become(42)
         describe ".fulfilled.and.rejected", ->
-            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.rejected
+            shouldTellUsNo -> fulfilledPromise(42).should.be.fulfilled.and.rejected
 
         describe ".rejected.and.eventually.equal(42)", ->
-            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.eventually.equal(42)
+            shouldTellUsNo -> rejectedPromise(42).should.be.rejected.and.eventually.equal(42)
         describe ".rejected.and.become(42)", ->
-            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.become(42)
+            shouldTellUsNo -> rejectedPromise(42).should.be.rejected.and.become(42)
         describe ".rejected.and.fulfilled", ->
-            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.fulfilled
+            shouldTellUsNo -> rejectedPromise(42).should.be.rejected.and.fulfilled

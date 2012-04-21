@@ -1,3 +1,4 @@
 --compilers coffee:coffee-script
 --reporter spec
---require test/common
+--require test/support/common
+--require test/support/node
