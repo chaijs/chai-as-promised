@@ -101,6 +101,22 @@ return assert.isRejected(promise, /error message matcher/, "optional message");
 return assert.isBroken(promise, /error message matcher/, "optional message");
 ```
 
+### Progress Callbacks
+
+Chai as Promised does not have any intrinsic support for testing promise progress callbacks. The properties you would
+want to test are probably much better suited to a library like [Sinon.JS][sinon], perhaps in conjunction with
+[Sinon–Chai][sinon-chai]:
+
+```javascript
+var progressSpy = sinon.spy();
+
+return promise.then(null, null, progressSpy).then(function () {
+    progressSpy.should.have.been.calledWith("33%");
+    progressSpy.should.have.been.calledWith("67%");
+    progressSpy.should.have.been.calledThrice;
+});
+```
+
 ### Working with Non-Promise–Friendly Test Runners
 
 As mentioned, many test runners (\*cough\* [mocha][mocha-makes-me-sad] \*cough\*) don't support the nice `return` style
@@ -202,3 +218,5 @@ window.chai.use(window.chaiAsPromised);
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
+[sinon]: http://sinonjs.org/
+[sinon-chai]: https://github.com/domenic/sinon-chai
