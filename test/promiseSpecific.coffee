@@ -201,3 +201,22 @@ describe "Promise-specific extensions:", ->
 
                 it "should fail the test with the error from the original promise", (done) ->
                     promise.should.notify(assertingDoneFactory(done))
+
+    describe "Attempts to use multiple Chai as Promised properties in an assertion", ->
+        shouldTellUsNo = (func) ->
+            it "should fail with an informative error message", ->
+                expect(func).to.throw(Error, /Chai as Promised/)
+
+        describe ".fulfilled.and.eventually.equal(42)", ->
+            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.eventually.equal(42)
+        describe ".fulfilled.and.become(42)", ->
+            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.become(42)
+        describe ".fulfilled.and.rejected", ->
+            shouldTellUsNo -> Q.resolve(42).should.be.fulfilled.and.rejected
+
+        describe ".rejected.and.eventually.equal(42)", ->
+            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.eventually.equal(42)
+        describe ".rejected.and.become(42)", ->
+            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.become(42)
+        describe ".rejected.and.fulfilled", ->
+            shouldTellUsNo -> Q.reject(42).should.be.rejected.and.fulfilled
