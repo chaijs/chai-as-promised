@@ -63,6 +63,9 @@ describe "Promise-specific extensions:", ->
         describe ".not.fulfilled", ->
             shouldPass -> promise.should.not.be.fulfilled
 
+        describe ".rejected", ->
+            shouldPass -> promise.should.be.rejected
+
         describe ".rejected.with(theError)", ->
             shouldPass -> promise.should.be.rejected.with(error)
         describe ".not.rejected.with(theError)", ->

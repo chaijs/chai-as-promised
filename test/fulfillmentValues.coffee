@@ -22,6 +22,8 @@
     describe "Chaining", ->
         it ".eventually.be.ok.and.equal(42)", (done) ->
             Q.resolve(42).should.eventually.be.ok.and.equal(42).notify(done)
+        it ".rejected.and.notify(done)", (done) ->
+            Q.reject().should.be.rejected.and.notify(done)
 
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->
