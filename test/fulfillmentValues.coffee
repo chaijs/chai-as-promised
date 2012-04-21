@@ -24,6 +24,8 @@
             Q.resolve(42).should.eventually.be.ok.and.equal(42).notify(done)
         it ".rejected.and.notify(done)", (done) ->
             Q.reject().should.be.rejected.and.notify(done)
+        it ".fulfilled.and.notify(done)", (done) ->
+            Q.resolve().should.be.fulfilled.and.notify(done)
 
     describe "On a promise fulfilled with the number 42", ->
         beforeEach ->
