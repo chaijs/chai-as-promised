@@ -15,6 +15,7 @@
     "indent": 4,
 
     "predef": [
-        "define"
+        "define",
+        "chai"
     ]
 }

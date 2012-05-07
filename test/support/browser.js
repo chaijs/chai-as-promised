@@ -1,5 +1,4 @@
 chai.should();
-chai.use(chaiAsPromised);
 
 global.expect = chai.expect;
 global.AssertionError = chai.AssertionError;

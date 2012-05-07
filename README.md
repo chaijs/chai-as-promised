@@ -203,11 +203,12 @@ define(function (require, exports, module) {
 
 ### `<script>` tag
 
-If you include Chai as Promised directly with a `<script>` tag, it creates a `window.chaiAsPromised` global (again,
-just like Chai). Then your setup code becomes:
+If you include Chai as Promised directly with a `<script>` tag, after the one for Chai itself, then it will
+automatically plug in to Chai and be ready for use:
 
-```javascript
-window.chai.use(window.chaiAsPromised);
+```html
+<script src="chai.js"></script>
+<script src="chai-as-promised.js"></script>
 ```
 
 
