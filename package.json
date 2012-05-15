@@ -6,7 +6,7 @@
         "testing",
         "promises"
     ],
-    "version": "2.2.0",
+    "version": "3.0.0",
     "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
     "repository": {
         "type": "git",
@@ -34,7 +34,7 @@
     "devDependencies": {
         "coffee-script": "1",
         "mocha": "1",
-        "chai": "*",
+        "chai": "1",
         "cover": "*",
         "jshint": "*",
         "q": "*",
