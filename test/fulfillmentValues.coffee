@@ -37,11 +37,15 @@
             shouldPass -> promise.should.eventually.eql(42)
         describe ".eventually.be.below(9000)", ->
             shouldPass -> promise.should.eventually.be.below(9000)
+        describe ".eventually.be.a('number')", ->
+            shouldPass -> promise.should.eventually.be.a("number")
 
         describe ".eventually.be.an.instanceOf(String)", ->
             shouldFail -> promise.should.eventually.be.an.instanceOf(String)
         describe ".eventually.be.false", ->
             shouldFail -> promise.should.eventually.be.false
+        describe ".eventually.be.an('object')", ->
+            shouldFail -> promise.should.eventually.be.an("object")
 
 
         describe ".eventually.not.equal(52)", ->
