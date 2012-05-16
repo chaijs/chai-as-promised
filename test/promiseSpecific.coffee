@@ -164,13 +164,6 @@ describe "Promise-specific extensions:", ->
             it "should fail the test with the original error", (done) ->
                 promise.should.notify(assertingDoneFactory(done))
 
-    describe ".broken", ->
-        it "should be a synonym for rejected", ->
-            rejectedGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "rejected").get
-            brokenGetter = Object.getOwnPropertyDescriptor(Assertion.prototype, "broken").get
-
-            expect(brokenGetter).to.equal(rejectedGetter)
-
     describe ".should.notify with chaining (GH-3)", ->
         describe "the original promise is fulfilled", ->
             beforeEach -> promise = fulfilledPromise()
@@ -201,6 +194,21 @@ describe "Promise-specific extensions:", ->
 
                 it "should fail the test with the error from the original promise", (done) ->
                     promise.should.notify(assertingDoneFactory(done))
+
+    describe "Using with non-promises:", ->
+        describe "A number", ->
+            number = 5
+
+            it "should fail for .fulfilled", ->
+                expect(-> number.should.be.fulfilled).to.throw(TypeError, /not a promise/)
+            it "should fail for .rejected", ->
+                expect(-> number.should.be.rejected).to.throw(TypeError, /not a promise/)
+            it "should fail for .become", ->
+                expect(-> number.should.become(5)).to.throw(TypeError, /not a promise/)
+            it "should fail for .eventually", ->
+                expect(-> number.should.eventually.equal(5)).to.throw(TypeError, /not a promise/)
+            it "should fail for .notify", ->
+                expect(-> number.should.notify(->)).to.throw(TypeError, /not a promise/)
 
     describe "Attempts to use multiple Chai as Promised properties in an assertion", ->
         shouldTellUsNo = (func) ->

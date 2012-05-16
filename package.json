@@ -21,7 +21,6 @@
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test-browser-q": "coffee ./test/browser/runner q",
-        "test-browser-jquery": "coffee ./test/browser/runner jquery",
         "test-browser-when": "coffee ./test/browser/runner when",
         "test": "mocha",
         "lint": "jshint ./lib --show-non-errors",
