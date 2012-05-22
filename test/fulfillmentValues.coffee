@@ -16,6 +16,12 @@
             fulfilledPromise({}).should.eventually.be.ok.notify(done)
         it ".eventually.be.true", (done) ->
             fulfilledPromise(true).should.eventually.be.true.notify(done)
+        it ".eventually.deep.equal({ foo: 'bar' })", (done) ->
+            fulfilledPromise(foo: "bar").should.eventually.deep.equal(foo: "bar").notify(done)
+        it ".eventually.have.deep.property('foo.bar')", (done) ->
+            fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
+        it ".eventually.contain.keys('foo')", (done) ->
+            fulfilledPromise(foo: "bar", baz: "quux").should.eventually.contain.keys("foo").notify(done)
         it ".become(true)", (done) ->
             fulfilledPromise(true).should.become(true).notify(done)
 
