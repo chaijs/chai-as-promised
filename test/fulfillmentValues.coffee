@@ -1,7 +1,7 @@
 ﻿describe "Fulfillment value assertions:", ->
     promise = null
 
-    describe "Direct tests of fulfilled promises", ->
+    describe "Direct tests of fulfilled promises:", ->
         it ".eventually.equal(42)", (done) ->
             fulfilledPromise(42).should.eventually.equal(42).notify(done)
         it ".eventually.be.arguments", (done) ->
@@ -25,7 +25,7 @@
         it ".become(true)", (done) ->
             fulfilledPromise(true).should.become(true).notify(done)
 
-    describe "Chaining", ->
+    describe "Chaining:", ->
         it ".eventually.be.ok.and.equal(42)", (done) ->
             fulfilledPromise(42).should.eventually.be.ok.and.equal(42).notify(done)
         it ".rejected.and.notify(done)", (done) ->
@@ -33,7 +33,7 @@
         it ".fulfilled.and.notify(done)", (done) ->
             fulfilledPromise().should.be.fulfilled.and.notify(done)
 
-    describe "On a promise fulfilled with the number 42", ->
+    describe "On a promise fulfilled with the number 42:", ->
         beforeEach ->
             promise = fulfilledPromise(42)
 
@@ -74,7 +74,7 @@
         describe ".not.become(52)", ->
             shouldPass -> promise.should.not.become(52)
 
-    describe "On a promise fulfilled with { foo: 'bar' }", ->
+    describe "On a promise fulfilled with { foo: 'bar' }:", ->
         beforeEach ->
             promise = fulfilledPromise(foo: "bar")
 
