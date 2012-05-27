@@ -2,28 +2,49 @@
     promise = null
 
     describe "Direct tests of fulfilled promises:", ->
-        it ".eventually.equal(42)", (done) ->
-            fulfilledPromise(42).should.eventually.equal(42).notify(done)
-        it ".eventually.be.arguments", (done) ->
-            fulfilledPromise(arguments).should.eventually.be.arguments.notify(done)
-        it ".eventually.be.empty", (done) ->
-            fulfilledPromise([]).should.eventually.be.empty.notify(done)
-        it ".eventually.exist", (done) ->
-            fulfilledPromise(true).should.eventually.exist.notify(done)
-        it ".eventually.be.false", (done) ->
-            fulfilledPromise(false).should.eventually.be.false.notify(done)
-        it ".eventually.be.ok", (done) ->
-            fulfilledPromise({}).should.eventually.be.ok.notify(done)
-        it ".eventually.be.true", (done) ->
-            fulfilledPromise(true).should.eventually.be.true.notify(done)
-        it ".eventually.deep.equal({ foo: 'bar' })", (done) ->
-            fulfilledPromise(foo: "bar").should.eventually.deep.equal(foo: "bar").notify(done)
-        it ".eventually.have.deep.property('foo.bar')", (done) ->
-            fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
-        it ".eventually.contain.keys('foo')", (done) ->
-            fulfilledPromise(foo: "bar", baz: "quux").should.eventually.contain.keys("foo").notify(done)
-        it ".become(true)", (done) ->
-            fulfilledPromise(true).should.become(true).notify(done)
+        describe "Basics:", ->
+            it ".eventually.equal(42)", (done) ->
+                fulfilledPromise(42).should.eventually.equal(42).notify(done)
+            it ".eventually.be.arguments", (done) ->
+                fulfilledPromise(arguments).should.eventually.be.arguments.notify(done)
+            it ".eventually.be.empty", (done) ->
+                fulfilledPromise([]).should.eventually.be.empty.notify(done)
+            it ".eventually.exist", (done) ->
+                fulfilledPromise(true).should.eventually.exist.notify(done)
+            it ".eventually.be.false", (done) ->
+                fulfilledPromise(false).should.eventually.be.false.notify(done)
+            it ".eventually.be.ok", (done) ->
+                fulfilledPromise({}).should.eventually.be.ok.notify(done)
+            it ".eventually.be.true", (done) ->
+                fulfilledPromise(true).should.eventually.be.true.notify(done)
+            it ".become(true)", (done) ->
+                fulfilledPromise(true).should.become(true).notify(done)
+
+        describe "With flags and chainable methods involved:", ->
+            it ".not.eventually.be.ok", (done) ->
+                fulfilledPromise(false).should.not.eventually.be.ok.notify(done)
+            it ".eventually.not.be.ok", (done) ->
+                fulfilledPromise(false).should.eventually.not.be.ok.notify(done)
+            it ".not.eventually.deep.equal({ foo: 'bar' })", (done) ->
+                fulfilledPromise(foo: "baz").should.not.eventually.deep.equal(foo: "bar").notify(done)
+            it ".eventually.deep.equal({ foo: 'bar' })", (done) ->
+                fulfilledPromise(foo: "bar").should.eventually.deep.equal(foo: "bar").notify(done)
+            it ".eventually.have.deep.property('foo.bar')", (done) ->
+                fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
+            it ".eventually.contain('foo')", (done) ->
+                fulfilledPromise(["foo", "bar"]).should.eventually.contain("foo").notify(done)
+            it ".not.eventually.contain('foo')", (done) ->
+                fulfilledPromise(["bar", "baz"]).should.not.eventually.contain("foo").notify(done)
+            it ".eventually.not.contain('foo')", (done) ->
+                fulfilledPromise(["bar", "baz"]).should.eventually.not.contain("foo").notify(done)
+            it ".eventually.contain.keys('foo')", (done) ->
+                fulfilledPromise(foo: "bar", baz: "quux").should.eventually.contain.keys("foo").notify(done)
+            it ".not.eventually.contain.keys('foo')", (done) ->
+                fulfilledPromise(baz: "quux").should.not.eventually.contain.keys("foo").notify(done)
+            it ".eventually.not.contain.keys('foo')", (done) ->
+                fulfilledPromise(baz: "quux").should.eventually.not.contain.keys("foo").notify(done)
+            it ".eventually.be.an.instanceOf(Array)", (done) ->
+                fulfilledPromise([]).should.eventually.be.an.instanceOf(Array).notify(done)
 
     describe "Chaining:", ->
         it ".eventually.be.ok.and.equal(42)", (done) ->
