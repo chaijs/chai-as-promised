@@ -33,7 +33,7 @@
     "devDependencies": {
         "coffee-script": "1",
         "mocha": "1",
-        "chai": ">= 1.0.1",
+        "chai": ">= 1.0.2",
         "cover": "*",
         "jshint": "*",
         "q": "*",
