@@ -6,7 +6,7 @@
         "testing",
         "promises"
     ],
-    "version": "3.2.0",
+    "version": "3.2.1",
     "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
     "license": "WTFPL",
     "repository": {
