@@ -5,4 +5,7 @@
 /.coverage_debug/
 /cover_html/
 
-/test/browser/output.html
+/test
+/.coverignore
+/.jshintrc
+/.npmignore
