@@ -25,7 +25,7 @@
         "test-browser-when": "coffee ./test/browser/runner when",
         "test": "mocha",
         "lint": "jshint ./lib --show-non-errors",
-        "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && start ./cover_html/index.html"
+        "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && opener ./cover_html/index.html"
     },
     "engines": {
         "node": "*"
@@ -37,6 +37,7 @@
         "chai": ">= 1.0.3",
         "cover": "*",
         "jshint": "*",
+        "opener": "*",
         "q": "*",
         "glob": "*",
         "ecstatic": "*",
