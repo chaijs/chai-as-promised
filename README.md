@@ -119,9 +119,9 @@ return promise.then(null, null, progressSpy).then(function () {
 
 ### Working with Non-Promise–Friendly Test Runners
 
-As mentioned, many test runners (\*cough\* [mocha][mocha-makes-me-sad] \*cough\*) don't support the nice `return` style
-shown above. Instead, they take a callback indicating when the asynchronous test run is over. Chai as Promised adapts to
-this situation with the `notify` method, like so:
+As mentioned, many test runners (\*cough\* [Mocha][mocha-makes-me-sad] \*cough\* … but see [Mocha as Promised][]!)
+don't support the nice `return` style shown above. Instead, they take a callback indicating when the asynchronous test
+run is over. Chai as Promised adapts to this situation with the `notify` method, like so:
 
 ```javascript
 it("should be fulfilled", function (done) {
@@ -170,7 +170,7 @@ This will pass any failures of the individual promise assertions up to the test 
 an `"expected promise to be fulfilled…"` message as would happen if you did
 `Q.all([…]).should.be.fulfilled.and.notify(done)`.
 
-## Installation and Usage
+## Installation and Setup
 
 ### Node
 
@@ -216,6 +216,7 @@ automatically plug in to Chai and be ready for use:
 [chai]: http://chaijs.com/
 [mocha]: http://visionmedia.github.com/mocha/
 [mocha-makes-me-sad]: https://github.com/visionmedia/mocha/pull/329
+[Mocha as Promised]: https://github.com/domenic/mocha-as-promised
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
