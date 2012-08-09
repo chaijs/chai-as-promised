@@ -11,7 +11,7 @@
     "license": "WTFPL",
     "repository": {
         "type": "git",
-        "url": "https://github.com/domenic/chai-as-promised"
+        "url": "git://github.com/domenic/chai-as-promised.git"
     },
     "bugs": {
         "url": "http://github.com/domenic/chai-as-promised/issues"
@@ -21,26 +21,22 @@
     },
     "main": "./lib/chai-as-promised.js",
     "scripts": {
+        "test": "mocha",
         "test-browser-q": "coffee ./test/browser/runner q",
         "test-browser-when": "coffee ./test/browser/runner when",
-        "test": "mocha",
         "lint": "jshint ./lib --show-non-errors",
         "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && opener ./cover_html/index.html"
     },
-    "engines": {
-        "node": "*"
-    },
-    "dependencies": {},
     "devDependencies": {
-        "coffee-script": "1",
-        "mocha": "1",
         "chai": ">= 1.0.3",
+        "coffee-script": "1",
         "cover": "*",
+        "ecstatic": "*",
+        "glob": "*",
         "jshint": "*",
+        "mocha": "1",
         "opener": "*",
         "q": "*",
-        "glob": "*",
-        "ecstatic": "*",
         "underscore": "*"
     }
 }
