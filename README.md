@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/domenic/chai-as-promised.png)](http://travis-ci.org/domenic/chai-as-promised)
 Chai Assertions for Working with Promises
 =========================================
 
