@@ -105,6 +105,14 @@
             shouldFail -> promise.should.eventually.equal(foo: "bar")
         describe ".eventually.eql({ foo: 'bar' })", ->
             shouldPass -> promise.should.eventually.eql(foo: "bar")
+        describe ".eventually.deep.equal({ foo: 'bar' })", ->
+            shouldPass -> promise.should.eventually.deep.equal(foo: "bar")
+        describe ".eventually.not.deep.equal({ foo: 'bar' })", ->
+            shouldFail -> promise.should.eventually.not.deep.equal(foo: "bar")
+        describe ".eventually.deep.equal({ baz: 'quux' })", ->
+            shouldFail -> promise.should.eventually.deep.equal(baz: "quux")
+        describe ".eventually.not.deep.equal({ baz: 'quux' })", ->
+            shouldPass -> promise.should.eventually.not.deep.equal(baz: "quux")
         describe ".become({ foo: 'bar' })", ->
             shouldPass -> promise.should.become(foo: "bar")
         describe ".not.become({ foo: 'bar' })", ->
