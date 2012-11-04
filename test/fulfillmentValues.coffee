@@ -25,10 +25,12 @@
                 fulfilledPromise(false).should.not.eventually.be.ok.notify(done)
             it ".eventually.not.be.ok", (done) ->
                 fulfilledPromise(false).should.eventually.not.be.ok.notify(done)
-            it ".not.eventually.deep.equal({ foo: 'bar' })", (done) ->
-                fulfilledPromise(foo: "baz").should.not.eventually.deep.equal(foo: "bar").notify(done)
             it ".eventually.deep.equal({ foo: 'bar' })", (done) ->
                 fulfilledPromise(foo: "bar").should.eventually.deep.equal(foo: "bar").notify(done)
+            it ".not.eventually.deep.equal({ foo: 'bar' })", (done) ->
+                fulfilledPromise(foo: "baz").should.not.eventually.deep.equal(foo: "bar").notify(done)
+            it ".eventually.not.deep.equal({ foo: 'bar' })", (done) ->
+                fulfilledPromise(foo: "baz").should.eventually.not.deep.equal(foo: "bar").notify(done)
             it ".eventually.have.deep.property('foo.bar')", (done) ->
                 fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
             it ".eventually.contain('foo')", (done) ->
