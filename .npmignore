@@ -9,3 +9,4 @@
 /.coverignore
 /.jshintrc
 /.npmignore
+/.travis.yml
