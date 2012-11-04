@@ -1,10 +1,10 @@
 _ = require("underscore")
-childProcess = require("child_process")
 ecstatic = require("ecstatic")
 fs = require("fs")
 glob = require("glob")
 http = require("http")
 path = require("path")
+opener = require("opener")
 
 libraryName = process.argv[2]
 library = require("./libraries/#{ libraryName }")
@@ -23,4 +23,4 @@ relativePath = path.relative(rootPath, htmlPath).replace("\\", "/")
 
 http.createServer(ecstatic(rootPath, cache: false)).listen(9835)
 
-childProcess.exec("start http://localhost:9835/" + relativePath)
+opener("http://localhost:9835/" + relativePath)
