@@ -1,5 +1,9 @@
-Chai Assertions for Working with Promises
-=========================================
+<a href="http://promises-aplus.github.com/promises-spec">
+    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png"
+         align="right" valign="top" alt="Promises/A+ logo" />
+</a>
+
+# Chai Assertions for Working with Promises
 
 **Chai as Promised** extends [Chai][chai] with a fluent language for asserting facts about [promises][presentation].
 
@@ -170,6 +174,12 @@ This will pass any failures of the individual promise assertions up to the test 
 an `"expected promise to be fulfilled…"` message as would happen if you did
 `Q.all([…]).should.be.fulfilled.and.notify(done)`.
 
+### Compatibility
+
+Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec]. Notably, jQuery's
+so-called “promises” are not up to spec, and Chai as Promised will not work with them. In particular, Chai as Promised
+makes extensive use of the standard [transformation behavior][] of `then`, which jQuery does not support.
+
 ## Installation and Setup
 
 ### Node
@@ -218,6 +228,8 @@ automatically plug in to Chai and be ready for use:
 [mocha-makes-me-sad]: https://github.com/visionmedia/mocha/pull/329
 [Mocha as Promised]: https://github.com/domenic/mocha-as-promised
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
+[spec]: http://promises-aplus.github.com/promises-spec/
+[transformation behavior]: https://gist.github.com/3889970#that-second-paragraph
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [sinon]: http://sinonjs.org/
