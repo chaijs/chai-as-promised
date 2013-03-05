@@ -32,6 +32,21 @@ describe "Assert interface with eventually extender:", ->
             shouldPass -> assert.eventually.equal(promise, 42)
         describe ".eventually.equal(promise, 52)", ->
             shouldFail -> assert.eventually.equal(promise, 52)
+            shouldFailWithCorrectActual = (promiseProducer) ->
+                it 'should return a promise rejected with an assertion error with assert property set', (done) ->
+                    expect(promiseProducer().then(
+                        ->
+                            throw new Error('promise resolved')
+                        (e) ->
+                            e.actual.should.equal(42)
+                            e.expected.should.equal(52)
+                    )).to.be.fulfilled.notify(done)
+            context "assert", ->
+                shouldFailWithCorrectActual -> assert.eventually.equal(promise, 52)
+            context "expect", ->
+                shouldFailWithCorrectActual -> expect(promise).to.eventually.equal(52)
+            context "should", ->
+                shouldFailWithCorrectActual -> promise.should.eventually.equal(52)
         describe ".eventually.notEqual(promise, 42)", ->
             shouldFail -> assert.eventually.notEqual(promise, 42)
         describe ".eventually.notEqual(promise, 52)", ->
