@@ -1,6 +1,6 @@
 exports.name = "Q"
 
-exports.uri = "https://raw.github.com/kriskowal/q/master/q.js"
+exports.uri = "https://rawgithub.com/kriskowal/q/master/q.js"
 
 exports.adapter = """
     global.fulfilledPromise = Q.resolve;
