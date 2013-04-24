@@ -119,3 +119,6 @@ describe "Fulfillment value assertions:", ->
             shouldPass -> promise.should.become(foo: "bar")
         describe ".not.become({ foo: 'bar' })", ->
             shouldFail -> promise.should.not.become(foo: "bar")
+
+        describe ".eventually.have.property('foo').that.equals('bar')", ->
+            shouldPass -> promise.should.eventually.have.property('foo').that.equals('bar')
