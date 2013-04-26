@@ -4,7 +4,10 @@
     "keywords": [
         "chai",
         "testing",
-        "promises"
+        "assertions",
+        "promises",
+        "Promises/A+",
+        "promises-a-plus"
     ],
     "version": "3.2.5",
     "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
@@ -13,12 +16,7 @@
         "type": "git",
         "url": "git://github.com/domenic/chai-as-promised.git"
     },
-    "bugs": {
-        "url": "http://github.com/domenic/chai-as-promised/issues"
-    },
-    "directories": {
-        "lib": "./lib"
-    },
+    "bugs": "http://github.com/domenic/chai-as-promised/issues",
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
