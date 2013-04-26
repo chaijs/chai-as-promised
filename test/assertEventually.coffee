@@ -1,3 +1,5 @@
+"use strict"
+
 describe "Assert interface with eventually extender:", ->
     promise = null
 

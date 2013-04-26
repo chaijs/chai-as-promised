@@ -1,3 +1,5 @@
+"use strict"
+
 exports.name = "when.js"
 
 exports.uri = "https://rawgithub.com/cujojs/when/master/when.js"

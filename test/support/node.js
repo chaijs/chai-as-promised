@@ -1,3 +1,5 @@
+"use strict";
+
 var chai = require("chai");
 var chaiAsPromised = require("../..");
 var Q = require("q");

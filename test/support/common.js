@@ -1,3 +1,5 @@
+"use strict";
+
 global.shouldPass = function (promiseProducer) {
     it("should return a fulfilled promise", function (done) {
         expect(promiseProducer()).to.be.fulfilled.notify(done);

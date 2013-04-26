@@ -1,3 +1,5 @@
+"use strict"
+
 _ = require("underscore")
 ecstatic = require("ecstatic")
 fs = require("fs")

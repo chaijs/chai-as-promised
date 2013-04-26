@@ -1,3 +1,5 @@
+"use strict"
+
 describe "Promise-specific extensions:", ->
     promise = null
     error = new Error("boo")

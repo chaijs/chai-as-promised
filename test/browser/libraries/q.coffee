@@ -1,3 +1,5 @@
+"use strict"
+
 exports.name = "Q"
 
 exports.uri = "https://rawgithub.com/kriskowal/q/master/q.js"

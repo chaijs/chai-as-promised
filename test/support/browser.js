@@ -1,3 +1,5 @@
+"use strict";
+
 chai.should();
 
 global.expect = chai.expect;

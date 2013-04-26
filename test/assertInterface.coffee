@@ -1,3 +1,5 @@
+"use strict"
+
 describe "Assert interface:", ->
     promise = null
     error = new Error("boo")

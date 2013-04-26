@@ -1,4 +1,6 @@
-﻿describe "Fulfillment value assertions:", ->
+﻿"use strict"
+
+describe "Fulfillment value assertions:", ->
     promise = null
 
     describe "Direct tests of fulfilled promises:", ->
