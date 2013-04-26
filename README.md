@@ -54,22 +54,14 @@ expect({ foo: "bar" }).to.have.property("foo");
 return expect(promiseFor({ foo: "bar" })).to.eventually.have.property("foo");
 ```
 
-There are also a few promise-specific extensions, grouped here as synonymic blocks (with the usual `expect`
-equivalents):
+There are also a few promise-specific extensions (with the usual `expect` equivalents also available):
 
 ```javascript
 return promise.should.be.fulfilled;
-
-return promise.should.eventually.eql("foo");
-return promise.should.become("foo");
-
+return promise.should.eventually.deep.equal("foo");
+return promise.should.become("foo"); // same as `.eventually.deep.equal`
 return promise.should.be.rejected;
-return promise.should.be.broken;
-
-return promise.should.be.rejected.with(Error);
-return promise.should.be.broken.with(Error);
-
-// Note: other variants of Chai's existing `throw` assertion work too.
+return promise.should.be.rejected.with(Error); // other variants of Chai's `throw` assertion work too.
 ```
 
 ### `assert` Interface
@@ -96,13 +88,8 @@ return assert.eventually.notDeepEqual(promise, "foo", "optional message");
 return assert.doesNotBecome(promise, "foo", "optional message");
 
 return assert.isRejected(promise, "optional message");
-return assert.isBroken(promise, "optional message");
-
 return assert.isRejected(promise, Error, "optional message");
-return assert.isBroken(promise, Error, "optional message");
-
 return assert.isRejected(promise, /error message matcher/, "optional message");
-return assert.isBroken(promise, /error message matcher/, "optional message");
 ```
 
 ### Progress Callbacks
