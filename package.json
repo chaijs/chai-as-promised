@@ -16,7 +16,7 @@
         "type": "git",
         "url": "git://github.com/domenic/chai-as-promised.git"
     },
-    "bugs": "http://github.com/domenic/chai-as-promised/issues",
+    "bugs": "https://github.com/domenic/chai-as-promised/issues",
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
