@@ -3,7 +3,7 @@
          align="right" valign="top" alt="Promises/A+ logo" />
 </a>
 
-# Chai Assertions for Working with Promises
+# Chai Assertions for Promises
 
 **Chai as Promised** extends [Chai][chai] with a fluent language for asserting facts about [promises][presentation].
 
@@ -61,7 +61,7 @@ return promise.should.be.fulfilled;
 return promise.should.eventually.deep.equal("foo");
 return promise.should.become("foo"); // same as `.eventually.deep.equal`
 return promise.should.be.rejected;
-return promise.should.be.rejected.with(Error); // other variants of Chai's `throw` assertion work too.
+return promise.should.be.rejectedWith(Error); // other variants of Chai's `throw` assertion work too.
 ```
 
 ### `assert` Interface
@@ -81,10 +81,7 @@ And there are, of course, promise-specific extensions:
 ```javascript
 return assert.isFulfilled(promise, "optional message");
 
-return assert.eventually.deepEqual(promise, "foo", "optional message");
 return assert.becomes(promise, "foo", "optional message");
-
-return assert.eventually.notDeepEqual(promise, "foo", "optional message");
 return assert.doesNotBecome(promise, "foo", "optional message");
 
 return assert.isRejected(promise, "optional message");
@@ -152,7 +149,7 @@ it("should all be well", function (done) {
     Q.all([
         promiseA.should.become("happy"),
         promiseB.should.eventually.have.property("fun times"),
-        promiseC.should.be.rejected.with(TypeError, "only joyful types are allowed")
+        promiseC.should.be.rejectedWith(TypeError, "only joyful types are allowed")
     ]).should.notify(done);
 });
 ```
