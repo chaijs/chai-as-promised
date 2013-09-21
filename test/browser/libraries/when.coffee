@@ -24,4 +24,5 @@ exports.adapter = """
         deferred.reject(reason);
         return deferred.promise;
     };
+    global.defer = when.defer;
 """

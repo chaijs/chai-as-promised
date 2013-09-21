@@ -14,3 +14,4 @@ global.assert = chai.assert;
 
 global.fulfilledPromise = Q.resolve;
 global.rejectedPromise = Q.reject;
+global.defer = Q.defer;

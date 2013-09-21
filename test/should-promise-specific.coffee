@@ -281,3 +281,13 @@ describe "Promise-specific extensions:", =>
             shouldPass => rejectedPromise(42).should.be.rejected.and.eventually.equal(42)
         describe ".rejected.and.become(42)", =>
             shouldPass => rejectedPromise(42).should.be.rejected.and.become(42)
+
+    describe "With promises that only become rejected later (GH-24)", =>
+        it "should wait for them", (done) =>
+            deferred = defer()
+            deferred.promise.should.be.rejectedWith("error message").and.notify(done)
+
+            setTimeout(
+                => deferred.reject(new Error("error message"))
+                100
+            )

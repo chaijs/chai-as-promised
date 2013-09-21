@@ -7,4 +7,5 @@ exports.uri = "https://rawgithub.com/kriskowal/q/master/q.js"
 exports.adapter = """
     global.fulfilledPromise = Q.resolve;
     global.rejectedPromise = Q.reject;
+    global.defer = Q.defer;
 """
