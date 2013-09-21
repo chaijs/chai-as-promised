@@ -291,3 +291,6 @@ describe "Promise-specific extensions:", =>
                 => deferred.reject(new Error("error message"))
                 100
             )
+
+    describe "`rejectedWith` with non-`Error` rejection reasons (GH-33)", =>
+        shouldPass => rejectedPromise(42).should.be.rejectedWith(42)
