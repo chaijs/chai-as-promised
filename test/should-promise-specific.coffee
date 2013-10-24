@@ -296,7 +296,7 @@ describe "Promise-specific extensions:", =>
         shouldPass => rejectedPromise(42).should.be.rejectedWith(42)
 
     if process.env.ENRICH_WITH in ["Q", "CUSTOM"]
-      describe.only "Using Q promise with ENRICH_WITH=" + process.env.ENRICH_WITH, =>
+      describe "Using Q promise with ENRICH_WITH=" + process.env.ENRICH_WITH, =>
         it "fin and done methods should work", (done) =>
           Q = require "q"
           promise = Q("1234");
