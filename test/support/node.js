@@ -15,6 +15,7 @@ if (process.env.ENRICH_WITH === "CUSTOM") {
     chai.enrichPromiseWith(function (that, derivedPromise) {
         chai.promiseEnrichers.then(that, derivedPromise);
         that.done = derivedPromise.done.bind(derivedPromise);
+        that.fin = derivedPromise.fin.bind(derivedPromise);
     });
 }
 
