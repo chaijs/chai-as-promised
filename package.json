@@ -18,7 +18,7 @@
     "bugs": "https://github.com/domenic/chai-as-promised/issues",
     "main": "./lib/chai-as-promised.js",
     "scripts": {
-        "test": "mocha",
+        "test": "mocha && ENRICH_WITH=Q mocha && ENRICH_WITH=CUSTOM mocha",
         "test-browser-q": "coffee ./test/browser/runner.coffee q",
         "test-browser-when": "coffee ./test/browser/runner.coffee when",
         "lint": "jshint ./lib",
