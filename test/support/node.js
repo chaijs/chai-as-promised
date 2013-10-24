@@ -13,7 +13,7 @@ if (process.env.ENRICH_WITH === "Q") {
 
 if (process.env.ENRICH_WITH === "CUSTOM") {
     chai.enrichPromiseWith(function (that, derivedPromise) {
-        chai.promiseEnricher.then(that, derivedPromise);
+        chai.promiseEnrichers.then(that, derivedPromise);
         that.done = derivedPromise.done.bind(derivedPromise);
     });
 }
