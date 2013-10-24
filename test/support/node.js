@@ -7,6 +7,17 @@ var Q = require("q");
 chai.should();
 chai.use(chaiAsPromised);
 
+if (process.env.ENRICH_WITH === "Q") {
+    chai.enrichPromiseWith("Q");
+}
+
+if (process.env.ENRICH_WITH === "CUSTOM") {
+    chai.enrichPromiseWith(function (that, derivedPromise) {
+        chai.promiseEnricher.then(that, derivedPromise);
+        that.done = derivedPromise.done.bind(derivedPromise);
+    });
+}
+
 global.expect = chai.expect;
 global.AssertionError = chai.AssertionError;
 global.Assertion = chai.Assertion;
