@@ -7,11 +7,11 @@ var Q = require("q");
 chai.should();
 chai.use(chaiAsPromised);
 
-if (process.env.ENRICH_WITH === "Q") {
+if (process.env.PROMISIFY_WITH === "Q") {
     chai.promisifyWith("Q");
 }
 
-if (process.env.ENRICH_WITH === "CUSTOM") {
+if (process.env.PROMISIFY_WITH === "CUSTOM") {
     chai.promisifyWith(function (that, derivedPromise) {
         chai.promisifyMethods.default(that, derivedPromise);
         that.done = derivedPromise.done.bind(derivedPromise);
