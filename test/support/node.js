@@ -8,12 +8,12 @@ chai.should();
 chai.use(chaiAsPromised);
 
 if (process.env.ENRICH_WITH === "Q") {
-    chai.enrichPromiseWith("Q");
+    chai.promisifyWith("Q");
 }
 
 if (process.env.ENRICH_WITH === "CUSTOM") {
-    chai.enrichPromiseWith(function (that, derivedPromise) {
-        chai.promiseEnrichers.then(that, derivedPromise);
+    chai.promisifyWith(function (that, derivedPromise) {
+        chai.promisifyMethods.default(that, derivedPromise);
         that.done = derivedPromise.done.bind(derivedPromise);
         that.fin = derivedPromise.fin.bind(derivedPromise);
     });
