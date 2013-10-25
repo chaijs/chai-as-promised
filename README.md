@@ -170,7 +170,7 @@ By default chai-as-promised are regular chai object extended with a single `then
 method. To change this behaviour, for instance to output promise more in line 
 with Q promise, use the `chai.promisifyWith`.
 
-#### Q style output
+#### Q style
 
 All the methods from the Q api will be available, except for `keys`, 
 renamed to `qKeys`.
@@ -181,7 +181,7 @@ var chaiAsPromised = require("chai-as-promised");
 chai.promisifyWith("Q");
 ```  
 
-#### Custom promisify method:
+#### Custom method
 
 ```js
 var chai = require("chai");
