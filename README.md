@@ -166,11 +166,14 @@ makes extensive use of the standard [transformation behavior][] of `then`, which
 
 ### Customizing output promises
 
-By default chai-as-promised output promise is a simple promise with only a `then` 
+By default chai-as-promised are regular chai object extended with a single `then` 
 method. To change this behaviour, for instance to output promise more in line 
 with Q promise, use the `chai.promisifyWith`.
 
-To use Q style output:
+#### Q style output
+
+All the methods from the Q api will be available, except for `keys`, 
+renamed to `qKeys`.
 
 ```js
 var chai = require("chai");
@@ -178,7 +181,7 @@ var chaiAsPromised = require("chai-as-promised");
 chai.promisifyWith("Q");
 ```  
 
-To use custom promisify method:
+#### Custom promisify method:
 
 ```js
 var chai = require("chai");
