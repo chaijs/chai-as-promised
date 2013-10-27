@@ -2,7 +2,7 @@
 
 exports.name = "Q"
 
-exports.uri = "https://rawgithub.com/kriskowal/q/master/q.js"
+exports.uri = "https://s3-us-west-1.amazonaws.com/q-releases/q.js"
 
 exports.adapter = """
     global.fulfilledPromise = Q.resolve;
