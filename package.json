@@ -19,7 +19,6 @@
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
-        "test-promisify-with": "PROMISIFY_WITH=Q mocha && PROMISIFY_WITH=CUSTOM mocha",
         "test-browser-q": "coffee ./test/browser/runner.coffee q",
         "test-browser-when": "coffee ./test/browser/runner.coffee when",
         "lint": "jshint ./lib",
