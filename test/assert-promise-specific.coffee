@@ -108,3 +108,13 @@ describe "Assert interface:", =>
             shouldFail
                 op: => assert.isRejected(fulfilledPromise(), /regexp/, message)
                 message: message
+
+        describe "should be passed through for .becomes(promise, incorrectValue, message)", =>
+            shouldFail
+                op: => assert.becomes(fulfilledPromise(baz: "quux"), foo: "bar", message)
+                message: message
+
+        describe "should be passed through for .doesNotBecome(promise, incorrectValue, message)", =>
+            shouldFail
+                op: => assert.doesNotBecome(fulfilledPromise(foo: "bar"), foo: "bar", message)
+                message: message
