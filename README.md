@@ -24,14 +24,14 @@ doSomethingAsync().then(
 you can write code that expresses what you really mean:
 
 ```javascript
-doSomethingAsync().should.eventually.equal("foo").notify(done);
+return doSomethingAsync().should.eventually.equal("foo");
 ```
 
-or if you have a testing framework that follows the [UncommonJS specification][uncommonjs] for handling promises,
-simply
+or if you have a testing framework that doesn't allow returning promises to signal asynchronous test completion, then
+you can use the following workaround:
 
 ```javascript
-return doSomethingAsync().should.eventually.equal("foo");
+doSomethingAsync().should.eventually.equal("foo").notify(done);
 ```
 
 ## How to Use
@@ -107,9 +107,11 @@ return promise.then(null, null, progressSpy).then(function () {
 
 ### Working with Non-Promise–Friendly Test Runners
 
-As mentioned, many test runners (\*cough\* [Mocha][mocha-makes-me-sad] \*cough\* … but see [Mocha as Promised][]!)
-don't support the nice `return` style shown above. Instead, they take a callback indicating when the asynchronous test
-run is over. Chai as Promised adapts to this situation with the `notify` method, like so:
+Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal
+asynchronous test completion. If possible, I'd recommend switching to ones that do, such as [Mocha][mocha-promises],
+[Buster][buster-promises], or [blue-tape][]. But if that's not an option, Chai as Promised still has you covered. As
+long as your test framework takes a callback indicating when the asynchronous test run is over, Chai as Promised can
+adapt to that situation with its `notify` method, like so:
 
 ```javascript
 it("should be fulfilled", function (done) {
@@ -192,7 +194,7 @@ var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 ```
 
-You can of course put this code in a common test fixture file; for an example using [Mocha][mocha], see
+You can of course put this code in a common test fixture file; for an example using [Mocha][], see
 [the Chai as Promised tests themselves][fixturedemo].
 
 ### AMD
@@ -223,12 +225,12 @@ automatically plug in to Chai and be ready for use:
 
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
-[mocha]: http://visionmedia.github.com/mocha/
-[mocha-makes-me-sad]: https://github.com/visionmedia/mocha/pull/329
-[Mocha as Promised]: https://github.com/domenic/mocha-as-promised
-[uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
+[Mocha-promises]: http://visionmedia.github.io/mocha/#asynchronous-code
+[Buster-promises]: http://docs.busterjs.org/en/latest/modules/buster-test/spec/#returning-a-promise
+[blue-tape]: https://github.com/spion/blue-tape
 [spec]: http://promisesaplus.com/
 [transformation behavior]: http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/#toc_2
+[Mocha]: http://visionmedia.github.com/mocha/
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [sinon]: http://sinonjs.org/
