@@ -1,5 +1,5 @@
-<a href="http://promises-aplus.github.com/promises-spec">
-    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png"
+<a href="http://promisesaplus.com/">
+    <img src="https://promises-aplus.github.io/promises-spec/assets/logo-small.png"
          align="right" valign="top" alt="Promises/A+ logo" />
 </a>
 
