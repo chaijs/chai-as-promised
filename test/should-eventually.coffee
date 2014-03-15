@@ -84,28 +84,33 @@ describe "Fulfillment value assertions:", =>
                 op: => promise.should.eventually.be.an("object")
                 message: "to be an object"
 
-
-        ###
         describe ".eventually.not.equal(52)", =>
             shouldPass => promise.should.eventually.not.equal(52)
         describe ".not.eventually.equal(52)", =>
             shouldPass => promise.should.not.eventually.equal(52)
 
         describe ".eventually.not.equal(42)", =>
-            shouldFail => promise.should.eventually.not.equal(42)
+            shouldFail
+                op: => promise.should.eventually.not.equal(42)
+                message: "not equal 42"
         describe ".not.eventually.equal(42)", =>
-            shouldFail => promise.should.not.eventually.equal(42)
+            shouldFail
+                op: => promise.should.not.eventually.equal(42)
+                message: "not equal 42"
 
         describe ".become(42)", =>
             shouldPass => promise.should.become(42)
         describe ".become(52)", =>
-            shouldFail => promise.should.become(52)
+            shouldFail
+                op: => promise.should.become(52)
+                message: "deeply equal 52"
 
         describe ".not.become(42)", =>
-            shouldFail => promise.should.not.become(42)
+            shouldFail
+                op: => promise.should.not.become(42)
+                message: "not deeply equal 42"
         describe ".not.become(52)", =>
             shouldPass => promise.should.not.become(52)
-        ###
 
     describe "On a promise fulfilled with { foo: 'bar' }:", =>
         beforeEach =>
