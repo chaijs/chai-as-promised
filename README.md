@@ -105,6 +105,27 @@ return promise.then(null, null, progressSpy).then(function () {
 });
 ```
 
+### Customizing Output Promises
+
+By default, the promises returned by Chai as Promised's assertions are regular Chai assertion objects, extended with
+a single `then` method derived from the input promise. To change this behavior, for instance to output a promise with
+more useful sugar methods such as are found in most promise libraries, you can override
+`chaiAsPromised.transferPromiseness`. Here's an example that transfer's Q's `finally` and `done` methods:
+
+```js
+chaiAsPromised.transferPromiseness = function (assertion, promise) {
+    assertion.then = promise.then.bind(promise); // this is all you get by default
+    assertion.finally = promise.finally.bind(promise);
+    assertion.done = promise.done.bind(promise);
+};
+```
+
+### Compatibility
+
+Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec]. Notably, jQuery's
+so-called “promises” are not up to spec, and Chai as Promised will not work with them. In particular, Chai as Promised
+makes extensive use of the standard [transformation behavior][] of `then`, which jQuery does not support.
+
 ### Working with Non-Promise–Friendly Test Runners
 
 Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal
@@ -159,27 +180,6 @@ it("should all be well", function (done) {
 This will pass any failures of the individual promise assertions up to the test framework, instead of wrapping them in
 an `"expected promise to be fulfilled…"` message as would happen if you did
 `Q.all([…]).should.be.fulfilled.and.notify(done)`.
-
-### Customizing Output Promises
-
-By default, the promises returned by Chai as Promised's assertions are regular Chai assertion objects, extended with
-a single `then` method derived from the input promise. To change this behavior, for instance to output a promise with
-more useful sugar methods such as are found in most promise libraries, you can override
-`chaiAsPromised.transferPromiseness`. Here's an example that transfer's Q's `finally` and `done` methods:
-
-```js
-chaiAsPromised.transferPromiseness = function (assertion, promise) {
-    assertion.then = promise.then.bind(promise); // this is all you get by default
-    assertion.finally = promise.finally.bind(promise);
-    assertion.done = promise.done.bind(promise);
-};
-```
-
-### Compatibility
-
-Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec]. Notably, jQuery's
-so-called “promises” are not up to spec, and Chai as Promised will not work with them. In particular, Chai as Promised
-makes extensive use of the standard [transformation behavior][] of `then`, which jQuery does not support.
 
 ## Installation and Setup
 
