@@ -227,8 +227,8 @@ automatically plug in to Chai and be ready for use:
 [mocha-makes-me-sad]: https://github.com/visionmedia/mocha/pull/329
 [Mocha as Promised]: https://github.com/domenic/mocha-as-promised
 [uncommonjs]: http://kriskowal.github.com/uncommonjs/tests/specification
-[spec]: http://promises-aplus.github.com/promises-spec/
-[transformation behavior]: https://gist.github.com/3889970#that-second-paragraph
+[spec]: http://promisesaplus.com/
+[transformation behavior]: http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/#toc_2
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [sinon]: http://sinonjs.org/
