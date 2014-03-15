@@ -22,7 +22,7 @@
         "test-browser-q": "coffee ./test/browser/runner.coffee q",
         "test-browser-when": "coffee ./test/browser/runner.coffee when",
         "lint": "jshint ./lib",
-        "cover": "cover run node_modules/mocha/bin/_mocha && cover report html && opener ./cover_html/index.html"
+        "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
     },
     "peerDependencies": {
         "chai": ">= 1.7.0 < 2"
@@ -30,7 +30,7 @@
     "devDependencies": {
         "chai": "~1.9.0",
         "coffee-script": "~1.7.1",
-        "cover": "~0.2.9",
+        "istanbul": "~0.2.6",
         "ecstatic": "~0.4.13",
         "glob": "~3.2.9",
         "jshint": "~2.4.4",
