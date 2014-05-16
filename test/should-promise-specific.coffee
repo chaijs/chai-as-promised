@@ -12,11 +12,19 @@ describe "Promise-specific extensions:", =>
                 return done(assertionError)
 
             done()
+            
+    describe "when an object is thenable", =>
+        beforeEach =>
+            promise = then: ->
+        
+        describe ".promise", =>
+            it "should pass", =>
+                promise.should.be.promise
 
     describe "when the promise is fulfilled", =>
         beforeEach =>
             promise = fulfilledPromise()
-
+        
         describe ".fulfilled", =>
             shouldPass => promise.should.be.fulfilled
         describe ".not.fulfilled", =>
@@ -268,7 +276,9 @@ describe "Promise-specific extensions:", =>
                 expect(=> number.should.eventually.equal(5)).to.throw(TypeError, "not a thenable")
             it "should fail for .notify", =>
                 expect(=> number.should.notify(=>)).to.throw(TypeError, "not a thenable")
-
+            it "should fail for .promise", =>
+                expect(=> number.should.be.promise).to.throw(AssertionError, "expected 5 to be a promise");
+                
     describe "Using together with other Chai as Promised asserters", =>
         describe ".fulfilled.and.eventually.equal(42)", =>
             shouldPass => fulfilledPromise(42).should.be.fulfilled.and.eventually.equal(42)
