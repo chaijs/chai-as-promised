@@ -126,6 +126,10 @@ Chai as Promised is compatible with all promises following the [Promises/A+ spec
 so-called “promises” are not up to spec, and Chai as Promised will not work with them. In particular, Chai as Promised
 makes extensive use of the standard [transformation behavior][] of `then`, which jQuery does not support.
 
+Chai as Promised is written for modern browsers and depends on the ECMAScript 5 
+[bind function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind). 
+This method should be shimmed to support testing in legacy environments.
+
 ### Working with Non-Promise–Friendly Test Runners
 
 Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal
