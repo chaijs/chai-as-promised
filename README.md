@@ -222,6 +222,9 @@ automatically plug in to Chai and be ready for use:
 <script src="chai-as-promised.js"></script>
 ```
 
+### Browser Compatibility
+
+Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, no PhantomJS).
 
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
