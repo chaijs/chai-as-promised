@@ -13,6 +13,9 @@
     "license": "WTFPL",
     "repository": "domenic/chai-as-promised",
     "main": "./lib/chai-as-promised.js",
+    "files": [
+        "lib"
+    ],
     "scripts": {
         "test": "mocha",
         "test-browser-q": "coffee ./test/browser/runner.coffee q",

@@ -1,9 +1,0 @@
-/node_modules/
-/npm-debug.log
-
-/coverage/
-
-/test
-/.jshintrc
-/.npmignore
-/.travis.yml
