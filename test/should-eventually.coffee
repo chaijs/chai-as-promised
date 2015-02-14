@@ -61,6 +61,7 @@ describe "Fulfillment value assertions:", =>
     describe "On a promise fulfilled with the number 42:", =>
         beforeEach =>
             promise = fulfilledPromise(42)
+            return undefined
 
         describe ".eventually.equal(42)", =>
             shouldPass => promise.should.eventually.equal(42)
@@ -115,6 +116,7 @@ describe "Fulfillment value assertions:", =>
     describe "On a promise fulfilled with { foo: 'bar' }:", =>
         beforeEach =>
             promise = fulfilledPromise(foo: "bar")
+            return undefined
 
         describe ".eventually.equal({ foo: 'bar' })", =>
             shouldFail

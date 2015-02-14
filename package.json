@@ -27,15 +27,15 @@
         "chai": ">= 1.7.0 < 3"
     },
     "devDependencies": {
-        "chai": "~1.9.0",
-        "coffee-script": "~1.7.1",
-        "istanbul": "~0.2.6",
-        "ecstatic": "~0.4.13",
-        "glob": "~3.2.9",
-        "jshint": "~2.4.4",
-        "mocha": "~1.17.0",
-        "opener": "~1.3",
-        "q": "~1.0.0",
-        "underscore": "~1.6.0"
+        "chai": "^2.0.0",
+        "coffee-script": "1.9.0",
+        "istanbul": "0.3.5",
+        "ecstatic": "0.5.8",
+        "glob": "^4.3.5",
+        "jshint": "^2.6.0",
+        "mocha": "^1.21.5",
+        "opener": "^1.4.0",
+        "q": "^1.1.2",
+        "underscore": "1.7.0"
     }
 }

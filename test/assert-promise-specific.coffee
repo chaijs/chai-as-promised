@@ -7,6 +7,7 @@ describe "Assert interface:", =>
     describe "when the promise is fulfilled", =>
         beforeEach =>
             promise = fulfilledPromise(foo: "bar")
+            return undefined
 
         describe ".isFulfilled(promise)", =>
             shouldPass => assert.isFulfilled(promise)
@@ -49,6 +50,7 @@ describe "Assert interface:", =>
     describe "when the promise is rejected", =>
         beforeEach =>
             promise = rejectedPromise(error)
+            return undefined
 
         describe ".isFulfilled", =>
             shouldFail
@@ -66,6 +68,7 @@ describe "Assert interface:", =>
         describe "with an Error having message 'foo bar'", =>
             beforeEach =>
                 promise = rejectedPromise(new Error("foo bar"))
+                return undefined
 
             describe ".isRejected(promise, /bar/)", =>
                 shouldPass => assert.isRejected(promise, /bar/)
@@ -78,6 +81,7 @@ describe "Assert interface:", =>
         describe "with a RangeError", =>
             beforeEach =>
                 promise = rejectedPromise(new RangeError)
+                return undefined
 
             describe ".isRejected(promise, RangeError)", =>
                 shouldPass => assert.isRejected(promise, RangeError)

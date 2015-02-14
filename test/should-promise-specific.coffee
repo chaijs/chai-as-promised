@@ -16,6 +16,7 @@ describe "Promise-specific extensions:", =>
     describe "when the promise is fulfilled", =>
         beforeEach =>
             promise = fulfilledPromise()
+            return undefined
 
         describe ".fulfilled", =>
             shouldPass => promise.should.be.fulfilled
@@ -76,6 +77,7 @@ describe "Promise-specific extensions:", =>
     describe "when the promise is rejected", =>
         beforeEach =>
             promise = rejectedPromise(error)
+            return undefined
 
         describe ".fulfilled", =>
             shouldFail
@@ -104,6 +106,7 @@ describe "Promise-specific extensions:", =>
         describe "with an Error having message 'foo bar'", =>
             beforeEach =>
                 promise = rejectedPromise(new Error("foo bar"))
+                return undefined
 
             describe ".rejectedWith('foo')", =>
                 shouldPass => promise.should.be.rejectedWith("foo")
@@ -136,6 +139,7 @@ describe "Promise-specific extensions:", =>
         describe "with a RangeError", =>
             beforeEach =>
                 promise = rejectedPromise(new RangeError)
+                return undefined
 
             describe ".rejectedWith(RangeError)", =>
                 shouldPass => promise.should.be.rejectedWith(RangeError)
@@ -154,6 +158,7 @@ describe "Promise-specific extensions:", =>
         describe "with a RangeError having a message 'foo bar'", =>
             beforeEach =>
                 promise = rejectedPromise(new RangeError("foo bar"))
+                return undefined
 
             describe ".rejectedWith(RangeError, 'foo')", =>
                 shouldPass => promise.should.be.rejectedWith(RangeError, "foo")
@@ -225,31 +230,43 @@ describe "Promise-specific extensions:", =>
 
     describe ".should.notify with chaining (GH-3)", =>
         describe "the original promise is fulfilled", =>
-            beforeEach => promise = fulfilledPromise()
+            beforeEach =>
+                promise = fulfilledPromise()
+                return undefined
 
             describe "and the follow-up promise is fulfilled", =>
-                beforeEach => promise = promise.then(=>)
+                beforeEach =>
+                    promise = promise.then(=>)
+                    return undefined
 
                 it "should pass the test", (done) =>
                     promise.should.notify(done)
 
             describe "but the follow-up promise is rejected", =>
-                beforeEach => promise = promise.then(=> throw error)
+                beforeEach =>
+                    promise = promise.then(=> throw error)
+                    return undefined
 
                 it "should fail the test with the error from the follow-up promise", (done) =>
                     promise.should.notify(assertingDoneFactory(done))
 
         describe "the original promise is rejected", =>
-            beforeEach => promise = rejectedPromise(error)
+            beforeEach =>
+                promise = rejectedPromise(error)
+                return undefined
 
             describe "but the follow-up promise is fulfilled", =>
-                beforeEach => promise = promise.then(=>)
+                beforeEach =>
+                    promise = promise.then(=>)
+                    return undefined
 
                 it "should fail the test with the error from the original promise", (done) =>
                     promise.should.notify(assertingDoneFactory(done))
 
             describe "and the follow-up promise is rejected", =>
-                beforeEach => promise = promise.then(=> throw new Error("follow up"))
+                beforeEach =>
+                    promise = promise.then(=> throw new Error("follow up"))
+                    return undefined
 
                 it "should fail the test with the error from the original promise", (done) =>
                     promise.should.notify(assertingDoneFactory(done))

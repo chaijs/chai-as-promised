@@ -18,6 +18,7 @@ describe "Assert interface with eventually extender:", =>
     describe "On a promise fulfilled with the number 42", =>
         beforeEach =>
             promise = fulfilledPromise(42)
+            return undefined
 
         describe ".eventually.isNull(promise)", =>
             shouldFail
@@ -62,6 +63,7 @@ describe "Assert interface with eventually extender:", =>
     describe "On a promise fulfilled with { foo: 'bar' }", =>
         beforeEach =>
             promise = fulfilledPromise(foo: "bar")
+            return undefined
 
         describe ".eventually.equal(promise, { foo: 'bar' })", =>
             shouldFail

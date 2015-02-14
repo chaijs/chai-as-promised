@@ -15,7 +15,7 @@ testFilenames = glob.sync("../*.coffee", cwd: __dirname)
 testScriptTags = testFilenames.map (filename) -> "<script type=\"text/coffeescript\" src=\"#{ filename }\"></script>"
 
 htmlTemplate = fs.readFileSync(path.resolve(__dirname, "template.html")).toString()
-html = _.template(htmlTemplate, { library, testScriptTags })
+html = _.template(htmlTemplate)({ library, testScriptTags })
 
 htmlPath = path.resolve(__dirname, "output.html")
 fs.writeFileSync(htmlPath, html)
