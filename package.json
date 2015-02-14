@@ -9,13 +9,9 @@
         "promises-aplus"
     ],
     "version": "4.1.1",
-    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenic.me)",
+    "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
     "license": "WTFPL",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/domenic/chai-as-promised.git"
-    },
-    "bugs": "https://github.com/domenic/chai-as-promised/issues",
+    "repository": "domenic/chai-as-promised",
     "main": "./lib/chai-as-promised.js",
     "scripts": {
         "test": "mocha",
