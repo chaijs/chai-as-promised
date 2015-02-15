@@ -8,4 +8,5 @@ exports.adapter = """
     global.fulfilledPromise = Q;
     global.rejectedPromise = Q.reject;
     global.defer = Q.defer;
+    global.waitAll = Q.all;
 """
