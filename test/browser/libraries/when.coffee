@@ -25,4 +25,5 @@ exports.adapter = """
         return deferred.promise;
     };
     global.defer = when.defer;
+    global.waitAll = when.all;
 """
