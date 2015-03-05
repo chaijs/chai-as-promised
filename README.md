@@ -45,13 +45,13 @@ existing Chai assertion into one that acts on a promise:
 (2 + 2).should.equal(4);
 
 // becomes
-return promiseFor(2 + 2).should.eventually.equal(4);
+return Promise.resolve(2 + 2).should.eventually.equal(4);
 
 
 expect({ foo: "bar" }).to.have.property("foo");
 
 // becomes
-return expect(promiseFor({ foo: "bar" })).to.eventually.have.property("foo");
+return expect(Promise.resolve({ foo: "bar" })).to.eventually.have.property("foo");
 ```
 
 There are also a few promise-specific extensions (with the usual `expect` equivalents also available):
@@ -73,7 +73,7 @@ any existing Chai assertion to be used on a promise:
 assert.equal(2 + 2, 4, "This had better be true");
 
 // becomes
-return assert.eventually.equal(promiseFor(2 + 2), 4, "This had better be true, eventually");
+return assert.eventually.equal(Promise.resolve(2 + 2), 4, "This had better be true, eventually");
 ```
 
 And there are, of course, promise-specific extensions:
@@ -118,6 +118,37 @@ chaiAsPromised.transferPromiseness = function (assertion, promise) {
     assertion.finally = promise.finally.bind(promise);
     assertion.done = promise.done.bind(promise);
 };
+```
+
+### Transforming Arguments to the Asserters
+
+Another advanced customization hook Chai as Promised allows is if you want to transform the arguments to the
+asserters, possibly asynchronously. Here is a toy example:
+
+```js
+chaiAsPromised.transformAsserterArgs = function (args) {
+    return args.map(function (x) { return x + 1; });
+}
+
+Promise.resolve(2).should.eventually.equal(2); // will now fail!
+Promise.resolve(2).should.eventually.equal(3); // will now pass!
+```
+
+The transform can even be asynchronous, returning a promise for an array instead of an array directly. An example
+of that might be using `Promise.all` so that an array of promises becomes a promise for an array. If you do that,
+then you can compare promises against other promises using the asserters:
+
+```js
+// This will normally fail, since within() only works on numbers.
+Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resolve(6));
+
+chaiAsPromised.transformAsserterArgs = function (args) {
+    return Promise.all(args);
+};
+
+// But now it will pass, since we transformed the array of promises for numbers into
+// (a promise for) an array of numbers
+Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resolve(6));
 ```
 
 ### Compatibility
