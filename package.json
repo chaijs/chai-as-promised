@@ -8,7 +8,7 @@
         "promises",
         "promises-aplus"
     ],
-    "version": "4.2.0",
+    "version": "4.3.0",
     "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
     "license": "WTFPL",
     "repository": "domenic/chai-as-promised",
