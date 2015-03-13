@@ -259,12 +259,12 @@ Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, 
 
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
-[Mocha-promises]: http://visionmedia.github.io/mocha/#asynchronous-code
+[Mocha-promises]: http://mochajs.org/#asynchronous-code
 [Buster-promises]: http://docs.busterjs.org/en/latest/modules/buster-test/spec/#returning-a-promise
 [blue-tape]: https://github.com/spion/blue-tape
 [spec]: http://promisesaplus.com/
 [transformation behavior]: http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/#toc_2
-[Mocha]: http://visionmedia.github.com/mocha/
+[Mocha]: http://mochajs.org
 [fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [sinon]: http://sinonjs.org/
