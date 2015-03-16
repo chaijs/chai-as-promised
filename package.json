@@ -17,7 +17,9 @@
         "lib"
     ],
     "scripts": {
-        "test": "mocha",
+        "test": "npm run test-plugin && npm run test-intercompatibility",
+        "test-plugin": "mocha",
+        "test-intercompatibility": "mocha test-intercompatibility --opts test-intercompatibility/mocha.opts",
         "test-browser-q": "coffee ./test/browser/runner.coffee q",
         "test-browser-when": "coffee ./test/browser/runner.coffee when",
         "lint": "jshint ./lib",
