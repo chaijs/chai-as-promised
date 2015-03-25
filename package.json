@@ -26,10 +26,10 @@
         "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
     },
     "peerDependencies": {
-        "chai": ">= 1.7.0 < 3"
+        "chai": ">= 2.1.2 < 3"
     },
     "devDependencies": {
-        "chai": "^2.0.0",
+        "chai": "^2.1.2",
         "coffee-script": "1.9.0",
         "istanbul": "0.3.5",
         "ecstatic": "0.5.8",
