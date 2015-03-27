@@ -253,6 +253,10 @@ automatically plug in to Chai and be ready for use:
 <script src="chai-as-promised.js"></script>
 ```
 
+### Karma
+If you're using [Karma](http://karma-runner.github.io/), check out the accompanying [karma-chai-as-promised](https://github.com/vlkosinov/karma-chai-as-promised) plugin.
+
+
 ### Browser Compatibility
 
 Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, no PhantomJS).
