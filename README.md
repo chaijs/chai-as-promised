@@ -257,6 +257,22 @@ automatically plug in to Chai and be ready for use:
 
 Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, no PhantomJS).
 
+### Working with other plugins
+
+If you are using other chai plugins, then chai-as-promised **should always be the last plugin loaded with `use()`**. If chai-as-promised is not the last loaded plugin, other plugins will not be able to use the `.eventually` flag. For example:
+
+```js
+// WRONG
+chai.use(require('chai-as-promised'))
+    .use(require('chai-spies'))
+    .use(require('chai-things'));
+
+// RIGHT!
+chai.use(require('chai-spies'))
+    .use(require('chai-things'))
+    .use(require('chai-as-promised'));
+```
+
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
 [Mocha-promises]: http://mochajs.org/#asynchronous-code
