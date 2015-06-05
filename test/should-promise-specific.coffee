@@ -116,11 +116,11 @@ describe "Promise-specific extensions:", =>
             describe ".rejectedWith('quux')", =>
                 shouldFail
                     op: => promise.should.be.rejectedWith("quux")
-                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
+                    message: "to be rejected with an error including 'quux' but got 'Error: foo bar'"
             describe ".rejectedWith(/quux/)", =>
                 shouldFail
                     op: => promise.should.be.rejectedWith(/quux/)
-                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
+                    message: "to be rejected with an error matching /quux/ but got 'Error: foo bar'"
 
             describe ".not.rejectedWith('foo')", =>
                 shouldFail
@@ -168,11 +168,11 @@ describe "Promise-specific extensions:", =>
             describe ".rejectedWith(RangeError, 'quux')", =>
                 shouldFail
                     op: => promise.should.be.rejectedWith(RangeError, "quux")
-                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
+                    message: "to be rejected with an error including 'quux' but got 'RangeError: foo bar'"
             describe ".rejectedWith(RangeError, /quux/)", =>
                 shouldFail
                     op: => promise.should.be.rejectedWith(RangeError, /quux/)
-                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
+                    message: "to be rejected with an error matching /quux/ but got 'RangeError: foo bar'"
 
             describe ".rejectedWith(TypeError, 'foo')", =>
                 shouldFail
