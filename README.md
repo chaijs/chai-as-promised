@@ -27,12 +27,17 @@ you can write code that expresses what you really mean:
 return doSomethingAsync().should.eventually.equal("foo");
 ```
 
-or if you have a testing framework that doesn't allow returning promises to signal asynchronous test completion, then
-you can use the following workaround:
+or if you have a case where `return` is not preferable (e.g. style considerations) or not possible (e.g. the testing
+framework doesn't allow returning promises to signal asynchronous test completion), then you can use the following
+workaround (where `done()` is supplied by the test framework):
 
 ```javascript
 doSomethingAsync().should.eventually.equal("foo").notify(done);
 ```
+
+*Notice*: either `return` or `notify(done)` _must_ be used with promise assertions. This can be a slight departure from
+the existing format of assertions being used on a project or by a team. Those other assertions are likely synchronous
+and thus do not require special handling.
 
 ## How to Use
 
@@ -196,21 +201,24 @@ indicates to Chai as Promised that it should pass fulfillment or rejection direc
 Thus, the above code will fail with a Chai as Promised error (`"expected promise to be fulfilled…"`) if `promise` is
 rejected, but will fail with a simple Chai error (`expected "before" to equal "after"`) if `otherState` does not change.
 
-Another example of where this can be useful is when performing assertions on multiple promises:
+### Multiple Promise Assertions
+
+To perform assertions on multiple promises, use `Promise.all` to combine multiple Chai as Promised assertions:
 
 ```javascript
 it("should all be well", function (done) {
-    Q.all([
+    return Promise.all([
         promiseA.should.become("happy"),
         promiseB.should.eventually.have.property("fun times"),
         promiseC.should.be.rejectedWith(TypeError, "only joyful types are allowed")
-    ]).should.notify(done);
+    ]);
 });
 ```
 
 This will pass any failures of the individual promise assertions up to the test framework, instead of wrapping them in
 an `"expected promise to be fulfilled…"` message as would happen if you did
-`Q.all([…]).should.be.fulfilled.and.notify(done)`.
+`return Promise.all([…]).should.be.fulfilled`. If you can't use `return`, then use `.should.notify(done)`, similar to
+the previous examples.
 
 ## Installation and Setup
 
