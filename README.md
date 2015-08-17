@@ -27,12 +27,17 @@ you can write code that expresses what you really mean:
 return doSomethingAsync().should.eventually.equal("foo");
 ```
 
-or if you have a testing framework that doesn't allow returning promises to signal asynchronous test completion, then
-you can use the following workaround:
+or if you have a case where `return` is not preferable (e.g. style considerations) or not possible (e.g. the testing
+framework doesn't allow returning promises to signal asynchronous test completion), then you can use the following
+workaround (where `done()` is supplied by the test framework):
 
 ```javascript
 doSomethingAsync().should.eventually.equal("foo").notify(done);
 ```
+
+*Notice*: either `return` or `notify(done)` _must_ be used with promise assertions. This can be a slight departure from
+the existing format of assertions being used on a project or by a team. Those other assertions are likely synchronous
+and thus do not require special handling.
 
 ## How to Use
 
@@ -87,22 +92,6 @@ return assert.doesNotBecome(promise, "foo", "optional message");
 return assert.isRejected(promise, "optional message");
 return assert.isRejected(promise, Error, "optional message");
 return assert.isRejected(promise, /error message matcher/, "optional message");
-```
-
-### Progress Callbacks
-
-Chai as Promised does not have any intrinsic support for testing promise progress callbacks. The properties you would
-want to test are probably much better suited to a library like [Sinon.JS][sinon], perhaps in conjunction with
-[Sinon–Chai][sinon-chai]:
-
-```javascript
-var progressSpy = sinon.spy();
-
-return promise.then(null, null, progressSpy).then(function () {
-    progressSpy.should.have.been.calledWith("33%");
-    progressSpy.should.have.been.calledWith("67%");
-    progressSpy.should.have.been.calledThrice;
-});
 ```
 
 ### Customizing Output Promises
@@ -196,7 +185,9 @@ indicates to Chai as Promised that it should pass fulfillment or rejection direc
 Thus, the above code will fail with a Chai as Promised error (`"expected promise to be fulfilled…"`) if `promise` is
 rejected, but will fail with a simple Chai error (`expected "before" to equal "after"`) if `otherState` does not change.
 
-Another example of where this can be useful is when performing assertions on multiple promises:
+### Multiple Promise assertions
+
+Another example of where `.notify(done)` can be useful is when performing assertions on multiple promises:
 
 ```javascript
 it("should all be well", function (done) {
