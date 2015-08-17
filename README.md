@@ -27,12 +27,20 @@ you can write code that expresses what you really mean:
 return doSomethingAsync().should.eventually.equal("foo");
 ```
 
-or if you have a testing framework that doesn't allow returning promises to signal asynchronous test completion, then
-you can use the following workaround:
+or if you have a case where `return` is not preferable (e.g. style
+considerations) or not possible (e.g. the testing framework doesn't allow
+returning promises to signal asynchronous test completion), then
+you can use the following workaround (where `done()` is supplied by the
+test framework):
 
 ```javascript
 doSomethingAsync().should.eventually.equal("foo").notify(done);
 ```
+
+*Notice*: either `return` or `notify(done)` _must_ be used with promise
+assertions. This can be a slight departure from the existing format of
+assertions being used on a project or by a team. Those other assertions are
+likely synchronous and thus do not require special handling.
 
 ## How to Use
 
@@ -88,6 +96,25 @@ return assert.isRejected(promise, "optional message");
 return assert.isRejected(promise, Error, "optional message");
 return assert.isRejected(promise, /error message matcher/, "optional message");
 ```
+
+### Multiple Promise assertions
+
+In the case where multiple promise assertions are used in a single test case,
+`return` is not viable.
+
+Using RSVP.js, an example might be:
+
+```javascript
+it("should return foo and add bar to mockup", function (done) {
+  var promises = [];
+  promises.push(doSomethingAsync(mockup).should.eventually.equal("foo"));
+  promises.push(mockup.should.eventually.contain.keys("bar"));
+  RSVP.all(promises).then(done)
+}
+```
+
+In the above example, notice that `return` is not used, and `done()` is only
+called after each promise assertion completes by way of `RSVP.all()`.
 
 ### Progress Callbacks
 
