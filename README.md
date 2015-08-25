@@ -144,7 +144,7 @@ Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resol
 
 ### Compatibility
 
-Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec]. Notably, jQuery's so-called “promises” are not up to spec, and Chai as Promised will not work with them. In particular, Chai as Promised makes extensive use of the standard [transformation behavior][] of `then`, which jQuery does not support.
+Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec]. Notably, jQuery's promises were not up to spec before jQuery 3.0, and Chai as Promised will not work with them. In particular, Chai as Promised makes extensive use of the standard [transformation behavior][] of `then`, which jQuery<3.0 does not support.
 
 ### Working with Non-Promise–Friendly Test Runners
 
