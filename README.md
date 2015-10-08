@@ -180,7 +180,7 @@ Notice how `.notify(done)` is hanging directly off of `.should`, instead of appe
 To perform assertions on multiple promises, use `Promise.all` to combine multiple Chai as Promised assertions:
 
 ```javascript
-it("should all be well", function (done) {
+it("should all be well", function () {
     return Promise.all([
         promiseA.should.become("happy"),
         promiseB.should.eventually.have.property("fun times"),
