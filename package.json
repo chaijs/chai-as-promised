@@ -3,6 +3,9 @@
     "description": "Extends Chai with assertions about promises.",
     "keywords": [
         "chai",
+        "chai-plugin",
+        "browser",
+        "async",
         "testing",
         "assertions",
         "promises",
