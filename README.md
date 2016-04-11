@@ -214,7 +214,7 @@ Chai as Promised supports being used as an [AMD][amd] module, registering itself
 define(function (require, exports, module) {
     var chai = require("chai");
     var chaiAsPromised = require("chai-as-promised");
-
+    chai.should();
     chai.use(chaiAsPromised);
 });
 ```
