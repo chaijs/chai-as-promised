@@ -23,3 +23,8 @@ describe "Configuring the way in which asserter arguments are transformed", =>
 
         fulfilledPromise(true).should.eventually.be.true
 
+    it "should transform asserter args", =>
+        chaiAsPromised.transformAsserterArgs = (args) =>
+            (x + 1 for x in args)
+
+        fulfilledPromise(3).should.eventually.equal(2)

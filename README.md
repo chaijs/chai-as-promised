@@ -124,7 +124,7 @@ chaiAsPromised.transformAsserterArgs = function (args) {
 }
 
 Promise.resolve(2).should.eventually.equal(2); // will now fail!
-Promise.resolve(2).should.eventually.equal(3); // will now pass!
+Promise.resolve(3).should.eventually.equal(2); // will now pass!
 ```
 
 The transform can even be asynchronous, returning a promise for an array instead of an array directly. An example of that might be using `Promise.all` so that an array of promises becomes a promise for an array. If you do that, then you can compare promises against other promises using the asserters:
