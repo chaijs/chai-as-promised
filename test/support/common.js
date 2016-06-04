@@ -4,9 +4,6 @@
 
 (function () {
     var Q = global.Q || (typeof require === "function" && require("q"));
-    if (Q) {
-        Q.longStackSupport = true;
-    }
 }());
 
 global.shouldPass = function (promiseProducer) {
