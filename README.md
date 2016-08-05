@@ -206,6 +206,14 @@ var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 
 chai.use(chaiAsPromised);
+
+// Then either:
+var expect = chai.expect;
+// or:
+var assert = chai.assert;
+// or:
+chai.should();
+// according to your preference of assertion style
 ```
 
 You can of course put this code in a common test fixture file; for an example using [Mocha][], see [the Chai as Promised tests themselves][fixturedemo].
@@ -220,6 +228,8 @@ define(function (require, exports, module) {
     var chaiAsPromised = require("chai-as-promised");
 
     chai.use(chaiAsPromised);
+
+    // and Chai setup code as above
 });
 ```
 
@@ -230,6 +240,7 @@ If you include Chai as Promised directly with a `<script>` tag, after the one fo
 ```html
 <script src="chai.js"></script>
 <script src="chai-as-promised.js"></script>
+<!-- and Chai setup code as above -->
 ```
 
 ### Karma
