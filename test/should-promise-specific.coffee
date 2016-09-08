@@ -3,6 +3,7 @@
 describe "Promise-specific extensions:", =>
     promise = null
     error = new Error("boo")
+    error.myProp = ["myProp value"]
     custom = "No. I am your father."
 
     assertingDoneFactory = (done) =>
@@ -16,45 +17,70 @@ describe "Promise-specific extensions:", =>
 
     describe "when the promise is fulfilled", =>
         beforeEach =>
-            promise = fulfilledPromise()
+            promise = fulfilledPromise(42)
             return undefined
 
         describe ".fulfilled", =>
             shouldPass => promise.should.be.fulfilled
+
+        describe ".fulfilled passes the fulfilled value", =>
+            shouldPass => promise.should.be.fulfilled.then (passedValue) =>
+                passedValue.should.equal(42)
+
+        describe ".fulfilled allows chaining", =>
+            shouldPass => promise.should.be.fulfilled.and.eventually.equal(42)
+
         describe ".not.fulfilled", =>
             shouldFail
                 op: => promise.should.not.be.fulfilled
-                message: "not to be fulfilled but it was fulfilled with undefined"
+                message: "not to be fulfilled but it was fulfilled with 42"
 
         describe ".rejected", =>
             shouldFail
               op: => promise.should.be.rejected
-              message: "to be rejected but it was fulfilled with undefined"
+              message: "to be rejected but it was fulfilled with 42"
+
+        describe ".not.rejected passes the fulfilled value", =>
+            shouldPass => promise.should.not.be.rejected.then (passedValue) =>
+                passedValue.should.equal(42)
+
+        # .not inverts all following assertions so the following test is
+        # equivalent to promise.should.eventually.not.equal(31)
+        describe ".not.rejected allows chaining", =>
+            shouldPass => promise.should.not.be.rejected.and.eventually.equal(31)
+
         describe ".rejectedWith(TypeError)", =>
             shouldFail
                 op: => promise.should.be.rejectedWith(TypeError)
-                message: "to be rejected with 'TypeError' but it was fulfilled with undefined"
+                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
+        describe ".not.rejectedWith(TypeError) passes the fulfilled value", =>
+            shouldPass => promise.should.not.be.rejectedWith(TypeError).then (passedValue) =>
+                passedValue.should.equal(42)
+
+        describe ".not.rejectedWith(TypeError) allows chaining", =>
+            shouldPass => promise.should.not.be.rejectedWith(TypeError).and.eventually.equal(31)
+
         describe ".rejectedWith('message substring')", =>
             shouldFail
                 op: => promise.should.be.rejectedWith("message substring")
                 message: "to be rejected with an error including 'message substring' but it was fulfilled with " +
-                         "undefined"
+                         "42"
         describe ".rejectedWith(/regexp/)", =>
             shouldFail
                 op: => promise.should.be.rejectedWith(/regexp/)
-                message: "to be rejected with an error matching /regexp/ but it was fulfilled with undefined"
+                message: "to be rejected with an error matching /regexp/ but it was fulfilled with 42"
         describe ".rejectedWith(TypeError, 'message substring')", =>
             shouldFail
                 op: => promise.should.be.rejectedWith(TypeError, "message substring")
-                message: "to be rejected with 'TypeError' but it was fulfilled with undefined"
+                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
         describe ".rejectedWith(TypeError, /regexp/)", =>
             shouldFail
                 op: => promise.should.be.rejectedWith(TypeError, /regexp/)
-                message: "to be rejected with 'TypeError' but it was fulfilled with undefined"
+                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
         describe ".rejectedWith(errorInstance)", =>
             shouldFail
                 op: => promise.should.be.rejectedWith(error)
-                message: "to be rejected with [Error: boo] but it was fulfilled with undefined"
+                message: "to be rejected with [Error: boo] but it was fulfilled with 42"
 
         describe ".not.rejected", =>
             shouldPass => promise.should.not.be.rejected
@@ -84,8 +110,16 @@ describe "Promise-specific extensions:", =>
             shouldFail
                 op: => promise.should.be.fulfilled
                 message: "to be fulfilled but it was rejected with [Error: boo]"
+
         describe ".not.fulfilled", =>
             shouldPass => promise.should.not.be.fulfilled
+
+        describe ".not.fulfilled should allow chaining", =>
+            shouldPass => promise.should.not.be.fulfilled.and.eventually.have.property("nonexistent")
+
+        describe ".not.fulfilled should pass the rejection reason", =>
+            shouldPass => promise.should.not.be.fulfilled.then (passedError) =>
+                passedError.should.equal(error)
 
         describe ".rejected", =>
             shouldPass => promise.should.be.rejected
@@ -94,6 +128,12 @@ describe "Promise-specific extensions:", =>
             shouldFail
                 op: => promise.should.not.be.rejected
                 message: "not to be rejected but it was rejected with [Error: boo]"
+        describe ".rejected should allow chaining", =>
+            shouldPass => promise.should.be.rejected.and.eventually.have.property("myProp")
+
+        describe ".rejected passes the rejection reason", =>
+            shouldPass => promise.should.be.rejected.then (passedError) =>
+                passedError.should.equal(error)
 
         describe ".rejectedWith(theError)", =>
             shouldPass => promise.should.be.rejectedWith(error)
@@ -102,6 +142,13 @@ describe "Promise-specific extensions:", =>
             shouldFail
                 op: => promise.should.not.be.rejectedWith(error)
                 message: "not to be rejected with [Error: boo]"
+
+        describe ".rejectedWith(theError) should allow chaining", =>
+            shouldPass => promise.should.be.rejectedWith(error).and.eventually.have.property("myProp")
+
+        describe ".rejectedWith(theError) passes the rejection reason", =>
+            shouldPass => promise.should.be.rejectedWith(error).then (passedError) =>
+                passedError.should.equal(error)
 
         describe ".rejectedWith(differentError)", =>
             shouldFail
