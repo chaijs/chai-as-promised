@@ -28,19 +28,18 @@ global.shouldFail = function (options) {
 
     it("should return a promise rejected with an assertion error", function (done) {
         promiseProducer().then(function () {
-            done(new Error("Expected promise to be rejected with an assertion error, but it was fulfilled"));
+            throw new Error("Expected promise to be rejected with an assertion error, but it was fulfilled");
         }, function (reason) {
             if (Object(reason) !== reason || reason.constructor.name !== "AssertionError") {
-                done(new Error("Expected promise to be rejected with an AssertionError but it was rejected with " +
-                               reason));
-            } else {
-                if (desiredMessageSubstring && reason.message.indexOf(desiredMessageSubstring) === -1) {
-                    done(new Error("Expected promise to be rejected with an AssertionError containing \"" +
-                                   desiredMessageSubstring + "\" but it was rejected with " + reason));
-                } else {
-                    done();
-                }
+                throw new Error("Expected promise to be rejected with an AssertionError but it was rejected with " +
+                                reason);
             }
-        });
+
+            if (desiredMessageSubstring && reason.message.indexOf(desiredMessageSubstring) === -1) {
+                throw new Error("Expected promise to be rejected with an AssertionError containing \"" +
+                                desiredMessageSubstring + "\" but it was rejected with " + reason);
+            }
+        }).then(done, done);
+
     });
 };
