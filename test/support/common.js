@@ -25,6 +25,7 @@ global.shouldPass = function (promiseProducer) {
 global.shouldFail = function (options) {
     var promiseProducer = options.op;
     var desiredMessageSubstring = options.message;
+    var nonDesiredMessageSubstring = options.notMessage;
 
     it("should return a promise rejected with an assertion error", function (done) {
         promiseProducer().then(function () {
@@ -38,6 +39,11 @@ global.shouldFail = function (options) {
             if (desiredMessageSubstring && reason.message.indexOf(desiredMessageSubstring) === -1) {
                 throw new Error("Expected promise to be rejected with an AssertionError containing \"" +
                                 desiredMessageSubstring + "\" but it was rejected with " + reason);
+            }
+
+            if (nonDesiredMessageSubstring && reason.message.indexOf(nonDesiredMessageSubstring) !== -1) {
+                throw new Error("Expected promise to be rejected with an AssertionError not containing \"" +
+                                nonDesiredMessageSubstring + "\" but it was rejected with " + reason);
             }
         }).then(done, done);
 
