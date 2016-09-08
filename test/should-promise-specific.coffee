@@ -199,6 +199,12 @@ describe "Promise-specific extensions:", =>
                     op: => promise.should.be.rejectedWith(TypeError)
                     message: "to be rejected with 'TypeError' but it was rejected with [RangeError]"
 
+            # Case for issue #64.
+            describe ".rejectedWith(Array)", =>
+                shouldFail
+                    op: => promise.should.be.rejectedWith(Array)
+                    message: "to be rejected with 'Array' but it was rejected with [RangeError]"
+
             describe ".not.rejectedWith(TypeError)", =>
                 shouldPass => promise.should.not.be.rejectedWith(TypeError)
 
