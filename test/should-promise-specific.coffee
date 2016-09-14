@@ -313,23 +313,13 @@ describe "Promise-specific extensions:", =>
                     message: "not to be rejected with 'RangeError' but it was rejected with [RangeError: foo bar]"
 
             describe ".not.rejectedWith(RangeError, 'quux')", =>
-                shouldFail
-                    op: => promise.should.not.be.rejectedWith(RangeError, 'quux')
-                    message: "not to be rejected with 'RangeError' but it was rejected with [RangeError: foo bar]"
+                shouldPass => promise.should.not.be.rejectedWith(RangeError, 'quux')
             describe ".not.rejectedWith(RangeError, /quux/)", =>
-                shouldFail
-                    op: => promise.should.not.be.rejectedWith(RangeError, /quux/)
-                    message: "not to be rejected with 'RangeError' but it was rejected with [RangeError: foo bar]"
-
+                shouldPass => promise.should.not.be.rejectedWith(RangeError, /quux/)
             describe ".not.rejectedWith(TypeError, 'foo')", =>
-                shouldFail
-                    op: => promise.should.not.be.rejectedWith(TypeError, "foo")
-                    message: "not to be rejected with an error including 'foo'"
+                shouldPass => promise.should.not.be.rejectedWith(TypeError, "foo")
             describe ".not.rejectedWith(TypeError, /bar/)", =>
-                shouldFail
-                    op: => promise.should.not.be.rejectedWith(TypeError, /bar/)
-                    message: "not to be rejected with an error matching /bar/"
-
+                shouldPass => promise.should.not.be.rejectedWith(TypeError, /bar/)
             describe ".not.rejectedWith(TypeError, 'quux')", =>
                 shouldPass => promise.should.not.be.rejectedWith(TypeError, "quux")
             describe ".not.rejectedWith(TypeError, /quux/)", =>
