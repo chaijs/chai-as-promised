@@ -159,30 +159,30 @@ describe "Assert interface:", =>
             describe ".isRejected(promise, RangeError, 'quux')", =>
                 shouldFail
                     op: => assert.isRejected(promise, RangeError, "quux")
-                    message: "to be rejected with an error including 'quux' but got 'RangeError: foo bar'"
+                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
 
             describe ".isRejected(promise, RangeError, /quux/)", =>
                 shouldFail
                     op: => assert.isRejected(promise, RangeError, /quux/)
-                    message: "to be rejected with an error matching /quux/ but got 'RangeError: foo bar'"
+                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
 
             describe ".isRejected(promise, TypeError, 'foo')", =>
                 shouldFail
                     op: => assert.isRejected(promise, TypeError, 'foo')
-                    message: "to be rejected with 'TypeError' but it was rejected with [RangeError: foo bar]"
+                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
             describe ".isRejected(promise, TypeError, /bar/)", =>
                 shouldFail
                     op: => assert.isRejected(promise, TypeError, /bar/)
-                    message: "to be rejected with 'TypeError' but it was rejected with [RangeError: foo bar]"
+                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
 
             describe ".isRejected(promise, TypeError, 'quux')", =>
                 shouldFail
                     op: => assert.isRejected(promise, TypeError, 'quux')
-                    message: "to be rejected with 'TypeError' but it was rejected with [RangeError: foo bar]"
+                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
             describe ".isRejected(promise, TypeError, /quux/)", =>
                 shouldFail
                     op: => assert.isRejected(promise, TypeError, /quux/)
-                    message: "to be rejected with 'TypeError' but it was rejected with [RangeError: foo bar]"
+                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
 
             describe ".isRejected(promise, RangeError, 'foo', custom)", =>
                 shouldPass => assert.isRejected(promise, RangeError, "foo", custom)
