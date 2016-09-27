@@ -23,15 +23,14 @@
     "test": "npm run test-plugin && npm run test-intercompatibility",
     "test-plugin": "mocha",
     "test-intercompatibility": "mocha test-intercompatibility --opts test-intercompatibility/mocha.opts",
-    "test-browser-jquery": "coffee ./test/browser/runner.coffee jquery",
-    "test-browser-q": "coffee ./test/browser/runner.coffee q",
-    "test-browser-when": "coffee ./test/browser/runner.coffee when",
     "lint": "jshint ./lib",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
   },
-  "peerDependencies": {
-    "chai": ">= 2.1.2 < 4",
+  "dependencies": {
     "check-error": "^1.0.2"
+  },
+  "peerDependencies": {
+    "chai": ">= 2.1.2 < 4"
   },
   "devDependencies": {
     "chai": "^3.0.0",

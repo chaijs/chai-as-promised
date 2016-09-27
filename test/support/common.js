@@ -1,15 +1,6 @@
 "use strict";
 
-// Note: this file is used both in the Node and browser tests.
-
-(function () {
-    var Q = global.Q || (typeof require === "function" && require("q"));
-    if (Q) {
-        Q.longStackSupport = true;
-    }
-}());
-
-global.shouldPass = function (promiseProducer) {
+exports.shouldPass = function (promiseProducer) {
     it("should return a fulfilled promise", function (done) {
         promiseProducer().then(
             function () {
@@ -22,7 +13,7 @@ global.shouldPass = function (promiseProducer) {
     });
 };
 
-global.shouldFail = function (options) {
+exports.shouldFail = function (options) {
     var promiseProducer = options.op;
     var desiredMessageSubstring = options.message;
     var nonDesiredMessageSubstring = options.notMessage;

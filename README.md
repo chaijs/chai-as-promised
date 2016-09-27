@@ -218,30 +218,9 @@ chai.should();
 
 You can of course put this code in a common test fixture file; for an example using [Mocha][], see [the Chai as Promised tests themselves][fixturedemo].
 
-### AMD
+### In the Browser
 
-Chai as Promised supports being used as an [AMD][amd] module, registering itself anonymously (just like Chai). So, assuming you have configured your loader to map the Chai and Chai as Promised files to the respective module IDs `"chai"` and `"chai-as-promised"`, you can use them as follows:
-
-```javascript
-define(function (require, exports, module) {
-    var chai = require("chai");
-    var chaiAsPromised = require("chai-as-promised");
-
-    chai.use(chaiAsPromised);
-
-    // and Chai setup code as above
-});
-```
-
-### `<script>` tag
-
-If you include Chai as Promised directly with a `<script>` tag, after the one for Chai itself, then it will automatically plug in to Chai and be ready for use:
-
-```html
-<script src="chai.js"></script>
-<script src="chai-as-promised.js"></script>
-<!-- and Chai setup code as above -->
-```
+To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify][].
 
 ### Karma
 
@@ -265,3 +244,4 @@ Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, 
 [sinon-chai]: https://github.com/domenic/sinon-chai
 [Karma]: https://karma-runner.github.io/
 [karma-chai-as-promised]: https://github.com/vlkosinov/karma-chai-as-promised
+[browserify]: http://browserify.org/

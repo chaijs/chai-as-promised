@@ -1,4 +1,5 @@
 "use strict"
+{ shouldPass, shouldFail } = require("./support/common.js")
 
 describe "Assert interface with eventually extender:", =>
     promise = null
