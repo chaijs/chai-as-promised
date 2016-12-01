@@ -205,6 +205,7 @@ Do an `npm install chai-as-promised` to get up and running. Then:
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 
+chai.should();
 chai.use(chaiAsPromised);
 
 // Then either:
