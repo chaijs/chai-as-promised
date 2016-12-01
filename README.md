@@ -230,6 +230,22 @@ If you're using [Karma][], check out the accompanying [karma-chai-as-promised][]
 
 Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, no PhantomJS).
 
+### Dirty Chai
+
+If you're using dirty-chai, you should `.use` chai-as-promised before dirty-chai:
+
+```javascript
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
+var dirtyChai = requrie("dirty-chai");
+
+
+chai.use(chaiAsPromised);
+chai.use(dirtyChai);
+```
+
+You can of course put this code in a common test fixture file; for an example using [Mocha][], see [the Chai as Promised tests themselves][fixturedemo].
+
 [presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 [chai]: http://chaijs.com/
 [Mocha-promises]: http://mochajs.org/#asynchronous-code
