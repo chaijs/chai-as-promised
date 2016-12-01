@@ -150,6 +150,10 @@ Notably, jQuery's promises were not up to spec before jQuery 3.0, and Chai as Pr
 
 Angular promises have a special digest cycle for their processing, and [need extra setup code to work with Chai as Promised](http://stackoverflow.com/a/37374041/3191).
 
+Chai as Promised is written for modern browsers and depends on the ECMAScript 5 
+[bind function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind). 
+This method should be shimmed to support testing in legacy environments.
+
 ### Working with Non-Promise–Friendly Test Runners
 
 Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal asynchronous test completion. If possible, I'd recommend switching to ones that do, such as [Mocha][mocha-promises], [Buster][buster-promises], or [blue-tape][]. But if that's not an option, Chai as Promised still has you covered. As long as your test framework takes a callback indicating when the asynchronous test run is over, Chai as Promised can adapt to that situation with its `notify` method, like so:
