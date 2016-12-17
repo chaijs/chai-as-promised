@@ -47,9 +47,6 @@ describe "Fulfillment value assertions:", =>
             it ".eventually.not.deep.equal({ foo: 'bar' })", (done) =>
                 fulfilledPromise(foo: "baz").should.eventually.not.deep.equal(foo: "bar").notify(done)
                 return
-            it ".eventually.have.deep.property('foo.bar')", (done) =>
-                fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
-                return
             it ".eventually.contain('foo')", (done) =>
                 fulfilledPromise(["foo", "bar"]).should.eventually.contain("foo").notify(done)
                 return
@@ -71,6 +68,11 @@ describe "Fulfillment value assertions:", =>
             it ".eventually.be.an.instanceOf(Array)", (done) =>
                 fulfilledPromise([]).should.eventually.be.an.instanceOf(Array).notify(done)
                 return
+
+            if Object.prototype.should.nested
+                it ".eventually.have.nested.property('foo.bar')", (done) =>
+                    fulfilledPromise(foo: bar: "baz").should.eventually.have.nested.property("foo.bar", "baz").notify(done)
+                    return
 
     describe "Chaining:", =>
         it ".eventually.be.ok.and.equal(42)", (done) =>
