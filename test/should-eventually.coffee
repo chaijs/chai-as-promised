@@ -34,8 +34,8 @@ describe "Fulfillment value assertions:", =>
                 fulfilledPromise(foo: "baz").should.not.eventually.deep.equal(foo: "bar").notify(done)
             it ".eventually.not.deep.equal({ foo: 'bar' })", (done) =>
                 fulfilledPromise(foo: "baz").should.eventually.not.deep.equal(foo: "bar").notify(done)
-            it ".eventually.have.deep.property('foo.bar')", (done) =>
-                fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
+            it ".eventually.have.nested.property('foo.bar')", (done) =>
+                fulfilledPromise(foo: bar: "baz").should.eventually.have.nested.property("foo.bar", "baz").notify(done)
             it ".eventually.contain('foo')", (done) =>
                 fulfilledPromise(["foo", "bar"]).should.eventually.contain("foo").notify(done)
             it ".not.eventually.contain('foo')", (done) =>
