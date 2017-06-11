@@ -218,6 +218,8 @@ chai.should();
 
 You can of course put this code in a common test fixture file; for an example using [Mocha](http://mochajs.org), see [the Chai as Promised tests themselves](https://github.com/domenic/chai-as-promised/tree/master/test/).
 
+**Note when using other Chai plugins:** Chai as Promised finds all currently-registered asserters and promisifies them, at the time it is installed. Thus, you should install Chai as Promised _last_, after any other Chai plugins, if you expect their asserters to be promisified.
+
 ### In the Browser
 
 To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify](http://browserify.org/). See also the note below about browser compatibility.
