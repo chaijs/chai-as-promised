@@ -20,9 +20,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "npm run test-plugin && npm run test-intercompatibility",
-    "test-plugin": "mocha",
-    "test-intercompatibility": "mocha test-intercompatibility --opts test-intercompatibility/mocha.opts",
+    "test": "mocha",
     "test-travis": "npm install chai@$CHAI_VERSION && npm test",
     "lint": "eslint .",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
@@ -36,7 +34,6 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
-    "coffee-script": "1.10.0",
     "istanbul": "0.4.5",
     "mocha": "^3.4.2"
   }

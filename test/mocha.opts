@@ -1,4 +1,0 @@
---compilers coffee:coffee-script/register
---reporter spec
---require test/support/common
---require test/support/node
