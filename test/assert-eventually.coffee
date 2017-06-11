@@ -46,6 +46,7 @@ describe "Assert interface with eventually extender:", =>
                             e.actual.should.equal(42)
                             e.expected.should.equal(52)
                     )).to.be.fulfilled.notify(done)
+                    return
 
             describe "assert", =>
                 shouldFailWithCorrectActual => assert.eventually.equal(promise, 52)

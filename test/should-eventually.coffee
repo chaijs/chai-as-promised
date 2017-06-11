@@ -8,56 +8,80 @@ describe "Fulfillment value assertions:", =>
         describe "Basics:", =>
             it ".eventually.equal(42)", (done) =>
                 fulfilledPromise(42).should.eventually.equal(42).notify(done)
+                return
             it ".eventually.be.arguments", (done) =>
                 fulfilledPromise(arguments).should.eventually.be.arguments.notify(done)
+                return
             it ".eventually.be.empty", (done) =>
                 fulfilledPromise([]).should.eventually.be.empty.notify(done)
+                return
             it ".eventually.exist", (done) =>
                 fulfilledPromise(true).should.eventually.exist.notify(done)
+                return
             it ".eventually.be.false", (done) =>
                 fulfilledPromise(false).should.eventually.be.false.notify(done)
+                return
             it ".eventually.be.ok", (done) =>
                 fulfilledPromise({}).should.eventually.be.ok.notify(done)
+                return
             it ".eventually.be.true", (done) =>
                 fulfilledPromise(true).should.eventually.be.true.notify(done)
+                return
             it ".become(true)", (done) =>
                 fulfilledPromise(true).should.become(true).notify(done)
+                return
 
         describe "With flags and chainable methods involved:", =>
             it ".not.eventually.be.ok", (done) =>
                 fulfilledPromise(false).should.not.eventually.be.ok.notify(done)
+                return
             it ".eventually.not.be.ok", (done) =>
                 fulfilledPromise(false).should.eventually.not.be.ok.notify(done)
+                return
             it ".eventually.deep.equal({ foo: 'bar' })", (done) =>
                 fulfilledPromise(foo: "bar").should.eventually.deep.equal(foo: "bar").notify(done)
+                return
             it ".not.eventually.deep.equal({ foo: 'bar' })", (done) =>
                 fulfilledPromise(foo: "baz").should.not.eventually.deep.equal(foo: "bar").notify(done)
+                return
             it ".eventually.not.deep.equal({ foo: 'bar' })", (done) =>
                 fulfilledPromise(foo: "baz").should.eventually.not.deep.equal(foo: "bar").notify(done)
+                return
             it ".eventually.have.deep.property('foo.bar')", (done) =>
                 fulfilledPromise(foo: bar: "baz").should.eventually.have.deep.property("foo.bar", "baz").notify(done)
+                return
             it ".eventually.contain('foo')", (done) =>
                 fulfilledPromise(["foo", "bar"]).should.eventually.contain("foo").notify(done)
+                return
             it ".not.eventually.contain('foo')", (done) =>
                 fulfilledPromise(["bar", "baz"]).should.not.eventually.contain("foo").notify(done)
+                return
             it ".eventually.not.contain('foo')", (done) =>
                 fulfilledPromise(["bar", "baz"]).should.eventually.not.contain("foo").notify(done)
+                return
             it ".eventually.contain.keys('foo')", (done) =>
                 fulfilledPromise(foo: "bar", baz: "quux").should.eventually.contain.keys("foo").notify(done)
+                return
             it ".not.eventually.contain.keys('foo')", (done) =>
                 fulfilledPromise(baz: "quux").should.not.eventually.contain.keys("foo").notify(done)
+                return
             it ".eventually.not.contain.keys('foo')", (done) =>
                 fulfilledPromise(baz: "quux").should.eventually.not.contain.keys("foo").notify(done)
+                return
             it ".eventually.be.an.instanceOf(Array)", (done) =>
                 fulfilledPromise([]).should.eventually.be.an.instanceOf(Array).notify(done)
+                return
 
     describe "Chaining:", =>
         it ".eventually.be.ok.and.equal(42)", (done) =>
             fulfilledPromise(42).should.eventually.be.ok.and.equal(42).notify(done)
+            return
         it ".rejected.and.notify(done)", (done) =>
             rejectedPromise().should.be.rejected.and.notify(done)
+            return
         it ".fulfilled.and.notify(done)", (done) =>
             fulfilledPromise().should.be.fulfilled.and.notify(done)
+            return
 
     describe "On a promise fulfilled with the number 42:", =>
         beforeEach =>

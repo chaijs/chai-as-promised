@@ -5,7 +5,7 @@
 
 # Chai Assertions for Promises
 
-**Chai as Promised** extends [Chai][chai] with a fluent language for asserting facts about [promises][presentation].
+**Chai as Promised** extends [Chai](http://chaijs.com/) with a fluent language for asserting facts about [promises](http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript).
 
 Instead of manually wiring up your expectations to a promise's fulfilled and rejected handlers:
 
@@ -90,7 +90,7 @@ return assert.isRejected(promise, /error message matcher/, "optional message");
 
 ### Progress Callbacks
 
-Chai as Promised does not have any intrinsic support for testing promise progress callbacks. The properties you would want to test are probably much better suited to a library like [Sinon.JS][sinon], perhaps in conjunction with [Sinon–Chai][sinon-chai]:
+Chai as Promised does not have any intrinsic support for testing promise progress callbacks. The properties you would want to test are probably much better suited to a library like [Sinon.JS](http://sinonjs.org/), perhaps in conjunction with [Sinon–Chai](https://github.com/domenic/sinon-chai):
 
 ```javascript
 var progressSpy = sinon.spy();
@@ -144,15 +144,15 @@ Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resol
 
 ### Compatibility
 
-Chai as Promised is compatible with all promises following the [Promises/A+ specification][spec].
+Chai as Promised is compatible with all promises following the [Promises/A+ specification](http://promisesaplus.com/).
 
-Notably, jQuery's promises were not up to spec before jQuery 3.0, and Chai as Promised will not work with them. In particular, Chai as Promised makes extensive use of the standard [transformation behavior][] of `then`, which jQuery<3.0 does not support.
+Notably, jQuery's promises were not up to spec before jQuery 3.0, and Chai as Promised will not work with them. In particular, Chai as Promised makes extensive use of the standard [transformation behavior](http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/#toc_2) of `then`, which jQuery<3.0 does not support.
 
 Angular promises have a special digest cycle for their processing, and [need extra setup code to work with Chai as Promised](http://stackoverflow.com/a/37374041/3191).
 
 ### Working with Non-Promise–Friendly Test Runners
 
-Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal asynchronous test completion. If possible, I'd recommend switching to ones that do, such as [Mocha][mocha-promises], [Buster][buster-promises], or [blue-tape][]. But if that's not an option, Chai as Promised still has you covered. As long as your test framework takes a callback indicating when the asynchronous test run is over, Chai as Promised can adapt to that situation with its `notify` method, like so:
+Some test runners (e.g. Jasmine, QUnit, or tap/tape) do not have the ability to use the returned promise to signal asynchronous test completion. If possible, I'd recommend switching to ones that do, such as [Mocha](http://mochajs.org/#asynchronous-code), [Buster](http://docs.busterjs.org/en/latest/modules/buster-test/spec/#returning-a-promise), or [blue-tape](https://github.com/spion/blue-tape). But if that's not an option, Chai as Promised still has you covered. As long as your test framework takes a callback indicating when the asynchronous test run is over, Chai as Promised can adapt to that situation with its `notify` method, like so:
 
 ```javascript
 it("should be fulfilled", function (done) {
@@ -216,32 +216,16 @@ chai.should();
 // according to your preference of assertion style
 ```
 
-You can of course put this code in a common test fixture file; for an example using [Mocha][], see [the Chai as Promised tests themselves][fixturedemo].
+You can of course put this code in a common test fixture file; for an example using [Mocha](http://mochajs.org), see [the Chai as Promised tests themselves](https://github.com/domenic/chai-as-promised/tree/master/test/).
 
 ### In the Browser
 
-To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify][].
+To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify](http://browserify.org/). See also the note below about browser compatibility.
 
 ### Karma
 
-If you're using [Karma][], check out the accompanying [karma-chai-as-promised][] plugin.
+If you're using [Karma](https://karma-runner.github.io/), check out the accompanying [karma-chai-as-promised](https://github.com/vlkosinov/karma-chai-as-promised) plugin.
 
-### Browser Compatibility
+### Browser/Node Compatibility
 
-Chai as Promised is only compatible with modern browsers (IE ≥9, Safari ≥6, no PhantomJS).
-
-[presentation]: http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
-[chai]: http://chaijs.com/
-[Mocha-promises]: http://mochajs.org/#asynchronous-code
-[Buster-promises]: http://docs.busterjs.org/en/latest/modules/buster-test/spec/#returning-a-promise
-[blue-tape]: https://github.com/spion/blue-tape
-[spec]: http://promisesaplus.com/
-[transformation behavior]: http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/#toc_2
-[Mocha]: http://mochajs.org
-[fixturedemo]: https://github.com/domenic/chai-as-promised/tree/master/test/
-[amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
-[sinon]: http://sinonjs.org/
-[sinon-chai]: https://github.com/domenic/sinon-chai
-[Karma]: https://karma-runner.github.io/
-[karma-chai-as-promised]: https://github.com/vlkosinov/karma-chai-as-promised
-[browserify]: http://browserify.org/
+Chai as Promised requires Node v4+ or a browser with equivalent support for modern JavaScript syntax. If your browser doesn't support modern JavaScript syntax, you'll need to transpile it down using a tool like [Babel](http://babeljs.io/).

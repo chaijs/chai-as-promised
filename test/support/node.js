@@ -1,7 +1,6 @@
 "use strict";
-
-var chai = require("chai");
-var chaiAsPromised = require("../..");
+const chai = require("chai");
+const chaiAsPromised = require("../..");
 
 chai.should();
 chai.use(chaiAsPromised);
