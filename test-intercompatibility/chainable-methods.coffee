@@ -1,4 +1,7 @@
 "use strict"
+chai = require("chai")
+chaiAsPromised = require("..")
+expect = require("chai").expect
 
 newMethod = () =>
     # Do nothing

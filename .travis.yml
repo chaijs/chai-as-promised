@@ -1,6 +1,12 @@
 sudo: false
 language: node_js
 node_js:
-    - "stable"
+    - 4
+    - stable
+env:
+  # Can't figure out how to DRY this up: http://stackoverflow.com/q/22397300/3191
+  - CHAI_VERSION=^2.1.2
+  - CHAI_VERSION=^3.0.0
 script:
-  npm run lint && npm test
+  - npm run lint
+  - npm run test-travis
