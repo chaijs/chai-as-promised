@@ -179,6 +179,17 @@ it("should change the state", function (done) {
 
 Notice how `.notify(done)` is hanging directly off of `.should`, instead of appearing after a promise assertion. This indicates to Chai as Promised that it should pass fulfillment or rejection directly through to the testing framework. Thus, the above code will fail with a Chai as Promised error (`"expected promise to be fulfilled…"`) if `promise` is rejected, but will fail with a simple Chai error (`expected "before" to equal "after"`) if `otherState` does not change.
 
+### Working with ES7 and Promise-Friendly Test Runners
+
+Since any assertion that must wait on a promise returns a promise itself, if you're able to use ES7 `async`/`await` and your test runner supports returning a promise from test methods, you can await assertions in tests:
+
+```javascript
+it('should work well with async/await', async () => {
+  await Promise.resolve(42).should.become(42);
+  await Promise.reject(new Error()).should.be.rejectedWith(Error);
+});
+```
+
 ### Multiple Promise Assertions
 
 To perform assertions on multiple promises, use `Promise.all` to combine multiple Chai as Promised assertions:
