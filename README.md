@@ -181,7 +181,7 @@ Notice how `.notify(done)` is hanging directly off of `.should`, instead of appe
 
 ### Working with `async`/`await` and Promise-Friendly Test Runners
 
-Since any assertion that must wait on a promise returns a promise itself, if you're able to use ES7 `async`/`await` and your test runner supports returning a promise from test methods, you can await assertions in tests.  In many cases you can avoid using Chai as Promised at all by performing a synchronous assertion after an `await`, but awaiting `rejectedWith` is often more convenient than using `try`/`catch` blocks without Chai as Promised:
+Since any assertion that must wait on a promise returns a promise itself, if you're able to use `async`/`await` and your test runner supports returning a promise from test methods, you can await assertions in tests.  In many cases you can avoid using Chai as Promised at all by performing a synchronous assertion after an `await`, but awaiting `rejectedWith` is often more convenient than using `try`/`catch` blocks without Chai as Promised:
 
 ```javascript
 it('should work well with async/await', async () => {
