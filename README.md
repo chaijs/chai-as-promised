@@ -186,7 +186,7 @@ Since any assertion that must wait on a promise returns a promise itself, if you
 ```javascript
 it('should work well with async/await', async () => {
   (await Promise.resolve(42)).should.equal(42)
-  await Promise.reject(new Error()).should.be.rejectedWith(Error);
+  (await Promise.reject(new Error()).should.be.rejectedWith(Error);
 });
 ```
 
