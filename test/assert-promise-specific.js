@@ -82,14 +82,6 @@ describe("Assert interface:", () => {
                 message: "to be rejected"
             });
         });
-        // Chai never interprets the 3rd parameter to assert.throws as
-        // a custom error message. This is what we are checking here.
-        describe(".isRejected(promise, /quux/, custom)", () => {
-            shouldFail({
-                op: () => assert.isRejected(promise, /quux/, custom),
-                notMessage: custom
-            });
-        });
     });
 
 
@@ -127,15 +119,6 @@ describe("Assert interface:", () => {
             });
         });
 
-        // Chai never interprets the 3rd parameter to assert.throws as
-        // a custom error message. This is what we are checking here.
-        describe(".isRejected(promise, differentError, custom)", () => {
-            shouldFail({
-                op: () => assert.isRejected(promise, new Error(), custom),
-                notMessage: custom
-            });
-        });
-
         describe("with an Error having message 'foo bar'", () => {
             beforeEach(() => {
                 promise = Promise.reject(new Error("foo bar"));
@@ -145,31 +128,14 @@ describe("Assert interface:", () => {
                 shouldPass(() => assert.isRejected(promise, "bar"));
             });
 
-            describe(".isRejected(promise, 'bar', custom)", () => {
-                shouldPass(() => assert.isRejected(promise, "bar", custom));
-            });
-
             describe(".isRejected(promise, /bar/)", () => {
                 shouldPass(() => assert.isRejected(promise, /bar/));
-            });
-
-            describe(".isRejected(promise, /bar/, custom)", () => {
-                shouldPass(() => assert.isRejected(promise, /bar/, custom));
             });
 
             describe(".isRejected(promise, 'quux')", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, "quux"),
                     message: "to be rejected with"
-                });
-            });
-
-            // Chai 3.5.0 never interprets the 3rd parameter to assert.throws as
-            // a custom error message. This is what we are checking here.
-            describe(".isRejected(promise, 'quux', custom)", () => {
-                shouldFail({
-                    op: () => assert.isRejected(promise, "quux", custom),
-                    notMessage: custom
                 });
             });
 
@@ -214,40 +180,46 @@ describe("Assert interface:", () => {
             describe(".isRejected(promise, RangeError, 'quux')", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, RangeError, "quux"),
-                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
+                    message: "to be rejected with a RangeError including 'quux' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".isRejected(promise, RangeError, /quux/)", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, RangeError, /quux/),
-                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
+                    message: "to be rejected with a RangeError matching /quux/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".isRejected(promise, TypeError, 'foo')", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, TypeError, "foo"),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError including 'foo' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".isRejected(promise, TypeError, /bar/)", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, TypeError, /bar/),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError matching /bar/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".isRejected(promise, TypeError, 'quux')", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, TypeError, "quux"),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError including 'quux' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".isRejected(promise, TypeError, /quux/)", () => {
                 shouldFail({
                     op: () => assert.isRejected(promise, TypeError, /quux/),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError matching /quux/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
@@ -283,6 +255,40 @@ describe("Assert interface:", () => {
                     message: custom
                 });
             });
+        });
+    });
+
+    describe("when invalid arguments are given to isRejected", () => {
+        beforeEach(() => {
+            promise = Promise.reject(error);
+        });
+
+        it("2nd arg is a string and 3rd arg is defined", () => {
+            assert.throws(
+                () => assert.isRejected(promise, "testing", "testing"),
+                "errMsgMatcher must be null or undefined when errLike is a string or regular expression"
+            );
+        });
+
+        it("2nd arg isn't an `Error` constructor, `Error` instance, string, or regexp", () => {
+            assert.throws(
+                () => assert.isRejected(promise, {}),
+                "errLike must be an Error constructor or instance"
+            );
+        });
+
+        it("3rd arg is defined but not a string or regexp", () => {
+            assert.throws(
+                () => assert.isRejected(promise, TypeError, {}),
+                "errMsgMatcher must be a string or regular expression"
+            );
+        });
+
+        it("2nd arg is an `Error` instance and 3rd arg is defined", () => {
+            assert.throws(
+                () => assert.isRejected(promise, error, "testing"),
+                "errMsgMatcher must be null or undefined when errLike is an Error instance"
+            );
         });
     });
 });

@@ -88,6 +88,27 @@ return assert.isRejected(promise, Error, "optional message");
 return assert.isRejected(promise, /error message matcher/, "optional message");
 ```
 
+### Asserting on a Promise Rejected with a Non-Error Object
+
+Like Chai's `throw` assertion, `rejectedWith` can only be used to assert on the constructor and message of `Error` instances. This includes `Error` instances created from subclassed `Error` constructors such as `ReferenceError`, `TypeError`, and user-defined constructors that extend `Error`. No other type of value will generate a stack trace when initialized. With that said, it's still possible to assert on non-`Error` objects by using `rejected` and then performing additional assertions later in the chain, like so:
+
+```js
+it("should work when a promise is rejected with a non-`Error` object", function () {
+    function NonErrorConstructor(message) {
+        this.message = message;
+    }
+
+    return expect(Promise.reject(new NonErrorConstructor("waffles")))
+        .to.be.rejected
+        .and.eventually.be.an.instanceof(NonErrorConstructor)
+        .with.property("message", "waffles");
+});
+
+it("should work when a promise is rejected with a primitive value", function () {
+    return expect(Promise.reject(42)).to.be.rejected.and.eventually.equal(42);
+});
+```
+
 ### Progress Callbacks
 
 Chai as Promised does not have any intrinsic support for testing promise progress callbacks. The properties you would want to test are probably much better suited to a library like [Sinon.JS](http://sinonjs.org/), perhaps in conjunction with [Sinon–Chai](https://github.com/domenic/sinon-chai):

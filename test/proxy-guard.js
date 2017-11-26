@@ -62,7 +62,7 @@ describe("Proxy guard", () => {
     });
 
     it("should guard against invalid property following called `.rejectedWith`", () => {
-        shouldGuard(() => promise.should.rejectedWith(42).pizza, "pizza");
+        shouldGuard(() => promise.should.rejectedWith("42").pizza, "pizza");
     });
 
     it("should guard against invalid property following uncalled `.rejectedWith`", () => {
