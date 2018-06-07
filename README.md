@@ -83,9 +83,9 @@ return assert.isFulfilled(promise, "optional message");
 return assert.becomes(promise, "foo", "optional message");
 return assert.doesNotBecome(promise, "foo", "optional message");
 
-return assert.isRejected(promise, "optional message");
 return assert.isRejected(promise, Error, "optional message");
-return assert.isRejected(promise, /error message matcher/, "optional message");
+return assert.isRejected(promise, /error message regex matcher/, "optional message");
+return assert.isRejected(promise, "substring to search error message for", "optional message");
 ```
 
 ### Progress Callbacks
