@@ -35,6 +35,43 @@ doSomethingAsync().should.eventually.equal("foo").notify(done);
 
 *Notice*: either `return` or `notify(done)` _must_ be used with promise assertions. This can be a slight departure from the existing format of assertions being used on a project or by a team. Those other assertions are likely synchronous and thus do not require special handling.
 
+## Installation and Setup
+
+### Node
+
+Do an `npm install chai-as-promised` to get up and running. Then:
+
+```javascript
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
+
+chai.use(chaiAsPromised);
+
+// Then either:
+var expect = chai.expect;
+// or:
+var assert = chai.assert;
+// or:
+chai.should();
+// according to your preference of assertion style
+```
+
+You can of course put this code in a common test fixture file; for an example using [Mocha](http://mochajs.org), see [the Chai as Promised tests themselves](https://github.com/domenic/chai-as-promised/tree/master/test/).
+
+**Note when using other Chai plugins:** Chai as Promised finds all currently-registered asserters and promisifies them, at the time it is installed. Thus, you should install Chai as Promised _last_, after any other Chai plugins, if you expect their asserters to be promisified.
+
+### In the Browser
+
+To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify](http://browserify.org/). See also the note below about browser compatibility.
+
+### Karma
+
+If you're using [Karma](https://karma-runner.github.io/), check out the accompanying [karma-chai-as-promised](https://github.com/vlkosinov/karma-chai-as-promised) plugin.
+
+### Browser/Node Compatibility
+
+Chai as Promised requires Node v4+ or a browser with equivalent support for modern JavaScript syntax. If your browser doesn't support modern JavaScript syntax, you'll need to transpile it down using a tool like [Babel](http://babeljs.io/).
+
 ## How to Use
 
 ### `should`/`expect` Interface
@@ -205,40 +242,3 @@ it("should all be well", function () {
 ```
 
 This will pass any failures of the individual promise assertions up to the test framework, instead of wrapping them in an `"expected promise to be fulfilled…"` message as would happen if you did `return Promise.all([…]).should.be.fulfilled`. If you can't use `return`, then use `.should.notify(done)`, similar to the previous examples.
-
-## Installation and Setup
-
-### Node
-
-Do an `npm install chai-as-promised` to get up and running. Then:
-
-```javascript
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-
-chai.use(chaiAsPromised);
-
-// Then either:
-var expect = chai.expect;
-// or:
-var assert = chai.assert;
-// or:
-chai.should();
-// according to your preference of assertion style
-```
-
-You can of course put this code in a common test fixture file; for an example using [Mocha](http://mochajs.org), see [the Chai as Promised tests themselves](https://github.com/domenic/chai-as-promised/tree/master/test/).
-
-**Note when using other Chai plugins:** Chai as Promised finds all currently-registered asserters and promisifies them, at the time it is installed. Thus, you should install Chai as Promised _last_, after any other Chai plugins, if you expect their asserters to be promisified.
-
-### In the Browser
-
-To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify](http://browserify.org/). See also the note below about browser compatibility.
-
-### Karma
-
-If you're using [Karma](https://karma-runner.github.io/), check out the accompanying [karma-chai-as-promised](https://github.com/vlkosinov/karma-chai-as-promised) plugin.
-
-### Browser/Node Compatibility
-
-Chai as Promised requires Node v4+ or a browser with equivalent support for modern JavaScript syntax. If your browser doesn't support modern JavaScript syntax, you'll need to transpile it down using a tool like [Babel](http://babeljs.io/).
