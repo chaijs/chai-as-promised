@@ -70,7 +70,7 @@ describe("Promise-specific extensions:", () => {
         describe(".rejectedWith(TypeError)", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(TypeError),
-                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
+                message: "to be rejected with a TypeError but it was fulfilled with 42"
             });
         });
         describe(".not.rejectedWith(TypeError) passes the fulfilled value", () => {
@@ -86,32 +86,32 @@ describe("Promise-specific extensions:", () => {
         describe(".rejectedWith('message substring')", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith("message substring"),
-                message: "to be rejected with an error including 'message substring' but it was fulfilled with " +
+                message: "to be rejected with an Error including 'message substring' but it was fulfilled with " +
                          "42"
             });
         });
         describe(".rejectedWith(/regexp/)", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(/regexp/),
-                message: "to be rejected with an error matching /regexp/ but it was fulfilled with 42"
+                message: "to be rejected with an Error matching /regexp/ but it was fulfilled with 42"
             });
         });
         describe(".rejectedWith(TypeError, 'message substring')", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(TypeError, "message substring"),
-                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
+                message: "to be rejected with a TypeError including 'message substring' but it was fulfilled with 42"
             });
         });
         describe(".rejectedWith(TypeError, /regexp/)", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(TypeError, /regexp/),
-                message: "to be rejected with 'TypeError' but it was fulfilled with 42"
+                message: "to be rejected with a TypeError matching /regexp/ but it was fulfilled with 42"
             });
         });
         describe(".rejectedWith(errorInstance)", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(error),
-                message: "to be rejected with 'Error: boo' but it was fulfilled with 42"
+                message: "to be rejected with [Error: boo] but it was fulfilled with 42"
             });
         });
 
@@ -152,7 +152,7 @@ describe("Promise-specific extensions:", () => {
         describe(".fulfilled", () => {
             shouldFail({
                 op: () => promise.should.be.fulfilled,
-                message: "to be fulfilled but it was rejected with 'Error: boo'"
+                message: "to be fulfilled but it was rejected with [Error: boo]"
             });
         });
 
@@ -177,7 +177,7 @@ describe("Promise-specific extensions:", () => {
         describe(".not.rejected", () => {
             shouldFail({
                 op: () => promise.should.not.be.rejected,
-                message: "not to be rejected but it was rejected with 'Error: boo'"
+                message: "not to be rejected but it was rejected with [Error: boo]"
             });
         });
         describe(".rejected should allow chaining", () => {
@@ -197,7 +197,7 @@ describe("Promise-specific extensions:", () => {
         describe(".not.rejectedWith(theError)", () => {
             shouldFail({
                 op: () => promise.should.not.be.rejectedWith(error),
-                message: "not to be rejected with 'Error: boo'"
+                message: "not to be rejected with [Error: boo]"
             });
         });
 
@@ -214,27 +214,12 @@ describe("Promise-specific extensions:", () => {
         describe(".rejectedWith(differentError)", () => {
             shouldFail({
                 op: () => promise.should.be.rejectedWith(new Error()),
-                message: "to be rejected with 'Error' but it was rejected with 'Error: boo'"
+                message: "to be rejected with [Error] but it was rejected with [Error: boo]"
             });
         });
 
         describe(".not.rejectedWith(differentError)", () => {
             shouldPass(() => promise.should.not.be.rejectedWith(new Error()));
-        });
-
-        // Chai 3.5.0 never interprets the 2nd paramter to
-        // expect(fn).to.throw(a, b) as a custom error message. This is
-        // what we are testing here.
-        describe(".rejectedWith(differentError, custom)", () => {
-            shouldFail({
-                op: () => promise.should.be.rejectedWith(new Error(), custom),
-                message: "to be rejected with 'Error' but it was rejected with 'Error: boo'",
-                notMessage: custom
-            });
-        });
-
-        describe(".not.rejectedWith(differentError, custom)", () => {
-            shouldPass(() => promise.should.not.be.rejectedWith(new Error(), custom));
         });
 
         describe("with an Error having message 'foo bar'", () => {
@@ -249,7 +234,7 @@ describe("Promise-specific extensions:", () => {
             describe(".not.rejectedWith('foo')", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith("foo"),
-                    message: "not to be rejected with an error including 'foo'"
+                    message: "not to be rejected with an Error including 'foo'"
                 });
             });
 
@@ -260,14 +245,14 @@ describe("Promise-specific extensions:", () => {
             describe(".not.rejectedWith(/bar/)", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(/bar/),
-                    message: "not to be rejected with an error matching /bar/"
+                    message: "not to be rejected with an Error matching /bar/"
                 });
             });
 
             describe(".rejectedWith('quux')", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith("quux"),
-                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
+                    message: "to be rejected with an Error including 'quux' but it was rejected with [Error: foo bar]"
                 });
             });
 
@@ -278,7 +263,7 @@ describe("Promise-specific extensions:", () => {
             describe(".rejectedWith(/quux/)", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(/quux/),
-                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
+                    message: "to be rejected with an Error matching /quux/ but it was rejected with [Error: foo bar]"
                 });
             });
 
@@ -286,29 +271,11 @@ describe("Promise-specific extensions:", () => {
                 shouldPass(() => promise.should.not.be.rejectedWith(/quux/));
             });
 
-            // Chai 3.5.0 never interprets the 2nd paramter to
-            // expect(fn).to.throw(a, b) as a custom error
-            // message. This is what we are testing here.
-            describe(".rejectedWith('foo', custom)", () => {
-                shouldPass(() => promise.should.be.rejectedWith("foo", custom));
-            });
-
-            describe(".not.rejectedWith('foo', custom)", () => {
-                shouldFail({
-                    op: () => promise.should.not.be.rejectedWith("foo", custom),
-                    message: "not to be rejected with an error including 'foo'",
-                    notMessage: custom
-                });
-            });
-
-            describe(".rejectedWith(/bar/, custom)", () => {
-                shouldPass(() => promise.should.be.rejectedWith(/bar/, custom));
-            });
-
             describe(".not.rejectedWith(/bar/, custom)", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(/bar/),
-                    message: "not to be rejected with an error matching /bar/",
+                    message: "not to be rejected with an Error matching /bar/ but it was rejected with" +
+                             " [Error: foo bar]",
                     notMessage: custom
                 });
             });
@@ -326,22 +293,14 @@ describe("Promise-specific extensions:", () => {
             describe(".not.rejectedWith(RangeError)", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(RangeError),
-                    message: "not to be rejected with 'RangeError' but it was rejected with 'RangeError'"
+                    message: "not to be rejected with a RangeError but it was rejected with [RangeError]"
                 });
             });
 
             describe(".rejectedWith(TypeError)", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(TypeError),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError'"
-                });
-            });
-
-            // Case for issue #64.
-            describe(".rejectedWith(Array)", () => {
-                shouldFail({
-                    op: () => promise.should.be.rejectedWith(Array),
-                    message: "to be rejected with 'Array' but it was rejected with 'RangeError'"
+                    message: "to be rejected with a TypeError but it was rejected with [RangeError]"
                 });
             });
 
@@ -362,7 +321,8 @@ describe("Promise-specific extensions:", () => {
             describe(".not.rejectedWith(RangeError, 'foo')", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(RangeError, "foo"),
-                    message: "not to be rejected with 'RangeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "not to be rejected with a RangeError including 'foo' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
@@ -373,59 +333,68 @@ describe("Promise-specific extensions:", () => {
             describe(".not.rejectedWith(RangeError, /bar/)", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(RangeError, /bar/),
-                    message: "not to be rejected with 'RangeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "not to be rejected with a RangeError matching /bar/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".rejectedWith(RangeError, 'quux')", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(RangeError, "quux"),
-                    message: "to be rejected with an error including 'quux' but got 'foo bar'"
+                    message: "to be rejected with a RangeError including 'quux' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".rejectedWith(RangeError, /quux/)", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(RangeError, /quux/),
-                    message: "to be rejected with an error matching /quux/ but got 'foo bar'"
+                    message: "to be rejected with a RangeError matching /quux/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".rejectedWith(TypeError, 'foo')", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(TypeError, "foo"),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError including 'foo' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".rejectedWith(TypeError, /bar/)", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(TypeError, /bar/),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError matching /bar/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".rejectedWith(TypeError, 'quux')", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(TypeError, "quux"),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError including 'quux' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".rejectedWith(TypeError, /quux/)", () => {
                 shouldFail({
                     op: () => promise.should.be.rejectedWith(TypeError, /quux/),
-                    message: "to be rejected with 'TypeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "to be rejected with a TypeError matching /quux/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
             describe(".not.rejectedWith(RangeError, 'foo')", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(RangeError, "foo"),
-                    message: "not to be rejected with 'RangeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "not to be rejected with a RangeError including 'foo' but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
             describe(".not.rejectedWith(RangeError, /bar/)", () => {
                 shouldFail({
                     op: () => promise.should.not.be.rejectedWith(RangeError, /bar/),
-                    message: "not to be rejected with 'RangeError' but it was rejected with 'RangeError: foo bar'"
+                    message: "not to be rejected with a RangeError matching /bar/ but it was rejected with" +
+                             " [RangeError: foo bar]"
                 });
             });
 
@@ -633,7 +602,29 @@ describe("Promise-specific extensions:", () => {
         });
     });
 
-    describe("`rejectedWith` with non-`Error` rejection reasons (GH-33)", () => {
-        shouldPass(() => Promise.reject(42).should.be.rejectedWith(42));
+    describe("when invalid arguments are given to rejectedWith", () => {
+        beforeEach(() => {
+            promise = Promise.reject(error);
+        });
+
+        it("1st arg is a string and 2nd arg is defined", () => {
+            expect(() => promise.should.be.rejectedWith("testing", "testing"))
+                .to.throw("errMsgMatcher must be null or undefined when errLike is a string or regular expression");
+        });
+
+        it("1st arg isn't an `Error` constructor, `Error` instance, string, or regexp", () => {
+            expect(() => promise.should.be.rejectedWith({}))
+                .to.throw("errLike must be an Error constructor or instance");
+        });
+
+        it("2nd arg is defined but not a string or regexp", () => {
+            expect(() => promise.should.be.rejectedWith(TypeError, {}))
+                .to.throw("errMsgMatcher must be a string or regular expression");
+        });
+
+        it("1st arg is an `Error` instance and 2nd arg is defined", () => {
+            expect(() => promise.should.be.rejectedWith(error, "testing"))
+                .to.throw("errMsgMatcher must be null or undefined when errLike is an Error instance");
+        });
     });
 });
