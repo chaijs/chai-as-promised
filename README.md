@@ -7,6 +7,28 @@
 
 **Chai as Promised** extends [Chai](http://chaijs.com/) with a fluent language for asserting facts about [promises](http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript).
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [How to Use](#how-to-use)
+  - [`should`/`expect` Interface](#shouldexpect-interface)
+  - [`assert` Interface](#assert-interface)
+  - [Progress Callbacks](#progress-callbacks)
+  - [Customizing Output Promises](#customizing-output-promises)
+  - [Transforming Arguments to the Asserters](#transforming-arguments-to-the-asserters)
+  - [Compatibility](#compatibility)
+  - [Working with Non-Promise–Friendly Test Runners](#working-with-non-promisefriendly-test-runners)
+  - [Working with `async`/`await` and Promise-Friendly Test Runners](#working-with-asyncawait-and-promise-friendly-test-runners)
+  - [Multiple Promise Assertions](#multiple-promise-assertions)
+- [Installation and Setup](#installation-and-setup)
+  - [Node](#node)
+  - [In the Browser](#in-the-browser)
+  - [Karma](#karma)
+  - [Browser/Node Compatibility](#browsernode-compatibility)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Instead of manually wiring up your expectations to a promise's fulfilled and rejected handlers:
 
 ```javascript
