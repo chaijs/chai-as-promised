@@ -13,7 +13,7 @@
   ],
   "version": "7.1.1",
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
-  "license": "WTFPL",
+  "license": "(MIT OR WTFPL)",
   "repository": "domenic/chai-as-promised",
   "main": "./lib/chai-as-promised.js",
   "files": [
