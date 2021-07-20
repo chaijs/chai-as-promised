@@ -156,6 +156,13 @@ describe("Promise-specific extensions:", () => {
             });
         });
 
+        describe(".fulfilled should keep the exception stack", () => {
+            shouldFail({
+                op: () => promise.should.be.fulfilled,
+                stack: "should-promise-specific.js"
+            });
+        });
+
         describe(".not.fulfilled", () => {
             shouldPass(() => promise.should.not.be.fulfilled);
         });
@@ -194,10 +201,24 @@ describe("Promise-specific extensions:", () => {
             shouldPass(() => promise.should.be.rejectedWith(error));
         });
 
+        describe(".rejectedWith(differentError) should keep the exception stack if the assertion fails", () => {
+            shouldFail({
+                op: () => promise.should.be.rejectedWith(new Error()),
+                stack: "should-promise-specific.js"
+            });
+        });
+
         describe(".not.rejectedWith(theError)", () => {
             shouldFail({
                 op: () => promise.should.not.be.rejectedWith(error),
                 message: "not to be rejected with 'Error: boo'"
+            });
+        });
+
+        describe(".not.rejectedWith(theError) should keep the exception stack if the assertion fails", () => {
+            shouldFail({
+                op: () => promise.should.not.be.rejectedWith(error),
+                stack: "should-promise-specific.js"
             });
         });
 
