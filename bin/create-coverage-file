@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo '# Test Coverage'                                                                  > ./code-coverage/README.md
+echo ''                                                                                 >> ./code-coverage/README.md
+echo '```'                                                                              >> ./code-coverage/README.md
+nyc report --reporter=text-summary                                                      >> ./code-coverage/README.md
+echo '```'                                                                              >> ./code-coverage/README.md
+echo ''                                                                                 >> ./code-coverage/README.md
+echo 'This is a summary of the coverage report.'                                        >> ./code-coverage/README.md
+echo 'For more details, run `yarn test:unit` locally and navigate to this directory.'   >> ./code-coverage/README.md
+
+rm -r ./code-coverage/tmp/

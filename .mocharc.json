@@ -1,0 +1,8 @@
+{
+  "bail": true,
+  "timeout": 25000,
+  "require": "test/support/setup.mjs",
+  "spec": [
+    "test/**/*.test.js"
+  ]
+}

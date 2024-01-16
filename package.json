@@ -1,6 +1,6 @@
 {
   "name": "chai-as-promised",
-  "description": "Extends Chai with assertions about promises.",
+  "description": "Extends Chai with assertions about promises. Fork of domenic/chai-as-promised",
   "keywords": [
     "chai",
     "chai-plugin",
@@ -8,33 +8,33 @@
     "async",
     "testing",
     "assertions",
-    "promises",
-    "promises-aplus"
+    "promises"
   ],
-  "version": "7.1.1",
-  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
+  "version": "8.0.0",
+  "author": "Hugo Lindell <@> ()",
   "license": "WTFPL",
-  "repository": "domenic/chai-as-promised",
+  "repository": "https://github.com/hulind/chai-as-promised",
   "main": "./lib/chai-as-promised.js",
   "files": [
     "lib"
   ],
   "scripts": {
-    "test": "mocha",
-    "test-travis": "npm install chai@$CHAI_VERSION && npm test",
-    "lint": "eslint .",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
+    "test:unit": "nyc mocha && bin/create-coverage-file",
+    "lint:check": "eslint ."
   },
   "dependencies": {
-    "check-error": "^1.0.2"
+    "check-error": "^1.0.2",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^48.0.2"
   },
   "peerDependencies": {
-    "chai": ">= 2.1.2 < 5"
+    "chai": ">= 2.1.2 < 6"
   },
   "devDependencies": {
-    "chai": "^4.0.2",
-    "eslint": "^3.19.0",
-    "istanbul": "0.4.5",
-    "mocha": "^3.4.2"
+    "chai": "^5.0.0",
+    "eslint": "^8.56.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
   }
 }

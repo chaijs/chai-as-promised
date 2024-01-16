@@ -1,0 +1,21 @@
+{
+  "check-coverage": true,
+  "statements": 50,
+  "branches": 50,
+  "functions": 50,
+  "lines": 50,
+  "reporter": [
+    "html",
+    "text",
+    "text-summary"
+  ],
+  "cache": true,
+  "report-dir": "./code-coverage",
+  "temp-directory": "./code-coverage/tmp",
+  "include": [
+    "lib/chai-as-promised.js"
+  ],
+  "exclude": [
+    "test/**/*.test.js"
+  ]
+}
