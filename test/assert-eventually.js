@@ -1,9 +1,6 @@
-'use strict';
-require('./support/setup.js');
-const shouldPass = require('./support/common.js').shouldPass;
-const shouldFail = require('./support/common.js').shouldFail;
-const assert = require('chai').assert;
-const expect = require('chai').expect;
+import './support/setup.js';
+import {shouldPass, shouldFail} from './support/common.js';
+import {assert, expect} from 'chai';
 
 describe('Assert interface with eventually extender:', () => {
   let promise = null;

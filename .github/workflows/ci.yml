@@ -32,6 +32,7 @@ jobs:
                     # See supported Node.js release schedule at https://github.com/nodejs/release#release-schedule
                 chai-version:
                     - "^4.0.0"
+                    - "^5.0.0"
 
         steps:
             - uses: actions/checkout@v4

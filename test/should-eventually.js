@@ -1,7 +1,5 @@
-'use strict';
-require('./support/setup.js');
-const shouldPass = require('./support/common.js').shouldPass;
-const shouldFail = require('./support/common.js').shouldFail;
+import './support/setup.js';
+import {shouldPass, shouldFail} from './support/common.js';
 
 describe('Fulfillment value assertions:', () => {
   let promise = null;

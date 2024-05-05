@@ -1,6 +1,5 @@
-'use strict';
-const chai = require('chai');
-const chaiAsPromised = require('..');
+import chaiAsPromised from '../lib/chai-as-promised.js';
+import * as chai from 'chai';
 
 chai.should();
 chai.use(chaiAsPromised);

@@ -1,18 +1,16 @@
-'use strict';
-require('./support/setup.js');
-const chaiAsPromised = require('..');
-const originalTransferPromiseness = require('..').transferPromiseness;
+import './support/setup.js';
+import {setTransferPromiseness} from '../lib/chai-as-promised.js';
 
 describe('Configuring the way in which promise-ness is transferred', () => {
   afterEach(() => {
-    chaiAsPromised.transferPromiseness = originalTransferPromiseness;
+    setTransferPromiseness(null);
   });
 
   it('should return a promise with the custom modifications applied', () => {
-    chaiAsPromised.transferPromiseness = (assertion, promise) => {
+    setTransferPromiseness((assertion, promise) => {
       assertion.then = promise.then.bind(promise);
       assertion.isCustomized = true;
-    };
+    });
 
     const promise = Promise.resolve('1234');
     const assertion = promise.should.become('1234');
