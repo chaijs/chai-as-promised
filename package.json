@@ -21,7 +21,6 @@
   ],
   "scripts": {
     "test": "mocha",
-    "test-travis": "npm install chai@$CHAI_VERSION && npm test",
     "lint": "eslint .",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha && opener ./coverage/lcov-report/lib/chai-as-promised.js.html"
   },

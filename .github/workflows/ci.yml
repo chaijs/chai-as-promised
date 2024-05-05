@@ -1,0 +1,47 @@
+# This workflow will do two jobs; lint and test. Lint will do a clean install of node dependencies and lint the source code. Test will do a install of node dependencies, install a specific version of chai and run tests across different versions of node and chai
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+    push:
+        branches: master
+    pull_request:
+        branches: master
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: latest
+            - run: npm ci
+            - run: npm run lint
+
+    test:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version:
+                    - 4
+                    - latest
+                # See supported Node.js release schedule at https://github.com/nodejs/release#release-schedule
+                chai-version:
+                    - "^2.1.2"
+                    - "^3.0.0"
+                    - "^4.0.0"
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm install
+            - name: Install chai ${{ matrix.chai-version }}
+              run: npm install chai@${{ matrix.chai-version }}
+            - run: npm run test
