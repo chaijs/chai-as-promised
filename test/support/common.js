@@ -13,6 +13,7 @@ exports.shouldFail = options => {
     const promiseProducer = options.op;
     const desiredMessageSubstring = options.message;
     const nonDesiredMessageSubstring = options.notMessage;
+    const desiredStackSubstring = options.stack;
 
     it("should return a promise rejected with an assertion error", done => {
         promiseProducer().then(
@@ -33,6 +34,11 @@ exports.shouldFail = options => {
                 if (nonDesiredMessageSubstring && reason.message.includes(nonDesiredMessageSubstring)) {
                     throw new Error(`Expected promise to be rejected with an AssertionError not containing ` +
                                     `"${nonDesiredMessageSubstring}" but it was rejected with ${reason}`);
+                }
+
+                if (desiredStackSubstring && !reason.stack.includes(desiredStackSubstring)) {
+                    throw new Error(`Expected promise to be rejected with an AssertionError with a stack containing ` +
+                                    `"${desiredStackSubstring}" but it was rejected with ${reason}: ${reason.stack}`);
                 }
             }
         ).then(done, done);
