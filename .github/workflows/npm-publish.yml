@@ -4,37 +4,37 @@
 name: Publish to npm
 
 on:
-    release:
-        types: [created]
+  release:
+    types: [created]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 22
-            - run: npm ci
-            - run: npm run lint
-            - run: npm test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
 
-    publish-npm:
-        needs: build
-        runs-on: ubuntu-latest
-        permissions:
-            id-token: write
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 22.x
-                registry-url: "https://registry.npmjs.org"
-                cache: "npm"
-            - run: npm ci
-            - run: npm version ${TAG_NAME} --git-tag-version=false
-              env:
-                TAG_NAME: ${{ github.ref_name }}
-            - run: npm publish --provenance --access public
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.npm_secret }}
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm version ${TAG_NAME} --git-tag-version=false
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_secret }}
