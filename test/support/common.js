@@ -1,6 +1,4 @@
-'use strict';
-
-exports.shouldPass = (promiseProducer) => {
+export function shouldPass(promiseProducer) {
   it('should return a fulfilled promise', (done) => {
     promiseProducer().then(
       () => done(),
@@ -12,9 +10,9 @@ exports.shouldPass = (promiseProducer) => {
         )
     );
   });
-};
+}
 
-exports.shouldFail = (options) => {
+export function shouldFail(options) {
   const promiseProducer = options.op;
   const desiredMessageSubstring = options.message;
   const nonDesiredMessageSubstring = options.notMessage;
@@ -61,4 +59,4 @@ exports.shouldFail = (options) => {
       )
       .then(done, done);
   });
-};
+}

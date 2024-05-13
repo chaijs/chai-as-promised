@@ -107,11 +107,13 @@ return promise.then(null, null, progressSpy).then(function () {
 By default, the promises returned by Chai as Promised's assertions are regular Chai assertion objects, extended with a single `then` method derived from the input promise. To change this behavior, for instance to output a promise with more useful sugar methods such as are found in most promise libraries, you can override `chaiAsPromised.transferPromiseness`. Here's an example that transfer's Q's `finally` and `done` methods:
 
 ```js
-chaiAsPromised.transferPromiseness = function (assertion, promise) {
+import {setTransferPromiseness} from 'chai-as-promised';
+
+setTransferPromiseness(function (assertion, promise) {
     assertion.then = promise.then.bind(promise); // this is all you get by default
     assertion.finally = promise.finally.bind(promise);
     assertion.done = promise.done.bind(promise);
-};
+});
 ```
 
 ### Transforming Arguments to the Asserters
@@ -119,9 +121,11 @@ chaiAsPromised.transferPromiseness = function (assertion, promise) {
 Another advanced customization hook Chai as Promised allows is if you want to transform the arguments to the asserters, possibly asynchronously. Here is a toy example:
 
 ```js
-chaiAsPromised.transformAsserterArgs = function (args) {
+import {transformAsserterArgs} from 'chai-as-promised';
+
+setTransformAsserterArgs(function (args) {
     return args.map(function (x) { return x + 1; });
-}
+});
 
 Promise.resolve(2).should.eventually.equal(2); // will now fail!
 Promise.resolve(3).should.eventually.equal(2); // will now pass!
@@ -133,9 +137,9 @@ The transform can even be asynchronous, returning a promise for an array instead
 // This will normally fail, since within() only works on numbers.
 Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resolve(6));
 
-chaiAsPromised.transformAsserterArgs = function (args) {
+setTransformAsserterArgs(function (args) {
     return Promise.all(args);
-};
+});
 
 // But now it will pass, since we transformed the array of promises for numbers into
 // (a promise for) an array of numbers
@@ -213,15 +217,15 @@ This will pass any failures of the individual promise assertions up to the test 
 Do an `npm install chai-as-promised` to get up and running. Then:
 
 ```javascript
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 
 chai.use(chaiAsPromised);
 
 // Then either:
-var expect = chai.expect;
+const expect = chai.expect;
 // or:
-var assert = chai.assert;
+const assert = chai.assert;
 // or:
 chai.should();
 // according to your preference of assertion style
@@ -231,14 +235,12 @@ You can of course put this code in a common test fixture file; for an example us
 
 **Note when using other Chai plugins:** Chai as Promised finds all currently-registered asserters and promisifies them, at the time it is installed. Thus, you should install Chai as Promised _last_, after any other Chai plugins, if you expect their asserters to be promisified.
 
-### In the Browser
-
-To use Chai as Promised in environments that don't support Node.js-like CommonJS modules, you'll need to use a bundling tool like [browserify](http://browserify.org/). See also the note below about browser compatibility.
-
 ### Karma
 
 If you're using [Karma](https://karma-runner.github.io/), check out the accompanying [karma-chai-as-promised](https://github.com/vlkosinov/karma-chai-as-promised) plugin.
 
 ### Browser/Node Compatibility
 
-Chai as Promised requires Node v4+ or a browser with equivalent support for modern JavaScript syntax. If your browser doesn't support modern JavaScript syntax, you'll need to transpile it down using a tool like [Babel](http://babeljs.io/).
+Chai as Promised requires support for ES modules and modern JavaScript syntax.
+If your browser doesn't support this, you will need to transpile it down using
+a tool like [Babel](https://babeljs.io/).

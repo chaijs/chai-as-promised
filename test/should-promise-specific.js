@@ -1,8 +1,6 @@
-'use strict';
-require('./support/setup.js');
-const shouldPass = require('./support/common.js').shouldPass;
-const shouldFail = require('./support/common.js').shouldFail;
-const expect = require('chai').expect;
+import './support/setup.js';
+import {expect} from 'chai';
+import {shouldPass, shouldFail} from './support/common.js';
 
 describe('Promise-specific extensions:', () => {
   let promise = null;

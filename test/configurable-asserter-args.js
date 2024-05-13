@@ -1,15 +1,16 @@
-'use strict';
-require('./support/setup.js');
-const chaiAsPromised = require('..');
-const originalTransformAsserterArgs = require('..').transformAsserterArgs;
+import './support/setup.js';
+import {
+  default as chaiAsPromised,
+  setTransformAsserterArgs
+} from '../lib/chai-as-promised.js';
 
 describe('Configuring the way in which asserter arguments are transformed', () => {
   beforeEach(() => {
-    chaiAsPromised.transformAsserterArgs = Promise.all.bind(Promise);
+    setTransformAsserterArgs(Promise.all.bind(Promise));
   });
 
   afterEach(() => {
-    chaiAsPromised.transformAsserterArgs = originalTransformAsserterArgs;
+    setTransformAsserterArgs(null);
   });
 
   it('should override transformAsserterArgs and allow to compare promises', () => {
@@ -38,9 +39,9 @@ describe('Configuring the way in which asserter arguments are transformed', () =
   });
 
   it('should transform asserter args', () => {
-    chaiAsPromised.transformAsserterArgs = (args) => {
+    setTransformAsserterArgs((args) => {
       return Array.from(args).map((x) => x + 1);
-    };
+    });
 
     return Promise.resolve(3).should.eventually.equal(2);
   });
