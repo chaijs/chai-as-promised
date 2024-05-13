@@ -20,20 +20,19 @@ jobs:
                   node-version: latest
             - run: npm ci
             - run: npm run lint
-
-    test:
+    build:
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
                 node-version:
-                    - 4
+                    - 18      # to be removed 2025-04-30
+                    - 20      # to be removed 2026-04-30
                     - latest
-                # See supported Node.js release schedule at https://github.com/nodejs/release#release-schedule
+                    # See supported Node.js release schedule at https://github.com/nodejs/release#release-schedule
                 chai-version:
-                    - "^2.1.2"
-                    - "^3.0.0"
                     - "^4.0.0"
+                    - "^5.0.0"
 
         steps:
             - uses: actions/checkout@v4
@@ -41,7 +40,7 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
-            - run: npm install
+            - run: npm ci
             - name: Install chai ${{ matrix.chai-version }}
               run: npm install chai@${{ matrix.chai-version }}
             - run: npm run test
