@@ -289,5 +289,20 @@ describe('Assert interface:', () => {
         });
       });
     });
+
+    describe('with undefined error', () => {
+      beforeEach(() => {
+        promise = Promise.reject();
+      });
+
+      describe('.isRejected(promise)', () => {
+        shouldPass(() => assert.isRejected(promise));
+        shouldPass(() => assert.isRejected(promise, undefined));
+        shouldFail({
+          op: () => assert.isRejected(promise, 'Error'),
+          message: "to be rejected with an error including 'Error' but got ''"
+        });
+      });
+    });
   });
 });
