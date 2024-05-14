@@ -15,7 +15,10 @@
   "version": "7.1.2",
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
   "license": "WTFPL",
-  "repository": "domenic/chai-as-promised",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaijs/chai-as-promised.git"
+  },
   "main": "./lib/chai-as-promised.js",
   "exports": {
     ".": "./lib/chai-as-promised.js"
