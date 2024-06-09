@@ -14,7 +14,7 @@
   ],
   "version": "7.1.2",
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
-  "license": "WTFPL",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chaijs/chai-as-promised.git"
