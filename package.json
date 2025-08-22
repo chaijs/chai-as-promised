@@ -35,7 +35,7 @@
     "check-error": "^2.0.0"
   },
   "peerDependencies": {
-    "chai": ">= 2.1.2 < 6"
+    "chai": ">= 2.1.2 < 7"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
