@@ -37,9 +37,5 @@ jobs:
           TAG_NAME: ${{ github.ref_name }}
       - run: npm publish --provenance --access public --tag next
         if: "github.event.release.prerelease"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_secret }}
       - run: npm publish --provenance --access public
         if: "!github.event.release.prerelease"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_secret }}
