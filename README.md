@@ -220,6 +220,7 @@ Do an `npm install chai-as-promised` to get up and running. Then:
 import * as chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 
+// do this _after_ chai.use() for other plugins!
 chai.use(chaiAsPromised);
 
 // Then either:
