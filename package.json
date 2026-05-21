@@ -26,6 +26,11 @@
   "files": [
     "lib"
   ],
+  "overrides": {
+    "c8": {
+      "yargs": "^18.0.0"
+    }
+  },
   "scripts": {
     "test": "c8 mocha",
     "lint": "eslint .",
