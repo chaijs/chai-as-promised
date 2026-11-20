@@ -1,3 +1,4 @@
+import './support/setup.js';
 import chaiAsPromised from '../lib/chai-as-promised.js';
 import * as chai from 'chai';
 
@@ -41,4 +42,15 @@ describe('New method `newMethod` added to chai', () => {
       expect(makeFunction()).to.have.been.newMethod();
     });
   });
+});
+
+describe('Method added to chai which returns a different assertion', () => {
+  it('should continue the chain with the returned assertion', () => {
+    expect({a: 1}).to.pick('a').that.equals(1);
+  });
+
+  it('should continue the chain with the returned assertion when eventually', () =>
+    expect(Promise.resolve({a: 1}))
+      .to.eventually.pick('a')
+      .that.equals(1));
 });
